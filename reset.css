@@ -1,0 +1,12 @@
+body,
+html,
+#root {
+  margin: 0px;
+  height: 100vh;
+  background-image: url("./public/images/map.png");
+  background-repeat: repeat;
+}
+
+#root {
+  display: flex;
+}
