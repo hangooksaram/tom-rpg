@@ -1,51 +1,100 @@
 import { calcHypotenuse, transferToInteger } from "../util/calculate";
-
-const root = document.getElementById("root")!;
-const INNER_WIDTH = 1100;
-const INNER_HEIGHT = 760;
-type Position = {
-  x: number;
-  y: number;
-};
+import { Position } from "..";
+import { enemyActions } from "../store/enemyStore";
+import store from "../store/store";
 export class MovingObject {
   public el: HTMLDivElement | null = null;
   public position: Position = { x: 0, y: 0 };
-  get randomPos() {
-    return {
-      x: transferToInteger(Math.random() * INNER_WIDTH),
-      y: transferToInteger(Math.random() * INNER_HEIGHT),
-    };
-  }
+  public root: HTMLElement = document.getElementById("root")!;
   constructor() {}
 
   init(className: string) {
     this.el = document.createElement("div");
     this.el.classList.add(className);
-    if (className.includes("monster")) {
-      this.setPos(this.randomPos.x, this.randomPos.y);
-    } else {
-      this.setPos(0, 0);
-    }
-
-    root.appendChild(this.el);
+    this.root.appendChild(this.el);
   }
 
-  setPos(x: number, y: number) {
-    this.position.x = x;
-    this.position.y = y;
+  drawAtThePosition() {
     this.el!.style.top = `${this.position.y}px`;
     this.el!.style.left = `${this.position.x}px`;
   }
-  move(nextX: number, nextY: number) {
-    const dist = calcHypotenuse(this.position.x, this.position.y, nextX, nextY);
-    this.setPos(nextX, nextY);
-    if (dist < 450) {
-      this.el!.style.transition = `all 0.5s linear`;
-    } else {
-      this.el!.style.transition = `all 1s linear`;
+
+  setPos(x: number, y: number) {
+    this.position = { ...this.position, x, y };
+    this.drawAtThePosition();
+  }
+
+  newMove(nextX: number, nextY: number) {
+    console.log(this.position);
+    if (this.position.x === nextX && this.position.y === nextY) {
+      return;
+    }
+    if (this.position.x <= nextX && this.position.y <= nextY) {
+      this.setPos(
+        this.position.x < nextX ? this.position.x + 1 : this.position.x,
+        this.position.y < nextY ? this.position.y + 1 : this.position.y
+      );
+      requestAnimationFrame(() => this.newMove(nextX, nextY));
+    }
+    if (this.position.x <= nextX && this.position.y >= nextY) {
+      this.setPos(
+        this.position.x < nextX ? this.position.x + 1 : this.position.x,
+        this.position.y > nextY ? this.position.y - 1 : this.position.y
+      );
+      requestAnimationFrame(() => this.newMove(nextX, nextY));
+    }
+    if (this.position.x >= nextX && this.position.y <= nextY) {
+      this.setPos(
+        this.position.x > nextX ? this.position.x - 1 : this.position.x,
+        this.position.y < nextY ? this.position.y + 1 : this.position.y
+      );
+      requestAnimationFrame(() => this.newMove(nextX, nextY));
+    }
+    if (this.position.x >= nextX && this.position.y >= nextY) {
+      this.setPos(
+        this.position.x > nextX ? this.position.x - 1 : this.position.x,
+        this.position.y > nextY ? this.position.y - 1 : this.position.y
+      );
+      requestAnimationFrame(() => this.newMove(nextX, nextY));
     }
   }
-  scroll() {
-    window.scrollTo(this.position.x, this.position.y);
+
+  move(nextX: number, nextY: number) {
+    if (this.position.x < nextX && this.position.y < nextY) {
+      while (this.position.x < nextX || this.position.y < nextY) {
+        this.setPos(
+          this.position.x < nextX ? this.position.x + 1 : this.position.x,
+          this.position.y < nextY ? this.position.y + 1 : this.position.y
+        );
+      }
+    }
+    if (this.position.x < nextX && this.position.y > nextY) {
+      while (this.position.x < nextX || this.position.y > nextY) {
+        this.setPos(
+          this.position.x < nextX ? this.position.x + 1 : this.position.x,
+          this.position.y > nextY ? this.position.y - 1 : this.position.y
+        );
+      }
+    }
+    if (this.position.x > nextX && this.position.y < nextY) {
+      while (this.position.x > nextX || this.position.y < nextY) {
+        this.setPos(
+          this.position.x > nextX ? this.position.x - 1 : this.position.x,
+          this.position.y < nextY ? this.position.y + 1 : this.position.y
+        );
+      }
+    }
+    if (this.position.x > nextX && this.position.y > nextY) {
+      while (this.position.x > nextX || this.position.y > nextY) {
+        this.setPos(
+          this.position.x > nextX ? this.position.x - 1 : this.position.x,
+          this.position.y > nextY ? this.position.y - 1 : this.position.y
+        );
+      }
+    }
+  }
+  hit(id?: string) {}
+  destroy() {
+    this.root.removeChild(this.el!);
   }
 }

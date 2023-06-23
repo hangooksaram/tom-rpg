@@ -2,27 +2,27 @@ import Player from "./player/player";
 import Map from "./map/map";
 import LowMonster from "./enemy/lowMonster";
 import { MovingObject } from "./object/movingObject";
-import { initEnemyObject } from "./util/initObject";
+import { createEnemyObject } from "./util/createObject";
+import store from "./store/store";
 
 const player = new Player();
 const movingObject = new MovingObject();
 
+const { getState } = store;
 const map = new Map();
-const lowMonsters = new LowMonster();
 
-initEnemyObject();
-
-// document.addEventListener("keydown", (e: KeyboardEvent) => {
-//   player.move(e.code);
-// });
+setInterval(() => {
+  createEnemyObject();
+}, 50);
+//createEnemyObject();
 
 document.addEventListener("mousedown", (e) => {
   player.move(e.clientX, e.clientY);
 });
 
 document.addEventListener("keydown", (e) => {
-  console.log(e);
-  if (e.key.toLowerCase() === "a") {
+  const isPlayerMoving = getState().player.isMoving;
+  if ((e.key.toLowerCase() === "a" || e.key === "ㅁ") && !isPlayerMoving) {
     player.attack();
   }
 });

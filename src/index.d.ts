@@ -1,6 +1,22 @@
-interface Enemy {
+interface MovingObject {
   id: string;
-  position: { x: number; y: number };
+  position: Position;
+  health: number;
+  isHit: boolean;
 }
 
-export { Enemy };
+interface Enemy extends MovingObject {}
+
+interface Player extends MovingObject {
+  mana: number;
+  isMoving: boolean;
+}
+
+type Position = {
+  x: number;
+  y: number;
+};
+
+type ObjectId = string;
+
+export { MovingObject, Position, Player, Enemy, ObjectId };
