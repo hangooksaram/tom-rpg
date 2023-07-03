@@ -1,7 +1,6 @@
 import { Enemy } from "..";
 import { MovingObject } from "../object/movingObject";
-import { enemyActions } from "../store/enemyStore";
-import { playerActions } from "../store/playerStore";
+import { addEnemy, setEnemyPos } from "../store/enemyStore";
 import store from "../store/store";
 import { initHPBar } from "../ui/enemy";
 import { transferToInteger } from "../util/calculate";
@@ -10,7 +9,6 @@ const INNER_WIDTH = 1100;
 const INNER_HEIGHT = 760;
 
 const { dispatch } = store;
-const { setEnemyPos } = enemyActions;
 
 export default class LowMonster extends MovingObject {
   private id: string = `low-monster-${new Date().toISOString()}`;
@@ -43,7 +41,7 @@ export default class LowMonster extends MovingObject {
       health: 30,
       isHit: false,
     };
-    store.dispatch(enemyActions.addEnemy(newEnemy));
+    store.dispatch(addEnemy(newEnemy));
   }
 
   moveRandomly() {

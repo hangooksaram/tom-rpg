@@ -1,14 +1,12 @@
-import LowMonster from "../enemy/lowMonster";
 import { Bullet } from "../object/bullet";
 import { MovingObject } from "../object/movingObject";
-import store from "../store/store";
-import { calcHypotenuse } from "../util/calculate";
 import { Position } from "..";
-import { playerActions } from "../store/playerStore";
+import { dispatch, player } from "../store/store";
+import { setPlayerPos } from "../store/playerStore";
 
 export default class Player extends MovingObject {
   private range: number = 100;
-  private currentPosition: Position = store.getState().player.position;
+  private currentPosition: Position = player.position;
   private cursorPosition: Position = {
     x: 0,
     y: 0,
@@ -27,16 +25,16 @@ export default class Player extends MovingObject {
     };
   }
   attack() {
-    const { getState } = store;
-    const { x, y } = getState().player.position;
+    const { x, y } = player.position;
     const bullet = new Bullet();
-    bullet.init(`bullet`);
+    bullet.init("bullet");
+    // setTimeout(() => {
+    //   requestAnimationFrame(() =>
+    //     bullet.fire(this.cursorPosition.x, this.cursorPosition.y)
+    //   );
+    // }, 100);
     setTimeout(() => {
-      requestAnimationFrame(() =>
-        bullet.fire(this.cursorPosition.x, this.cursorPosition.y)
-      );
-
-      //bullet.move(this.cursorPosition.x, this.cursorPosition.y);
+      bullet.move(this.cursorPosition.x, this.cursorPosition.y);
     }, 100);
   }
 
@@ -53,7 +51,7 @@ export default class Player extends MovingObject {
 
   setPos(x: number, y: number): void {
     super.setPos(x, y);
-    store.dispatch(playerActions.setPlayerPos({ x, y }));
+    dispatch(setPlayerPos({ x, y }));
   }
 
   getAdjEnemyPosition(x: number, y: number) {

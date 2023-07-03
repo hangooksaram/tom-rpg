@@ -2,22 +2,21 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { Enemy } from "../index";
 
-const enemyId = new Date().toISOString();
 const initialState: Enemy[] = [];
 
 const enemySlice = createSlice({
   name: "enemy",
   initialState: initialState,
   reducers: {
+    addEnemy: (state: Enemy[], action) => {
+      return (state = [...state, action.payload]);
+    },
     setEnemyPos: (state: Enemy[], action) => {
       state.map((enemy) => {
         if (action.payload?.id === enemy.id) {
           enemy.position = action.payload.position;
         }
       });
-    },
-    addEnemy: (state: Enemy[], action) => {
-      return (state = [...state, action.payload]);
     },
     deleteEnemy: (state: Enemy[], action) => {
       return state.filter((enemy) => enemy.id !== action.payload.id);
@@ -40,8 +39,7 @@ const enemySlice = createSlice({
   },
 });
 
-const enemyActions = enemySlice.actions;
-const enemyReducers = enemySlice.reducer;
-export default enemySlice;
+export const { addEnemy, setEnemyPos, deleteEnemy, hit, afterHit } =
+  enemySlice.actions;
 
-export { enemyActions, enemyReducers };
+export default enemySlice.reducer;

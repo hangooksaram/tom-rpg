@@ -1,5 +1,5 @@
 import { ObjectId } from "..";
-import store from "../store/store";
+import store, { enemies } from "../store/store";
 
 const initHPBar = (id: ObjectId) => {
   const enemy = document.getElementById(id);
@@ -15,7 +15,7 @@ const initHPBar = (id: ObjectId) => {
 };
 
 const decreaseHPBar = (id: ObjectId) => {
-  const enemy = store.getState().enemy.find((e) => e.id === id);
+  const enemy = enemies.find((e) => e.id === id);
   const hpBar = document.getElementById(`${id}-hp-bar`);
 
   hpBar!.style.width = `${enemy?.health}px`;

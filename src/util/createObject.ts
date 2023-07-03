@@ -1,9 +1,8 @@
 import LowMonster from "../enemy/lowMonster";
-import store from "../store/store";
-const { getState } = store;
+import store, { enemies } from "../store/store";
 
 const createEnemyObject = () => {
-  if (getState().enemy.length < 10) {
+  if (enemies.length < 10) {
     const lowMonster = new LowMonster();
     lowMonster.init("low-monster");
     lowMonster.moveRandomly();

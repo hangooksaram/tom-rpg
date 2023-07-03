@@ -1,7 +1,4 @@
-import { calcHypotenuse, transferToInteger } from "../util/calculate";
 import { Position } from "..";
-import { enemyActions } from "../store/enemyStore";
-import store from "../store/store";
 export class MovingObject {
   public el: HTMLDivElement | null = null;
   public position: Position = { x: 0, y: 0 };
@@ -25,7 +22,6 @@ export class MovingObject {
   }
 
   newMove(nextX: number, nextY: number) {
-    console.log(this.position);
     if (this.position.x === nextX && this.position.y === nextY) {
       return;
     }

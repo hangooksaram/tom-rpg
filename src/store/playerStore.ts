@@ -23,8 +23,5 @@ const playerSlice = createSlice({
   },
 });
 
-const playerActions = playerSlice.actions;
-const playerReducers = playerSlice.reducer;
-export default playerSlice;
-
-export { playerActions, playerReducers };
+export const { setIsPlayerMoving, setPlayerPos } = playerSlice.actions;
+export default playerSlice.reducer;

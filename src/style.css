@@ -37,7 +37,7 @@
     rgba(0, 42, 255, 1) 0%,
     rgba(255, 255, 255, 1) 100%
   );
-  transition: all 0.1s linear;
+  transition: all 0.3s linear;
 }
 
 #bullet {
