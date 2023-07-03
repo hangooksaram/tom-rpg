@@ -1,6 +1,6 @@
 import { Enemy } from "..";
-import { addEnemy, afterHit, deleteEnemy, hit } from "../store/enemyStore";
-import store, { enemies, player } from "../store/store";
+import { addEnemy, afterHit, deleteEnemy, hit } from "../store/enemySlice";
+import store from "../store/store";
 import { decreaseHPBar } from "../ui/enemy";
 import { MovingObject } from "./movingObject";
 
@@ -13,13 +13,7 @@ export class Bullet extends MovingObject {
   init(className: string): void {
     super.init(className);
     this.el!.id = `bullet-${new Date().toISOString()}`;
-    const playerPos = player.position;
-    addEnemy({
-      id: this.el!.id,
-      position: this.position,
-      health: 30,
-      isHit: false,
-    });
+    const playerPos = store.getState().player.position;
     this.position = { x: playerPos.x, y: playerPos.y };
     this.drawAtThePosition();
     this.el!.addEventListener("transitionend", (e) => {
@@ -97,7 +91,7 @@ export class Bullet extends MovingObject {
   }
 
   hit(id: string) {
-    const enemy = enemies.find((e) => e.id === id);
+    const enemy = store.getState().enemies.find((e) => e.id === id);
     if (enemy!.health > 10) {
       store.dispatch(hit({ id }));
       decreaseHPBar(id);
@@ -115,10 +109,12 @@ export class Bullet extends MovingObject {
 
   findTargetEnemy() {
     this.targetEnemy = undefined;
-    this.targetEnemy = enemies.find(
-      (e) =>
-        Math.abs(e.position.x - this.position.x) < 20 &&
-        Math.abs(e.position.y - this.position.y) < 20
-    );
+    this.targetEnemy = store
+      .getState()
+      .enemies.find(
+        (e) =>
+          Math.abs(e.position.x - this.position.x) < 20 &&
+          Math.abs(e.position.y - this.position.y) < 20
+      );
   }
 }

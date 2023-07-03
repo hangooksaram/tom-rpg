@@ -1,12 +1,12 @@
 import { Bullet } from "../object/bullet";
 import { MovingObject } from "../object/movingObject";
 import { Position } from "..";
-import { dispatch, player } from "../store/store";
-import { setPlayerPos } from "../store/playerStore";
+import store, { dispatch } from "../store/store";
+import { setPlayerPos } from "../store/playerSlice";
 
 export default class Player extends MovingObject {
   private range: number = 100;
-  private currentPosition: Position = player.position;
+  private currentPosition: Position = store.getState().player.position;
   private cursorPosition: Position = {
     x: 0,
     y: 0,
@@ -25,7 +25,7 @@ export default class Player extends MovingObject {
     };
   }
   attack() {
-    const { x, y } = player.position;
+    const { x, y } = store.getState().player.position;
     const bullet = new Bullet();
     bullet.init("bullet");
     // setTimeout(() => {

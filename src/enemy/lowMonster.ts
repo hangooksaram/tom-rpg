@@ -1,6 +1,6 @@
 import { Enemy } from "..";
 import { MovingObject } from "../object/movingObject";
-import { addEnemy, setEnemyPos } from "../store/enemyStore";
+import { addEnemy, setEnemyPos } from "../store/enemySlice";
 import store from "../store/store";
 import { initHPBar } from "../ui/enemy";
 import { transferToInteger } from "../util/calculate";
