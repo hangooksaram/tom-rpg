@@ -1,5 +1,5 @@
-import { Bullet } from "../object/bullet";
-import { MovingObject } from "../object/movingObject";
+import { Bullet } from "./bullet";
+import { MovingObject } from "./movingObject";
 import { Position } from "..";
 import store, { dispatch } from "../store/store";
 import { setPlayerPos } from "../store/playerSlice";

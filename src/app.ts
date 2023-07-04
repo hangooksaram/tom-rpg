@@ -1,6 +1,6 @@
-import Player from "./player/player";
+import Player from "./object/player";
 import Map from "./map/map";
-import LowMonster from "./enemy/lowMonster";
+import LowMonster from "./object/enemy/lowMonster";
 import { MovingObject } from "./object/movingObject";
 import { createEnemyObject } from "./util/createObject";
 import store from "./store/store";

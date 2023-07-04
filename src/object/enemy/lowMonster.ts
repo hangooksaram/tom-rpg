@@ -1,9 +1,9 @@
-import { Enemy } from "..";
-import { MovingObject } from "../object/movingObject";
-import { addEnemy, setEnemyPos } from "../store/enemySlice";
-import store from "../store/store";
-import { initHPBar } from "../ui/enemy";
-import { transferToInteger } from "../util/calculate";
+import { Enemy } from "../..";
+import { MovingObject } from "../movingObject";
+import { addEnemy, setEnemyPos } from "../../store/enemySlice";
+import store from "../../store/store";
+import { initHPBar } from "../../ui/enemy";
+import { transferToInteger } from "../../util/calculate";
 
 const INNER_WIDTH = 1100;
 const INNER_HEIGHT = 760;
