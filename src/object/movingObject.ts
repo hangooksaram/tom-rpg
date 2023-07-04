@@ -1,4 +1,5 @@
 import { Position } from "..";
+import { calcHypotenuse } from "../util/calculate";
 export class MovingObject {
   public el: HTMLDivElement | null = null;
   public position: Position = { x: 0, y: 0 };
@@ -21,73 +22,48 @@ export class MovingObject {
     this.drawAtThePosition();
   }
 
-  newMove(nextX: number, nextY: number) {
-    if (this.position.x === nextX && this.position.y === nextY) {
-      return;
-    }
-    if (this.position.x <= nextX && this.position.y <= nextY) {
-      this.setPos(
-        this.position.x < nextX ? this.position.x + 1 : this.position.x,
-        this.position.y < nextY ? this.position.y + 1 : this.position.y
-      );
-      requestAnimationFrame(() => this.newMove(nextX, nextY));
-    }
-    if (this.position.x <= nextX && this.position.y >= nextY) {
-      this.setPos(
-        this.position.x < nextX ? this.position.x + 1 : this.position.x,
-        this.position.y > nextY ? this.position.y - 1 : this.position.y
-      );
-      requestAnimationFrame(() => this.newMove(nextX, nextY));
-    }
-    if (this.position.x >= nextX && this.position.y <= nextY) {
-      this.setPos(
-        this.position.x > nextX ? this.position.x - 1 : this.position.x,
-        this.position.y < nextY ? this.position.y + 1 : this.position.y
-      );
-      requestAnimationFrame(() => this.newMove(nextX, nextY));
-    }
-    if (this.position.x >= nextX && this.position.y >= nextY) {
-      this.setPos(
-        this.position.x > nextX ? this.position.x - 1 : this.position.x,
-        this.position.y > nextY ? this.position.y - 1 : this.position.y
-      );
-      requestAnimationFrame(() => this.newMove(nextX, nextY));
-    }
+  move(nextX: number, nextY: number) {
+    const distance = calcHypotenuse(
+      this.position.x,
+      this.position.y,
+      nextX,
+      nextY
+    );
+
+    const xSpeed = (Math.abs(nextX - this.position.x) / distance) * 10;
+    const ySpeed = (Math.abs(nextY - this.position.y) / distance) * 10;
+    requestAnimationFrame(() => {
+      this.trans(nextX, nextY, xSpeed, ySpeed);
+    });
   }
 
-  move(nextX: number, nextY: number) {
+  trans(nextX: number, nextY: number, xSpeed: number, ySpeed: number) {
+    if (
+      Math.abs(nextX - this.position.x) < 12 &&
+      Math.abs(nextY - this.position.y) < 12
+    ) {
+      this.destroy();
+      return;
+    }
     if (this.position.x < nextX && this.position.y < nextY) {
-      while (this.position.x < nextX || this.position.y < nextY) {
-        this.setPos(
-          this.position.x < nextX ? this.position.x + 1 : this.position.x,
-          this.position.y < nextY ? this.position.y + 1 : this.position.y
-        );
-      }
+      this.position.x += xSpeed;
+      this.position.y += ySpeed;
     }
     if (this.position.x < nextX && this.position.y > nextY) {
-      while (this.position.x < nextX || this.position.y > nextY) {
-        this.setPos(
-          this.position.x < nextX ? this.position.x + 1 : this.position.x,
-          this.position.y > nextY ? this.position.y - 1 : this.position.y
-        );
-      }
+      this.position.x += xSpeed;
+      this.position.y -= ySpeed;
     }
     if (this.position.x > nextX && this.position.y < nextY) {
-      while (this.position.x > nextX || this.position.y < nextY) {
-        this.setPos(
-          this.position.x > nextX ? this.position.x - 1 : this.position.x,
-          this.position.y < nextY ? this.position.y + 1 : this.position.y
-        );
-      }
+      this.position.x -= xSpeed;
+      this.position.y += ySpeed;
     }
     if (this.position.x > nextX && this.position.y > nextY) {
-      while (this.position.x > nextX || this.position.y > nextY) {
-        this.setPos(
-          this.position.x > nextX ? this.position.x - 1 : this.position.x,
-          this.position.y > nextY ? this.position.y - 1 : this.position.y
-        );
-      }
+      this.position.x -= xSpeed;
+      this.position.y -= ySpeed;
     }
+
+    this.setPos(this.position.x, this.position.y);
+    requestAnimationFrame(() => this.trans(nextX, nextY, xSpeed, ySpeed));
   }
   hit(id?: string) {}
   destroy() {

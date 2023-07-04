@@ -28,11 +28,6 @@ export default class Player extends MovingObject {
     const { x, y } = store.getState().player.position;
     const bullet = new Bullet();
     bullet.init("bullet");
-    // setTimeout(() => {
-    //   requestAnimationFrame(() =>
-    //     bullet.fire(this.cursorPosition.x, this.cursorPosition.y)
-    //   );
-    // }, 100);
     setTimeout(() => {
       bullet.move(this.cursorPosition.x, this.cursorPosition.y);
     }, 100);

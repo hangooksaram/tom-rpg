@@ -29,17 +29,9 @@ const enemySlice = createSlice({
         }
       });
     },
-    afterHit: (state: Enemy[], action) => {
-      state.map((enemy) => {
-        if (enemy.id === action.payload.id) {
-          enemy.isHit = false;
-        }
-      });
-    },
   },
 });
 
-export const { addEnemy, setEnemyPos, deleteEnemy, hit, afterHit } =
-  enemySlice.actions;
+export const { addEnemy, setEnemyPos, deleteEnemy, hit } = enemySlice.actions;
 
 export default enemySlice.reducer;
