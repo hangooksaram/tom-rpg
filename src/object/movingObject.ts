@@ -1,18 +1,19 @@
 import { Position, Speed, NextPosition } from "..";
 import { calcHypotenuse } from "../util/calculate";
 export class MovingObject {
-  public el: HTMLDivElement | null = null;
+  public el: HTMLDivElement = document.createElement("div");
+  public id: string;
   public position: Position = { x: 0, y: 0 };
   public nextPosition: NextPosition = null;
   public speed: Speed = { value: 10, xSpeed: 0, ySpeed: 0 };
   public health: number = 100;
-  public root: HTMLElement = document.getElementById("root")!;
-  constructor() {}
+  public isHit: boolean = false;
 
-  init(className: string) {
-    this.el = document.createElement("div");
+  constructor(className: string, id: string) {
+    this.id = id;
+    this.el.id = id;
     this.el.classList.add(className);
-    this.root.appendChild(this.el);
+    document.getElementById("root")!.appendChild(this.el);
   }
 
   setPos({ x, y }: Position) {
@@ -91,6 +92,6 @@ export class MovingObject {
 
   hit(id?: string) {}
   destroy() {
-    this.root.removeChild(this.el!);
+    document.getElementById("root")!.removeChild(this.el!);
   }
 }

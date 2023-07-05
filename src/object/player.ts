@@ -11,23 +11,17 @@ export default class Player extends MovingObject {
     x: 0,
     y: 0,
   };
-  constructor() {
-    super();
-    this.init("player");
-    this.setPos({ x: 0, y: 0 });
-  }
 
-  init(className: string): void {
-    super.init(className);
+  init(): void {
+    this.setPos({ x: 0, y: 0 });
     document.body.onmousemove = (event) => {
       this.cursorPosition.x = event.clientX;
       this.cursorPosition.y = event.clientY;
     };
   }
   attack() {
-    const { x, y } = store.getState().player.position;
-    const bullet = new Bullet();
-    bullet.init("bullet");
+    const bullet = new Bullet("bullet", `bullet-${new Date().toISOString()}`);
+    bullet.init();
     setTimeout(() => {
       bullet.move(this.cursorPosition.x, this.cursorPosition.y);
     }, 100);

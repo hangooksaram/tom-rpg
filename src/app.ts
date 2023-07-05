@@ -4,7 +4,8 @@ import LowMonster from "./object/enemy/lowMonster";
 import { MovingObject } from "./object/movingObject";
 import { createEnemyObject } from "./util/createObject";
 import store from "./store/store";
-const player = new Player();
+const player = new Player("player", "player");
+player.init();
 
 setInterval(() => {
   createEnemyObject();

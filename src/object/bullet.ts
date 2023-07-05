@@ -6,13 +6,8 @@ import { MovingObject } from "./movingObject";
 
 export class Bullet extends MovingObject {
   private targetEnemy: Enemy | undefined = undefined;
-  private isHit: boolean = false;
-  constructor() {
-    super();
-  }
-  init(className: string): void {
-    super.init(className);
-    this.el!.id = `bullet-${new Date().toISOString()}`;
+
+  init(): void {
     const playerPos = store.getState().player.position;
     this.setPos({ x: playerPos.x, y: playerPos.y });
   }
@@ -52,7 +47,7 @@ export class Bullet extends MovingObject {
   }
 
   deleteEnemy(id?: string | undefined): void {
-    this.root.removeChild(document.getElementById(id!)!);
+    document.getElementById("root")!.removeChild(document.getElementById(id!)!);
     store.dispatch(deleteEnemy({ id }));
   }
 }

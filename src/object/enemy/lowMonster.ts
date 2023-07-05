@@ -11,7 +11,6 @@ const INNER_HEIGHT = 760;
 const { dispatch } = store;
 
 export default class LowMonster extends MovingObject {
-  private id: string = `low-monster-${new Date().toISOString()}`;
   get randomPos() {
     return {
       x: transferToInteger(Math.random() * INNER_WIDTH),
@@ -19,12 +18,7 @@ export default class LowMonster extends MovingObject {
     };
   }
 
-  constructor() {
-    super();
-  }
-
-  init(className: string): void {
-    super.init(className);
+  init(): void {
     const newEnemyId = this.id;
     const randomX = transferToInteger(Math.random() * INNER_WIDTH);
     const randomY = transferToInteger(Math.random() * INNER_HEIGHT);
