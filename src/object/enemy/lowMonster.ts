@@ -1,4 +1,4 @@
-import { Enemy } from "../..";
+import { Enemy, Position } from "../..";
 import { MovingObject } from "../movingObject";
 import { addEnemy, setEnemyPos } from "../../store/enemySlice";
 import store from "../../store/store";
@@ -28,7 +28,7 @@ export default class LowMonster extends MovingObject {
     const newEnemyId = this.id;
     const randomX = transferToInteger(Math.random() * INNER_WIDTH);
     const randomY = transferToInteger(Math.random() * INNER_HEIGHT);
-    this.setPos(randomX, randomY);
+    this.setPos({ x: randomX, y: randomY });
     this.el!.id = newEnemyId;
     Object.assign(this.el!.style, {
       display: "flex",
@@ -52,15 +52,12 @@ export default class LowMonster extends MovingObject {
     }, 10000);
   }
 
-  setPos(x: number, y: number): void {
-    super.setPos(x, y);
+  setPos(position: Position): void {
+    super.setPos(position);
     dispatch(
       setEnemyPos({
         id: this.id,
-        position: {
-          x,
-          y,
-        },
+        position,
       })
     );
   }

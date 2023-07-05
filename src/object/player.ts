@@ -14,7 +14,7 @@ export default class Player extends MovingObject {
   constructor() {
     super();
     this.init("player");
-    this.setPos(0, 0);
+    this.setPos({ x: 0, y: 0 });
   }
 
   init(className: string): void {
@@ -44,8 +44,8 @@ export default class Player extends MovingObject {
     // });
   }
 
-  setPos(x: number, y: number): void {
-    super.setPos(x, y);
+  setPos({ x, y }: Position): void {
+    super.setPos({ x, y });
     dispatch(setPlayerPos({ x, y }));
   }
 

@@ -1,4 +1,4 @@
-import { Enemy } from "..";
+import { Enemy, Position } from "..";
 import { deleteEnemy, hit } from "../store/enemySlice";
 import store from "../store/store";
 import { decreaseHPBar } from "../ui/enemy";
@@ -14,19 +14,11 @@ export class Bullet extends MovingObject {
     super.init(className);
     this.el!.id = `bullet-${new Date().toISOString()}`;
     const playerPos = store.getState().player.position;
-    this.position = { x: playerPos.x, y: playerPos.y };
-    this.drawAtThePosition();
-    this.el!.addEventListener("transitionend", (e) => {
-      if (e.propertyName === "top") {
-        if (document.getElementById(this.el!.id)) {
-          this.destroy();
-        }
-      }
-    });
+    this.setPos({ x: playerPos.x, y: playerPos.y });
   }
 
-  setPos(x: number, y: number): void {
-    super.setPos(x, y);
+  setPos(position: Position): void {
+    super.setPos(position);
     this.findTargetEnemy();
 
     if (this.targetEnemy && !this.isHit) {
@@ -47,6 +39,11 @@ export class Bullet extends MovingObject {
 
     this.targetEnemy = undefined;
     return;
+  }
+
+  arriveAtTarget(): void {
+    super.arriveAtTarget();
+    this.destroy();
   }
 
   destroy(): void {
