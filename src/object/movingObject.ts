@@ -1,10 +1,11 @@
-import { Position, Speed, TargetPosition } from "..";
+import { Position, Speed, NextPosition } from "..";
 import { calcHypotenuse } from "../util/calculate";
 export class MovingObject {
   public el: HTMLDivElement | null = null;
   public position: Position = { x: 0, y: 0 };
-  public targetPosition: TargetPosition = null;
-  public speed: Speed = { xSpeed: 0, ySpeed: 0 };
+  public nextPosition: NextPosition = null;
+  public speed: Speed = { value: 10, xSpeed: 0, ySpeed: 0 };
+  public health: number = 100;
   public root: HTMLElement = document.getElementById("root")!;
   constructor() {}
 
@@ -21,32 +22,40 @@ export class MovingObject {
   }
 
   move(nextX: number, nextY: number) {
-    this.targetPosition = { nextX, nextY };
+    this.nextPosition = { nextX, nextY };
+    this.setSpeed(nextX, nextY);
+    requestAnimationFrame(() => {
+      this.transfer();
+    });
+  }
+
+  setSpeed(nextX: number, nextY: number) {
     const distance = calcHypotenuse(
       this.position.x,
       this.position.y,
       nextX,
       nextY
     );
-    this.speed = {
-      xSpeed: (Math.abs(nextX - this.position.x) / distance) * 10,
-      ySpeed: (Math.abs(nextY - this.position.y) / distance) * 10,
-    };
 
-    requestAnimationFrame(() => {
-      this.transfer();
-    });
+    this.speed.xSpeed =
+      (Math.abs(nextX - this.position.x) / distance) * this.speed.value;
+    this.speed.ySpeed =
+      (Math.abs(nextY - this.position.y) / distance) * this.speed.value;
   }
 
   transfer() {
-    const { nextX, nextY } = this.targetPosition!;
+    const { nextX, nextY } = this.nextPosition!;
     const { xSpeed, ySpeed } = this.speed;
 
     if (
       Math.abs(nextX - this.position.x) < 10 &&
       Math.abs(nextY - this.position.y) < 10
     ) {
-      this.arriveAtTarget();
+      if (this.el!.className === "bullet") {
+        this.destroy();
+      }
+
+      return;
     }
 
     const { x, y } = this.position;
@@ -80,9 +89,6 @@ export class MovingObject {
     requestAnimationFrame(() => this.transfer());
   }
 
-  arriveAtTarget() {
-    return;
-  }
   hit(id?: string) {}
   destroy() {
     this.root.removeChild(this.el!);

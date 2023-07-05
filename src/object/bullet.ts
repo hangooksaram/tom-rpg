@@ -41,20 +41,6 @@ export class Bullet extends MovingObject {
     return;
   }
 
-  arriveAtTarget(): void {
-    super.arriveAtTarget();
-    this.destroy();
-  }
-
-  destroy(): void {
-    super.destroy();
-    this.isHit = false;
-  }
-  deleteEnemy(id?: string | undefined): void {
-    this.root.removeChild(document.getElementById(id!)!);
-    store.dispatch(deleteEnemy({ id }));
-  }
-
   findTargetEnemy() {
     this.targetEnemy = store
       .getState()
@@ -63,5 +49,10 @@ export class Bullet extends MovingObject {
           Math.abs(e.position.x - this.position.x) < 30 &&
           Math.abs(e.position.y - this.position.y) < 30
       );
+  }
+
+  deleteEnemy(id?: string | undefined): void {
+    this.root.removeChild(document.getElementById(id!)!);
+    store.dispatch(deleteEnemy({ id }));
   }
 }

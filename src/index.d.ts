@@ -17,24 +17,17 @@ type Position = {
   y: number;
 };
 
-type TargetPosition = {
+type NextPosition = {
   nextX: number;
   nextY: number;
 } | null;
 
 type Speed = {
+  value: number;
   xSpeed: number;
   ySpeed: number;
 };
 
 type ObjectId = string;
 
-export {
-  MovingObject,
-  Position,
-  Player,
-  Enemy,
-  ObjectId,
-  TargetPosition,
-  Speed,
-};
+export { MovingObject, Position, Player, Enemy, ObjectId, NextPosition, Speed };
