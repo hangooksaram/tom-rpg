@@ -12,5 +12,13 @@ const calcHypotenuse = (
 const transferToInteger = (number: number) => {
   return parseInt(number.toString());
 };
+const INNER_WIDTH = window.innerWidth;
+const INNER_HEIGHT = window.innerHeight;
+const randomPos = () => {
+  return {
+    x: transferToInteger(Math.random() * INNER_WIDTH),
+    y: transferToInteger(Math.random() * INNER_HEIGHT),
+  };
+};
 
-export { calcHypotenuse, transferToInteger };
+export { calcHypotenuse, transferToInteger, randomPos };
