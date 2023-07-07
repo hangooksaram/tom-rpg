@@ -9,30 +9,36 @@ const { dispatch } = store;
 
 export default class LowMonster extends MovingObject {
   init(): void {
-    const newEnemyId = this.id;
-    const randomX = transferToInteger(Math.random() * randomPos().x);
-    const randomY = transferToInteger(Math.random() * randomPos().y);
-    this.setPos({ x: randomX, y: randomY });
-    this.el!.id = newEnemyId;
+    const { id } = this;
+    this.el!.id = id;
     Object.assign(this.el!.style, {
       display: "flex",
       justifyContent: "center",
     });
-    initHPBar(newEnemyId);
-    const newEnemy: Enemy = {
-      id: newEnemyId,
-      position: this.position,
-      health: 30,
-      isHit: false,
-    };
-    store.dispatch(addEnemy(newEnemy));
+
+    this.setPos({
+      x: transferToInteger(Math.random() * randomPos().x),
+      y: transferToInteger(Math.random() * randomPos().y),
+    });
+
+    initHPBar(id);
+
+    store.dispatch(
+      addEnemy({
+        id,
+        position: this.position,
+        health: 30,
+        isHit: false,
+      })
+    );
   }
 
   moveRandomly() {
     setInterval(() => {
-      const randomX = transferToInteger(Math.random() * randomPos().x);
-      const randomY = transferToInteger(Math.random() * randomPos().y);
-      this.move(randomX, randomY);
+      this.move(
+        transferToInteger(Math.random() * randomPos().x),
+        transferToInteger(Math.random() * randomPos().y)
+      );
     }, 10000);
   }
 
