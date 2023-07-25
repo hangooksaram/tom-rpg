@@ -2,13 +2,25 @@ import { Bullet } from "./bullet";
 import { MovingObject } from "./movingObject";
 import { Enemy, Position } from "..";
 import store, { dispatch } from "../store/store";
-import { setPlayerPos } from "../store/playerSlice";
-import { decreaseHPBar, initHPBar } from "../ui/player";
+import { playerUi } from "../ui/player";
+import { gameUi } from "../ui/game";
 
 export default class Player extends MovingObject {
-  private range: number = 100;
-  private currentPosition: Position = store.getState().player.position;
+  private static instance: Player;
+
+  public static getInstance() {
+    if (!Player.instance) {
+      Player.instance = new Player("player", "player");
+    }
+    return Player.instance;
+  }
+
   private adjacentEnemy: Enemy | undefined = undefined;
+  public maxHealth: number = 150;
+  public health: number = 150;
+  public power: number = 10;
+  public maxMana: number = 100;
+  public mana: number = 100;
   private cursorPosition: Position = {
     x: 0,
     y: 0,
@@ -20,10 +32,13 @@ export default class Player extends MovingObject {
       this.cursorPosition.x = event.clientX;
       this.cursorPosition.y = event.clientY;
     };
-    initHPBar(this.id);
   }
   attack() {
-    const bullet = new Bullet("bullet", `bullet-${new Date().toISOString()}`);
+    const bullet = new Bullet(
+      "bullet",
+      `bullet-${new Date().toISOString()}`,
+      this.power
+    );
     bullet.init();
     setTimeout(() => {
       bullet.move(this.cursorPosition.x, this.cursorPosition.y);
@@ -31,14 +46,11 @@ export default class Player extends MovingObject {
   }
 
   move(nextX: number, nextY: number): void {
-    // store.dispatch(playerActions.setIsPlayerMoving(true));
-    super.move(nextX, nextY);
-    // store.dispatch(playerActions.setPlayerPos({ x: nextX, y: nextY }));
-    // this.el!.addEventListener("transitionend", (e) => {
-    //   if (e.propertyName === "top") {
-    //     store.dispatch(playerActions.setIsPlayerMoving(false));
-    //   }
-    // });
+    if (
+      nextX < gameUi.viewport.horizontal - 20 &&
+      nextY < gameUi.viewport.vertical - 20
+    )
+      super.move(nextX, nextY);
   }
 
   setPos({ x, y }: Position): void {
@@ -49,19 +61,19 @@ export default class Player extends MovingObject {
       this.hit();
       return;
     }
-    dispatch(setPlayerPos({ x, y }));
   }
 
   hit() {
     this.isHit = true;
-    this.health -= 10;
-    this.adjacentEnemy = undefined;
-    console.log(this.health);
-    decreaseHPBar(this.health);
+    const enemyPower = this.adjacentEnemy!.power;
+
+    this.health -= enemyPower;
+
+    playerUi.setHpStatus();
     setTimeout(() => {
       this.isHit = false;
     }, 1000);
-
+    this.adjacentEnemy = undefined;
     return;
   }
 
@@ -74,8 +86,8 @@ export default class Player extends MovingObject {
           Math.abs(e.position.y - this.position.y) < 30
       );
   }
-
-  getAdjEnemyPosition(x: number, y: number) {
-    return { x, y };
-  }
 }
+
+const player = Player.getInstance();
+
+export { player };
