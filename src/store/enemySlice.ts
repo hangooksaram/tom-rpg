@@ -22,9 +22,10 @@ const enemySlice = createSlice({
       return state.filter((enemy) => enemy.id !== action.payload.id);
     },
     hit: (state: Enemy[], action) => {
+      const { id, power } = action.payload;
       state.map((enemy) => {
-        if (enemy.id === action.payload.id) {
-          enemy.health -= 5;
+        if (enemy.id === id) {
+          enemy.health -= power;
           enemy.isHit = true;
         }
       });

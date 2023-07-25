@@ -8,8 +8,20 @@ import { randomPos, transferToInteger } from "../../util/calculate";
 const { dispatch } = store;
 
 export default class LowMonster extends MovingObject {
+  public health: number = 50;
+  public power: number = 10;
   init(): void {
     const { id } = this;
+    store.dispatch(
+      addEnemy({
+        id,
+        type: "lowMonster",
+        position: this.position,
+        power: this.power,
+        health: this.health,
+        isHit: false,
+      })
+    );
     this.el!.id = id;
     Object.assign(this.el!.style, {
       display: "flex",
@@ -22,15 +34,6 @@ export default class LowMonster extends MovingObject {
     });
 
     initHPBar(id);
-
-    store.dispatch(
-      addEnemy({
-        id,
-        position: this.position,
-        health: 30,
-        isHit: false,
-      })
-    );
   }
 
   moveRandomly() {

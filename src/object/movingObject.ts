@@ -7,6 +7,7 @@ export class MovingObject {
   public nextPosition: NextPosition = null;
   public speed: Speed = { value: 10, xSpeed: 0, ySpeed: 0 };
   public health: number = 100;
+  public power: number = 0;
   public isHit: boolean = false;
 
   constructor(className: string, id: string) {
@@ -93,5 +94,9 @@ export class MovingObject {
   hit(id?: string) {}
   destroy() {
     document.getElementById("root")!.removeChild(this.el!);
+  }
+
+  setPower(power: number) {
+    this.power = power;
   }
 }

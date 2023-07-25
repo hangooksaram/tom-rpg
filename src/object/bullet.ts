@@ -3,12 +3,16 @@ import { deleteEnemy, hit } from "../store/enemySlice";
 import store from "../store/store";
 import { decreaseHPBar } from "../ui/enemy";
 import { MovingObject } from "./movingObject";
+import { player } from "./player";
 
 export class Bullet extends MovingObject {
   private targetEnemy: Enemy | undefined = undefined;
-
+  constructor(className: string, id: string, power: number) {
+    super(className, id);
+    this.power = power;
+  }
   init(): void {
-    const playerPos = store.getState().player.position;
+    const playerPos = player.position;
     this.setPos({ x: playerPos.x, y: playerPos.y });
   }
 
@@ -26,7 +30,7 @@ export class Bullet extends MovingObject {
     this.destroy();
     this.isHit = true;
     if (this.targetEnemy!.health > 10) {
-      store.dispatch(hit({ id }));
+      store.dispatch(hit({ id, power: this.power }));
       decreaseHPBar(id);
     } else {
       this.deleteEnemy(id);

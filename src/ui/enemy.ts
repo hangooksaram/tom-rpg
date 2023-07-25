@@ -2,12 +2,13 @@ import { ObjectId } from "..";
 import store from "../store/store";
 
 const initHPBar = (id: ObjectId) => {
+  const enemyState = store.getState().enemies.find((e) => e.id === id);
   const enemy = document.getElementById(id);
   const hpBarEl = document.createElement("div") as HTMLDivElement;
   hpBarEl.id = `${id}-hp-bar`;
   enemy!.appendChild(hpBarEl);
   const hpBarStyle = {
-    width: "30px",
+    width: `${enemyState?.health}px`,
     height: "10px",
     backgroundColor: "red",
   };
