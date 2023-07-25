@@ -1,23 +1,25 @@
 import { ObjectId } from "..";
-import store from "../store/store";
+import { player } from "../object/player";
 
-const initHPBar = (id: ObjectId) => {
-  const player = document.getElementById(id);
-  const hpBarEl = document.createElement("div") as HTMLDivElement;
-  hpBarEl.id = `${id}-hp-bar`;
-  player!.appendChild(hpBarEl);
-  const hpBarStyle = {
-    width: "100vw",
-    height: "10px",
-    backgroundColor: "red",
-  };
-  Object.assign(hpBarEl.style, hpBarStyle);
-};
+export class PlayerUi {
+  private static instance: PlayerUi;
 
-const decreaseHPBar = (health: number) => {
-  const hpBar = document.getElementById(`player-hp-bar`);
+  public static getInstance() {
+    if (!PlayerUi.instance) {
+      PlayerUi.instance = new PlayerUi();
+    }
+    return PlayerUi.instance;
+  }
 
-  hpBar!.style.width = `${health}px`;
-};
+  setHpStatus() {
+    (document.getElementsByClassName(
+      "hp"
+    )[0] as HTMLDivElement)!.style.height = `${
+      (player.health / player.maxHealth) * 150
+    }px`;
+  }
+}
 
-export { initHPBar, decreaseHPBar };
+const playerUi = PlayerUi.getInstance();
+
+export { playerUi };
