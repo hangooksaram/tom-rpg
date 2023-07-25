@@ -1,3 +1,5 @@
+import { gameUi } from "../ui/game";
+
 const calcHypotenuse = (
   currentX: number,
   currentY: number,
@@ -12,12 +14,10 @@ const calcHypotenuse = (
 const transferToInteger = (number: number) => {
   return parseInt(number.toString());
 };
-const INNER_WIDTH = window.innerWidth;
-const INNER_HEIGHT = window.innerHeight;
 const randomPos = () => {
   return {
-    x: transferToInteger(Math.random() * INNER_WIDTH),
-    y: transferToInteger(Math.random() * INNER_HEIGHT),
+    x: transferToInteger(Math.random() * gameUi.viewport.horizontal),
+    y: transferToInteger(Math.random() * gameUi.viewport.vertical),
   };
 };
 

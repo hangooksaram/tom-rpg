@@ -11,7 +11,7 @@
 
 .map {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 255px);
   background-image: url("../public/images/diablo\ tile.png");
 }
 
@@ -51,4 +51,48 @@
     rgba(0, 42, 255, 1) 0%,
     rgba(255, 255, 255, 1) 100%
   );
+}
+
+.player-status-container {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  background-color: beige;
+}
+
+.player-status {
+  display: flex;
+  height: 255px;
+  width: 90%;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 0px 20px;
+}
+
+.hp-container,
+.mp-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.hp-top {
+  width: 150px;
+}
+.hp,
+.mp {
+  position: absolute;
+  bottom: 0;
+}
+
+.hp {
+  background-color: red;
+}
+
+.mp {
+  background-color: blue;
 }
