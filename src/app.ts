@@ -1,10 +1,10 @@
-import Player from "./object/player";
+import Player, { player } from "./object/player";
 import Map from "./map/map";
 import LowMonster from "./object/enemy/lowMonster";
 import { MovingObject } from "./object/movingObject";
 import { createEnemyObject } from "./util/createObject";
 import store from "./store/store";
-const player = new Player("player", "player");
+
 player.init();
 
 setInterval(() => {
@@ -17,8 +17,7 @@ document.addEventListener("mousedown", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
-  const isPlayerMoving = store.getState().player.isMoving;
-  if ((e.key.toLowerCase() === "a" || e.key === "ㅁ") && !isPlayerMoving) {
+  if (e.key.toLowerCase() === "a" || e.key === "ㅁ") {
     player.attack();
   }
 });

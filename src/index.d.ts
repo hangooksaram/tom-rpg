@@ -1,15 +1,17 @@
 interface MovingObject {
   id: string;
   position: Position;
+  power: number;
   health: number;
   isHit: boolean;
 }
 
-interface Enemy extends MovingObject {}
+interface Enemy extends MovingObject {
+  type: string;
+}
 
 interface Player extends MovingObject {
   mana: number;
-  isMoving: boolean;
 }
 
 type Position = {
