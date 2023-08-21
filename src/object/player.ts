@@ -1,7 +1,7 @@
 import { Bullet } from "./bullet";
 import { MovingObject } from "./movingObject";
 import { Enemy, Position } from "..";
-import store, { dispatch } from "../store/store";
+import store from "../store/store";
 import { playerUi } from "../ui/player";
 import { gameUi } from "../ui/game";
 

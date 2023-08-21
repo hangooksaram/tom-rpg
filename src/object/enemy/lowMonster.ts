@@ -1,4 +1,4 @@
-import { Enemy, Position } from "../..";
+import { Position } from "../..";
 import { MovingObject } from "../movingObject";
 import { addEnemy, setEnemyPos } from "../../store/enemySlice";
 import store from "../../store/store";
