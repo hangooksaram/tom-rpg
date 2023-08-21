@@ -1,9 +1,9 @@
-import { Position } from "../..";
-import { MovingObject } from "../movingObject";
-import { addEnemy, setEnemyPos } from "../../store/enemySlice";
-import store from "../../store/store";
-import { initHPBar } from "../../ui/enemy";
-import { randomPos, transferToInteger } from "../../util/calculate";
+import { Position } from "../../..";
+import { MovingObject } from "..";
+import { addEnemy, setEnemyPos } from "../../../store/enemySlice";
+import store from "../../../store/store";
+import { initHPBar } from "../../../ui/enemy";
+import { randomPos, transferToInteger } from "../../../util/calculate";
 
 const { dispatch } = store;
 

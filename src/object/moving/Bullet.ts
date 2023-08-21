@@ -1,9 +1,9 @@
-import { Enemy, Position } from "..";
-import { deleteEnemy, hit } from "../store/enemySlice";
-import store from "../store/store";
-import { decreaseHPBar } from "../ui/enemy";
-import { MovingObject } from "./movingObject";
-import { player } from "./player";
+import { Enemy, Position } from "../..";
+import { deleteEnemy, hit } from "../../store/enemySlice";
+import store from "../../store/store";
+import { decreaseHPBar } from "../../ui/enemy";
+import { MovingObject } from ".";
+import { player } from "./Player";
 
 export class Bullet extends MovingObject {
   private targetEnemy: Enemy | undefined = undefined;

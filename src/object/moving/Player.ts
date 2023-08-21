@@ -1,9 +1,9 @@
-import { Bullet } from "./bullet";
-import { MovingObject } from "./movingObject";
-import { Enemy, Position } from "..";
-import store from "../store/store";
-import { playerUi } from "../ui/player";
-import { gameUi } from "../ui/game";
+import { Bullet } from "./Bullet";
+import { MovingObject } from ".";
+import { Enemy, Position } from "../..";
+import store from "../../store/store";
+import { playerUi } from "../../ui/player";
+import { gameUi } from "../../ui/game";
 
 export default class Player extends MovingObject {
   private static instance: Player;

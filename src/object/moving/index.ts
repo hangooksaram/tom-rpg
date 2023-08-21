@@ -1,5 +1,5 @@
-import { Position, Speed, NextPosition } from "..";
-import { calcHypotenuse } from "../util/calculate";
+import { Position, Speed, NextPosition } from "../..";
+import { calcHypotenuse } from "../../util/calculate";
 export class MovingObject {
   public el: HTMLDivElement = document.createElement("div");
   public id: string;

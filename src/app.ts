@@ -1,4 +1,4 @@
-import { player } from "./object/player";
+import { player } from "./object/moving/Player";
 import { createEnemyObject } from "./util/createObject";
 
 player.init();

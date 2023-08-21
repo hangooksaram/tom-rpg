@@ -1,4 +1,4 @@
-import LowMonster from "../object/enemy/lowMonster";
+import LowMonster from "../object/moving/enemy/LowMonster";
 import store from "../store/store";
 
 const createEnemyObject = () => {

@@ -1,5 +1,5 @@
 import { ObjectId } from "..";
-import { player } from "../object/player";
+import { player } from "../object/moving/Player";
 
 export class PlayerUi {
   private static instance: PlayerUi;
