@@ -1,4 +1,4 @@
-interface MovingObject {
+export interface MovingObject {
   id: string;
   position: Position;
   power: number;
@@ -6,30 +6,30 @@ interface MovingObject {
   isHit: boolean;
 }
 
-interface Enemy extends MovingObject {
+export interface Enemy extends MovingObject {
   type: string;
 }
 
-interface Player extends MovingObject {
+export interface Player extends MovingObject {
   mana: number;
 }
 
-type Position = {
+export type Position = {
   x: number;
   y: number;
 };
 
-type NextPosition = {
+export type NextPosition = {
   nextX: number;
   nextY: number;
 } | null;
 
-type Speed = {
+export type Speed = {
   value: number;
   xSpeed: number;
   ySpeed: number;
 };
 
-type ObjectId = string;
+export type ObjectId = string;
 
-export { MovingObject, Position, Player, Enemy, ObjectId, NextPosition, Speed };
+export type CreateMapDirection = "row" | "column";
