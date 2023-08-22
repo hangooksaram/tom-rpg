@@ -96,7 +96,8 @@ export class MovingObject {
     setHitAnimation(this.el!);
   }
   destroy() {
-    document.getElementById("root")!.removeChild(this.el!);
+    if (document.getElementById(this.id!))
+      document.getElementById("root")!.removeChild(this.el!);
   }
 
   setPower(power: number) {

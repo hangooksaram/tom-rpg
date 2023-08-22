@@ -1,8 +1,8 @@
 import { ObjectId } from "..";
-import store from "../store/store";
+import { enemyStore } from "../store/enemy";
 
 const initHPBar = (id: ObjectId) => {
-  const enemyState = store.getState().enemies.find((e) => e.id === id);
+  const enemyState = enemyStore.enemiesList.find((e) => e.id === id);
   const enemy = document.getElementById(id);
   const hpBarEl = document.createElement("div") as HTMLDivElement;
   hpBarEl.id = `${id}-hp-bar`;
@@ -16,7 +16,7 @@ const initHPBar = (id: ObjectId) => {
 };
 
 const decreaseHPBar = (id: ObjectId) => {
-  const enemy = store.getState().enemies.find((e) => e.id === id);
+  const enemy = enemyStore.enemiesList.find((e) => e.id === id);
   const hpBar = document.getElementById(`${id}-hp-bar`);
 
   hpBar!.style.width = `${enemy?.health}px`;

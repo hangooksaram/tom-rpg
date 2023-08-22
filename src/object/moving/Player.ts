@@ -1,10 +1,11 @@
 import { Bullet } from "./Bullet";
 import { MovingObject } from ".";
 import { Enemy, Position } from "../..";
-import store from "../../store/store";
 import { playerUi } from "../../ui/player";
 import { gameUi } from "../../ui/game";
 import { showHitDamage } from "../../ui/movingObject";
+import { enemyStore } from "../../store/enemy";
+import LowMonster from "./enemy/LowMonster";
 
 export default class Player extends MovingObject {
   private static instance: Player;
@@ -16,7 +17,7 @@ export default class Player extends MovingObject {
     return Player.instance;
   }
 
-  private adjacentEnemy: Enemy | undefined = undefined;
+  private adjacentEnemy: LowMonster | undefined = undefined;
   public maxHealth: number = 150;
   public health: number = 150;
   public power: number = 10;
@@ -82,13 +83,11 @@ export default class Player extends MovingObject {
   }
 
   findadjacentEnemy() {
-    this.adjacentEnemy = store
-      .getState()
-      .enemies.find(
-        (e) =>
-          Math.abs(e.position.x - this.position.x) < 30 &&
-          Math.abs(e.position.y - this.position.y) < 30
-      );
+    this.adjacentEnemy = enemyStore.enemiesList.find(
+      (e) =>
+        Math.abs(e.position.x - this.position.x) < 30 &&
+        Math.abs(e.position.y - this.position.y) < 30
+    );
   }
 }
 
