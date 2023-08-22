@@ -13,11 +13,13 @@ export class PlayerUi {
 
   setHpStatus() {
     (document.getElementsByClassName(
-      "hp"
+      "player-hp"
     )[0] as HTMLDivElement)!.style.height = `${
       (player.health / player.maxHealth) * 150
     }px`;
   }
+
+  hit() {}
 }
 
 const playerUi = PlayerUi.getInstance();

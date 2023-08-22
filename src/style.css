@@ -72,27 +72,27 @@
   padding: 0px 20px;
 }
 
-.hp-container,
-.mp-container {
+.player-hp-container,
+.player-mp-container {
   width: 150px;
   height: 150px;
   border-radius: 100%;
   position: relative;
   overflow: hidden;
 }
-.hp-top {
+.player-hp-top {
   width: 150px;
 }
-.hp,
-.mp {
+.player-hp,
+.player-mp {
   position: absolute;
   bottom: 0;
 }
 
-.hp {
+.player-hp {
   background-color: red;
 }
 
-.mp {
+.player-mp {
   background-color: blue;
 }
