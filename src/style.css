@@ -25,6 +25,33 @@
   transition: all 1s linear;
 }
 
+.player-hit-damage {
+  position: absolute;
+  animation: hitDamage 0.6s forwards;
+  font-size: 40px;
+  color: red;
+  opacity: 1;
+}
+
+.enemy-hit-damage {
+}
+
+@keyframes hitDamage {
+  0% {
+    opacity: 0;
+  }
+
+  99% {
+    opacity: 1;
+    transform: translate(0px, -50px);
+  }
+
+  100% {
+    transform: translate(0px, -50px);
+    display: none;
+  }
+}
+
 .bullet {
   width: 25px;
   height: 25px;
@@ -51,6 +78,11 @@
     rgba(0, 42, 255, 1) 0%,
     rgba(255, 255, 255, 1) 100%
   );
+}
+
+.hit {
+  opacity: 50%;
+  transition: all 0.5s;
 }
 
 .player-status-container {

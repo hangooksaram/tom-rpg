@@ -4,6 +4,7 @@ import { Enemy, Position } from "../..";
 import store from "../../store/store";
 import { playerUi } from "../../ui/player";
 import { gameUi } from "../../ui/game";
+import { showHitDamage } from "../../ui/movingObject";
 
 export default class Player extends MovingObject {
   private static instance: Player;
@@ -64,12 +65,15 @@ export default class Player extends MovingObject {
   }
 
   hit() {
+    super.hit();
     this.isHit = true;
     const enemyPower = this.adjacentEnemy!.power;
 
     this.health -= enemyPower;
 
     playerUi.setHpStatus();
+    showHitDamage(this.el, enemyPower);
+
     setTimeout(() => {
       this.isHit = false;
     }, 1000);

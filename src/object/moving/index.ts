@@ -1,4 +1,5 @@
 import { Position, Speed, NextPosition } from "../..";
+import { setHitAnimation } from "../../ui/movingObject";
 import { calcHypotenuse } from "../../util/calculate";
 export class MovingObject {
   public el: HTMLDivElement = document.createElement("div");
@@ -91,7 +92,9 @@ export class MovingObject {
     requestAnimationFrame(() => this.transfer());
   }
 
-  hit(id?: string) {}
+  hit(id?: string) {
+    setHitAnimation(this.el!);
+  }
   destroy() {
     document.getElementById("root")!.removeChild(this.el!);
   }
