@@ -1,4 +1,5 @@
 import { Position, Speed, NextPosition } from "../..";
+import { mapsStore } from "../../store/maps";
 import { setHitAnimation } from "../../ui/movingObject";
 import { calcHypotenuse } from "../../util/calculate";
 export class MovingObject {
@@ -15,7 +16,10 @@ export class MovingObject {
     this.id = id;
     this.el.id = id;
     this.el.classList.add(className);
-    document.getElementById("root")!.appendChild(this.el);
+
+    if (document.readyState === "complete" && id !== "player") {
+      document.getElementById(mapsStore.currentMap?.id!)!.appendChild(this.el);
+    } else document.getElementById("root")!.appendChild(this.el);
   }
 
   setPos({ x, y }: Position) {
@@ -97,7 +101,7 @@ export class MovingObject {
   }
   destroy() {
     if (document.getElementById(this.id!))
-      document.getElementById("root")!.removeChild(this.el!);
+      document.getElementById(mapsStore.currentMap!.id)!.removeChild(this.el!);
   }
 
   setPower(power: number) {

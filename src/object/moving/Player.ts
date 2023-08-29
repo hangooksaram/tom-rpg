@@ -6,6 +6,7 @@ import { gameUi } from "../../ui/game";
 import { showHitDamage } from "../../ui/movingObject";
 import { enemyStore } from "../../store/enemy";
 import LowMonster from "./enemy/LowMonster";
+import { mapsStore } from "../../store/maps";
 
 export default class Player extends MovingObject {
   private static instance: Player;
@@ -49,8 +50,8 @@ export default class Player extends MovingObject {
 
   move(nextX: number, nextY: number): void {
     if (
-      nextX < gameUi.viewport.horizontal - 20 &&
-      nextY < gameUi.viewport.vertical - 20
+      nextX < mapsStore.currentMap!.viewport.horizontal - 20 &&
+      nextY < mapsStore.currentMap!.viewport.vertical - 20
     )
       super.move(nextX, nextY);
   }

@@ -1,7 +1,8 @@
 import LowMonster from "../object/moving/enemy/LowMonster";
 import { enemyStore } from "../store/enemy";
+import { mapsStore } from "../store/maps";
 
-const createEnemyObject = () => {
+export const createEnemyObject = () => {
   if (enemyStore.enemiesList.length < 10) {
     const lowMonster = new LowMonster(
       "low-monster",
@@ -14,4 +15,10 @@ const createEnemyObject = () => {
   }
 };
 
-export { createEnemyObject };
+export const deleteAllEnemies = () => {
+  enemyStore.deleteAllEnemies();
+  Array.from(document.getElementsByClassName("low-monster")).map((el) => {
+    console.log(el);
+    document.getElementById(mapsStore.currentMap!.id)?.removeChild(el);
+  });
+};

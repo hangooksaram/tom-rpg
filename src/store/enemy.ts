@@ -23,6 +23,10 @@ export class EnemyStore {
   deleteEnemy(id: string) {
     this.enemies = this.enemies.filter((enemy) => enemy.id !== id);
   }
+
+  deleteAllEnemies() {
+    this.enemies = [];
+  }
 }
 
 const enemyStore = EnemyStore.getInstance();

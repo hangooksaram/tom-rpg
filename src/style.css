@@ -4,9 +4,15 @@
   background-image: url("../../public/images/player.png");
   border-radius: 50%;
   position: absolute;
-  z-index: 1;
+  z-index: 999;
   background-size: cover;
   transition: all 0.3s linear;
+}
+
+.map-container {
+  min-width: 100%;
+  width: auto;
+  height: auto;
 }
 
 .map {
@@ -127,4 +133,59 @@
 
 .player-mp {
   background-color: blue;
+}
+
+.portal {
+  width: 100px;
+  height: 100px;
+  background-color: aqua;
+  position: absolute;
+}
+
+.portal.north {
+  top: 5%;
+  right: 50%;
+}
+
+.portal.east {
+  top: 25%;
+  right: 10%;
+}
+.portal.south {
+  bottom: 40%;
+  right: 50%;
+}
+.portal.west {
+  top: 25%;
+  left: 10%;
+}
+
+#map-id {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.change-map-ui {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  animation: fade-in-out 1s forwards;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: none;
+  }
 }

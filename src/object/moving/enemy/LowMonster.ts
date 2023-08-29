@@ -41,6 +41,5 @@ export default class LowMonster extends MovingObject {
   destroy(id?: string | undefined): void {
     super.destroy();
     enemyStore.deleteEnemy(id!);
-    console.log(enemyStore.enemiesList);
   }
 }

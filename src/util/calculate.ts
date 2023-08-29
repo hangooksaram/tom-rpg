@@ -1,3 +1,4 @@
+import { mapsStore } from "../store/maps";
 import { gameUi } from "../ui/game";
 
 const calcHypotenuse = (
@@ -16,8 +17,12 @@ const transferToInteger = (number: number) => {
 };
 const randomPos = () => {
   return {
-    x: transferToInteger(Math.random() * gameUi.viewport.horizontal),
-    y: transferToInteger(Math.random() * gameUi.viewport.vertical),
+    x: transferToInteger(
+      Math.random() * mapsStore.currentMap!.viewport.horizontal
+    ),
+    y: transferToInteger(
+      Math.random() * mapsStore.currentMap!.viewport.vertical
+    ),
   };
 };
 
