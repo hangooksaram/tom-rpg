@@ -1,7 +1,9 @@
 import Map from ".";
 import { MapDirection } from "../..";
+import { enemyStore } from "../../store/enemy";
 import { mapsStore } from "../../store/maps";
 import { gameUi } from "../../ui/game";
+import { createEnemyObject, deleteAllEnemies } from "../../util/object";
 
 export class Portal {
   public mapEl: HTMLDivElement;
@@ -42,17 +44,35 @@ export class Portal {
       );
 
       mapsStore.addMap(map);
-    }
-    console.log(mapsStore.mapsList);
+      this.changeMap(true);
+    } else this.changeMap(false);
+
     mapsStore.setCurrentMap(id);
-    this.changeMap();
   }
 
-  changeMap() {
+  changeMap(createNew: boolean) {
     document.getElementById(
       "map-id"
     )!.innerHTML = `현재 맵 ID : ${this.nextMapId}`;
-    gameUi.changeMap();
+
+    const el = document.createElement("div");
+    document.getElementById("root")?.appendChild(el);
+    el.classList.add("change-map-ui");
+    mapsStore.isChanging = true;
+    deleteAllEnemies();
+    setTimeout(() => {
+      document.getElementById("root")?.removeChild(el);
+      mapsStore.isChanging = false;
+    }, 1000);
+    if (createNew) {
+      setInterval(() => {
+        createEnemyObject();
+      }, 50);
+    }
+    setTimeout(() => {
+      console.log(enemyStore.enemies);
+    }, 1000);
+
     document.getElementById(this.currentMapId)!.style.display = "none";
     document.getElementById(this.nextMapId)!.style.display = "block";
   }

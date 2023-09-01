@@ -4,7 +4,7 @@ import LowMonster from "../object/moving/enemy/LowMonster";
 
 export class EnemyStore {
   private static instance: EnemyStore;
-  private enemies: LowMonster[] = [];
+  public enemies: LowMonster[] = [];
   public static getInstance() {
     if (!EnemyStore.instance) {
       EnemyStore.instance = new EnemyStore();

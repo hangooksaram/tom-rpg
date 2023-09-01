@@ -18,7 +18,6 @@ export const createEnemyObject = () => {
 export const deleteAllEnemies = () => {
   enemyStore.deleteAllEnemies();
   Array.from(document.getElementsByClassName("low-monster")).map((el) => {
-    console.log(el);
     document.getElementById(mapsStore.currentMap!.id)?.removeChild(el);
   });
 };
