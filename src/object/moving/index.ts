@@ -11,6 +11,7 @@ export class MovingObject {
   public health: number = 100;
   public power: number = 0;
   public isHit: boolean = false;
+  public isMoving: boolean = false;
 
   constructor(className: string, id: string) {
     this.id = id;
@@ -31,23 +32,10 @@ export class MovingObject {
   move(nextX: number, nextY: number) {
     this.nextPosition = { nextX, nextY };
     this.setSpeed(nextX, nextY);
+
     requestAnimationFrame(() => {
       this.transfer();
     });
-  }
-
-  setSpeed(nextX: number, nextY: number) {
-    const distance = calcHypotenuse(
-      this.position.x,
-      this.position.y,
-      nextX,
-      nextY
-    );
-
-    this.speed.xSpeed =
-      (Math.abs(nextX - this.position.x) / distance) * this.speed.value;
-    this.speed.ySpeed =
-      (Math.abs(nextY - this.position.y) / distance) * this.speed.value;
   }
 
   transfer() {
@@ -58,10 +46,6 @@ export class MovingObject {
       Math.abs(nextX - this.position.x) < 10 &&
       Math.abs(nextY - this.position.y) < 10
     ) {
-      if (this.el!.className === "bullet") {
-        this.destroy();
-      }
-
       return;
     }
 
@@ -91,9 +75,22 @@ export class MovingObject {
         y: y - ySpeed,
       };
     }
-
     this.setPos(newPosition);
     requestAnimationFrame(() => this.transfer());
+  }
+
+  setSpeed(nextX: number, nextY: number) {
+    const distance = calcHypotenuse(
+      this.position.x,
+      this.position.y,
+      nextX,
+      nextY
+    );
+
+    this.speed.xSpeed =
+      (Math.abs(nextX - this.position.x) / distance) * this.speed.value;
+    this.speed.ySpeed =
+      (Math.abs(nextY - this.position.y) / distance) * this.speed.value;
   }
 
   hit(id?: string) {

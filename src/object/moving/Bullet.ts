@@ -49,4 +49,15 @@ export class Bullet extends MovingObject {
         Math.abs(e.position.y - this.position.y) < 30
     );
   }
+
+  transfer() {
+    const { nextX, nextY } = this.nextPosition!;
+    super.transfer();
+    if (
+      Math.abs(nextX - this.position.x) < 10 &&
+      Math.abs(nextY - this.position.y) < 10
+    ) {
+      this.destroy();
+    }
+  }
 }

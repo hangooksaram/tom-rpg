@@ -90,6 +90,31 @@ export default class Player extends MovingObject {
         Math.abs(e.position.y - this.position.y) < 30
     );
   }
+
+  transfer() {
+    const { nextX, nextY } = this.nextPosition!;
+    if (
+      Math.abs(nextX - this.position.x) < 10 &&
+      Math.abs(nextY - this.position.y) < 10
+    ) {
+      setTimeout(() => {
+        this.el.style.backgroundImage =
+          "url('/public/images/player/pause.png')";
+      }, 300);
+
+      console.log(this.el.style.backgroundImage);
+    }
+    super.transfer();
+    this.el.style.backgroundImage = "url('/public/images/player/run1.png')";
+
+    setTimeout(() => {
+      this.el.style.backgroundImage = "url('/public/images/player/run2.png')";
+    }, 100);
+
+    setTimeout(() => {
+      this.el.style.backgroundImage = "url('/public/images/player/run3.png')";
+    }, 200);
+  }
 }
 
 const player = Player.getInstance();

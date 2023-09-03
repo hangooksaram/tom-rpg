@@ -1,12 +1,17 @@
 .player {
-  width: 50px;
-  height: 50px;
-  background-image: url("../../public/images/player.png");
+  width: 80px;
+  height: 80px;
+  background-image: url("../../public/images/player/pause.png");
   border-radius: 50%;
   position: absolute;
   z-index: 999;
   background-size: cover;
+  background-position: center;
   transition: all 0.3s linear;
+}
+
+.player.run {
+  background-image: url("/public/images/player/run1.png");
 }
 
 .map-container {
@@ -138,8 +143,11 @@
 .portal {
   width: 100px;
   height: 100px;
-  background-color: aqua;
   position: absolute;
+  background-image: url("/public/images/portal.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .portal.north {
@@ -196,4 +204,55 @@
 
 .show {
   display: block;
+}
+
+.clicked {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 4px solid #b8dfff;
+  background-color: transparent;
+  animation: clicked 1s;
+}
+
+@keyframes clicked {
+  0% {
+    transform: scale(1, 1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    transform: scale(0.8, 0.8);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  40% {
+    transform: scale(0.6, 0.6);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    transform: scale(0.4, 0.4);
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.2, 0.2);
+    opacity: 0;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.1, 0.1);
+    opacity: 0;
+  }
 }
