@@ -10,8 +10,49 @@
   transition: all 0.3s linear;
 }
 
-.player.run {
+.player.move {
   background-image: url("/public/images/player/run1.png");
+  animation: playerMove 0.8s infinite;
+}
+
+@keyframes playerMove {
+  0% {
+    background-image: url("/public/images/player/run1.png");
+  }
+
+  50% {
+    background-image: url("/public/images/player/run2.png");
+  }
+
+  100% {
+    background-image: url("/public/images/player/run3.png");
+  }
+}
+
+.player.attack {
+  animation: playerAttack 0.5s;
+}
+
+@keyframes playerAttack {
+  0% {
+    background-image: url("/public/images/player/attack1.png");
+  }
+
+  50% {
+    background-image: url("/public/images/player/attack2.png");
+  }
+
+  100% {
+    background-image: url("/public/images/player/attack3.png");
+  }
+}
+
+.reverse-direction {
+  transform: scaleX(-1);
+}
+
+.original-direction {
+  transform: scaleX(1);
 }
 
 .map-container {
@@ -31,7 +72,7 @@
   height: 50px;
   position: absolute;
   z-index: 1;
-  background-image: url("../../public/images/monster/pngegg.png");
+  background-image: url("../../public/images/monster/slime.png");
   background-size: cover;
   transition: all 1s linear;
 }
@@ -64,31 +105,15 @@
 }
 
 .bullet {
-  width: 25px;
-  height: 25px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   position: absolute;
   z-index: 1;
-  background: rgb(0, 42, 255);
-  background: radial-gradient(
-    circle,
-    rgba(0, 42, 255, 1) 0%,
-    rgba(255, 255, 255, 1) 100%
-  );
-}
-
-#bullet {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  position: absolute;
-  z-index: 1;
-  background: rgb(0, 42, 255);
-  background: radial-gradient(
-    circle,
-    rgba(0, 42, 255, 1) 0%,
-    rgba(255, 255, 255, 1) 100%
-  );
+  background-image: url("/public/images/bullet/default.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .hit {

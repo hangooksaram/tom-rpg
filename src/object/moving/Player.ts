@@ -42,18 +42,37 @@ export default class Player extends MovingObject {
       `bullet-${new Date().toISOString()}`,
       this.power
     );
+    this.el.classList.add("attack");
+    if (this.position.x < this.cursorPosition.x) {
+      this.el.classList.add("reverse-direction");
+    }
+
+    if (this.position.x > this.cursorPosition.x) {
+      this.el.classList.remove("reverse-direction");
+    }
     bullet.init();
     setTimeout(() => {
       bullet.move(this.cursorPosition.x, this.cursorPosition.y);
     }, 100);
+
+    setTimeout(() => {
+      this.el.classList.remove("attack");
+    }, 500);
   }
 
   move(nextX: number, nextY: number): void {
     if (
       nextX < mapsStore.currentMap!.viewport.horizontal - 20 &&
       nextY < mapsStore.currentMap!.viewport.vertical - 20
-    )
+    ) {
+      this.el.classList.add("move");
+      if (this.position.x < nextX) {
+        this.el.classList.add("reverse-direction");
+      } else if (this.position.x > nextX) {
+        this.el.classList.remove("reverse-direction");
+      }
       super.move(nextX, nextY);
+    }
   }
 
   setPos({ x, y }: Position): void {
@@ -98,22 +117,10 @@ export default class Player extends MovingObject {
       Math.abs(nextY - this.position.y) < 10
     ) {
       setTimeout(() => {
-        this.el.style.backgroundImage =
-          "url('/public/images/player/pause.png')";
+        this.el.classList.remove("move");
       }, 300);
-
-      console.log(this.el.style.backgroundImage);
     }
     super.transfer();
-    this.el.style.backgroundImage = "url('/public/images/player/run1.png')";
-
-    setTimeout(() => {
-      this.el.style.backgroundImage = "url('/public/images/player/run2.png')";
-    }, 100);
-
-    setTimeout(() => {
-      this.el.style.backgroundImage = "url('/public/images/player/run3.png')";
-    }, 200);
   }
 }
 
