@@ -63,7 +63,7 @@
 
 .map {
   width: 100%;
-  height: calc(100vh - 255px);
+  height: 100vh;
   background-image: url("../public/images/diablo\ tile.png");
 }
 
@@ -121,48 +121,96 @@
   transition: all 0.5s;
 }
 
-.player-status-container {
+.player-status-bar {
   position: absolute;
-  bottom: 0px;
-  width: 100%;
-  background-color: beige;
+  z-index: 999;
+  width: 80%;
+  height: 160px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url("/public/images/gameUi/status-bar.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
-.player-status {
+.player-status-bar-arti {
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
-  height: 255px;
-  width: 90%;
-  margin: 0 auto;
   justify-content: space-between;
-  align-items: center;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  padding: 0px 20px;
+}
+
+.left,
+.right {
+  position: relative;
+  width: 300px;
+  height: 160px;
+}
+
+.player-status-bar-arti-left,
+.player-status-bar-arti-right {
+  position: absolute;
+  z-index: 1002;
+  width: 300px;
+  height: 100%;
+  background-position: bottom;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.player-status-bar-arti-left {
+  background-image: url("/public/images/gameUi/bar-left.png");
+  left: -20px;
+}
+
+.player-status-bar-arti-right {
+  background-image: url("/public/images/gameUi/bar-right.png");
 }
 
 .player-hp-container,
 .player-mp-container {
-  width: 150px;
-  height: 150px;
-  border-radius: 100%;
-  position: relative;
+  top: -40px;
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background-image: url("/public/images/gameUi/empty-portion.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+  z-index: 1001;
   overflow: hidden;
 }
-.player-hp-top {
-  width: 150px;
-}
-.player-hp,
-.player-mp {
+
+.player-hp-real-container {
   position: absolute;
-  bottom: 0;
+  width: 180px;
+  height: 180px;
+  top: -40px;
+  left: 130px;
+
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.player-hp-container {
+  left: 130px;
+}
+
+.player-mp-container {
+  right: 130px;
 }
 
 .player-hp {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  z-index: 1000;
+  bottom: 0;
   background-color: red;
-}
-
-.player-mp {
-  background-color: blue;
 }
 
 .portal {
