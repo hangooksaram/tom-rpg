@@ -17,12 +17,14 @@ setInterval(() => {
 //createEnemyObject();
 player.init();
 
-document.addEventListener("mousedown", (e) => {
-  if (!mapsStore.isChanging) {
-    player.move(e.clientX, e.clientY);
-    clickedTarget({ x: e.clientX, y: e.clientY });
-  }
-});
+document
+  .getElementById(mapsStore.currentMap?.id!)!
+  .addEventListener("mousedown", (e) => {
+    if (!mapsStore.isChanging) {
+      player.move(e.clientX, e.clientY);
+      clickedTarget({ x: e.clientX, y: e.clientY });
+    }
+  });
 
 document.addEventListener("keydown", (e) => {
   if (e.key.toLowerCase() === "a" || e.key === "ㅁ") {

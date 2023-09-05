@@ -67,13 +67,17 @@
   background-image: url("../public/images/diablo\ tile.png");
 }
 
+.enemy {
+  position: absolute;
+  z-index: 1;
+  background-size: cover;
+  background-position: center;
+}
+
 .low-monster {
   width: 50px;
   height: 50px;
-  position: absolute;
-  z-index: 1;
   background-image: url("../../public/images/monster/slime.png");
-  background-size: cover;
   transition: all 1s linear;
 }
 
@@ -83,9 +87,6 @@
   font-size: 40px;
   color: red;
   opacity: 1;
-}
-
-.enemy-hit-damage {
 }
 
 @keyframes hitDamage {
@@ -328,4 +329,28 @@
     transform: scale(0.1, 0.1);
     opacity: 0;
   }
+}
+
+#save {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  border: none;
+  background-color: white;
+  width: 70px;
+  height: 40px;
+  border-radius: 25px;
+}
+
+.bullet-hit {
+  width: 70px;
+  height: 70px;
+  background-image: url("/public/images/bullet/hit.png");
+  background-position: bottom;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: fade-in-out 1s forwards;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }

@@ -1,6 +1,8 @@
 import { MapDirection } from "../..";
 import { mapsStore } from "../../store/maps";
+import { clickedTarget } from "../../ui/clikedTarget";
 import { mapId } from "../../util/generateRandomId";
+import { player } from "../moving/Player";
 import { Portal } from "./Portal";
 
 const rootMap = document.getElementById("map-container")!;
@@ -37,6 +39,12 @@ export default class Map {
     this.westId = westId ?? mapId();
 
     rootMap.append(this.el);
+    document.getElementById(this.id)!.addEventListener("mousedown", (e) => {
+      if (!mapsStore.isChanging) {
+        player.move(e.clientX, e.clientY);
+        clickedTarget({ x: e.clientX, y: e.clientY });
+      }
+    });
     this.createPortal();
   }
 

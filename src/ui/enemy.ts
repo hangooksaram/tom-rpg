@@ -1,7 +1,7 @@
 import { ObjectId } from "..";
 import { enemyStore } from "../store/enemy";
 
-const initHPBar = (id: ObjectId) => {
+export const initHPBar = (id: ObjectId) => {
   const enemyState = enemyStore.enemiesList.find((e) => e.id === id);
   const enemy = document.getElementById(id);
   const hpBarEl = document.createElement("div") as HTMLDivElement;
@@ -15,11 +15,23 @@ const initHPBar = (id: ObjectId) => {
   Object.assign(hpBarEl.style, hpBarStyle);
 };
 
-const decreaseHPBar = (id: ObjectId) => {
+export const decreaseHPBar = (id: ObjectId) => {
   const enemy = enemyStore.enemiesList.find((e) => e.id === id);
   const hpBar = document.getElementById(`${id}-hp-bar`);
 
   hpBar!.style.width = `${enemy?.health}px`;
 };
 
-export { initHPBar, decreaseHPBar };
+export const setHitAnimation = (id: string) => {
+  const hitAnimation = document.createElement("div");
+
+  hitAnimation.classList.add("bullet-hit");
+
+  const enemey = document
+    .getElementById(`hit-animation-container-${id}`)!
+    .appendChild(hitAnimation);
+
+  setTimeout(() => {
+    document.getElementById(id)?.removeChild(hitAnimation);
+  }, 1000);
+};

@@ -37,9 +37,10 @@ export default class Player extends MovingObject {
   init(): void {
     this.getDataFromServer().then((player) => {
       this.health = player.health;
+      playerUi.setHpStatus();
       this.maxHealth = player.maxHealth;
     });
-    playerUi.setHpStatus();
+
     this.setPos({ x: 0, y: 0 });
     document.body.onmousemove = (event) => {
       this.cursorPosition.x = event.clientX;

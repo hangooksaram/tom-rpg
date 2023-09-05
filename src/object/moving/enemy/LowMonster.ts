@@ -9,7 +9,16 @@ export default class LowMonster extends MovingObject {
   init(): void {
     const { id } = this;
     this.el!.id = id;
-
+    this.el.classList.add("enemy");
+    const hitAnimationContainer = document.createElement("div");
+    hitAnimationContainer.id = `hit-animation-container-${id}`;
+    Object.assign(hitAnimationContainer.style, {
+      ...hitAnimationContainer.style,
+      position: "relative",
+      width: "100%",
+      height: "100%",
+    });
+    this.el.appendChild(hitAnimationContainer);
     this.setPos({
       x: transferToInteger(Math.random() * randomPos().x),
       y: transferToInteger(Math.random() * randomPos().y),
