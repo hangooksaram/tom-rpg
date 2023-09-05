@@ -7,6 +7,7 @@ import { showHitDamage } from "../../ui/movingObject";
 import { enemyStore } from "../../store/enemy";
 import LowMonster from "./enemy/LowMonster";
 import { mapsStore } from "../../store/maps";
+import { getPlayerData } from "../../util/data";
 
 export default class Player extends MovingObject {
   private static instance: Player;
@@ -28,8 +29,17 @@ export default class Player extends MovingObject {
     x: 0,
     y: 0,
   };
+  async getDataFromServer() {
+    const { player } = await getPlayerData();
+    return player;
+  }
 
   init(): void {
+    this.getDataFromServer().then((player) => {
+      this.health = player.health;
+      this.maxHealth = player.maxHealth;
+    });
+    playerUi.setHpStatus();
     this.setPos({ x: 0, y: 0 });
     document.body.onmousemove = (event) => {
       this.cursorPosition.x = event.clientX;

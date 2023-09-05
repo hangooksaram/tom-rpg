@@ -5,11 +5,12 @@ import { gameUi } from "./ui/game";
 import { createEnemyObject } from "./util/object";
 import { mapId } from "./util/generateRandomId";
 import { clickedTarget } from "./ui/clikedTarget";
+import { getPlayerData, savePlayerData } from "./util/data";
 
 const initialMap = new Map(mapId());
 mapsStore.addMap(initialMap);
 mapsStore.setCurrentMap(initialMap.id);
-
+document.getElementById("save")?.addEventListener("click", savePlayerData);
 setInterval(() => {
   createEnemyObject();
 }, 50);
