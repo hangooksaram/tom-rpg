@@ -1,23 +1,22 @@
-import LowMonster from "../object/moving/enemy/LowMonster";
+import Enemy from "../object/moving/enemy";
 import { enemyStore } from "../store/enemy";
 import { mapsStore } from "../store/maps";
 
-export const createEnemyObject = () => {
+export const createLowEnemyObject = () => {
   if (enemyStore.enemiesList.length < 10) {
-    const lowMonster = new LowMonster(
-      "low-monster",
-      `low-monster-${new Date().toISOString()}`
+    const lowEnemy = new Enemy(
+      "low-enemy",
+      `low-enemy-${new Date().toISOString()}`,
+      "low"
     );
-    enemyStore.addEnemy(lowMonster);
-
-    lowMonster.init();
-    lowMonster.moveRandomly();
+    enemyStore.addEnemy(lowEnemy);
+    lowEnemy.moveRandomly();
   }
 };
 
 export const deleteAllEnemies = () => {
   enemyStore.deleteAllEnemies();
-  Array.from(document.getElementsByClassName("low-monster enemy")).map((el) => {
+  Array.from(document.getElementsByClassName("low-enemy enemy")).map((el) => {
     document.getElementById(mapsStore.currentMap!.id)?.removeChild(el);
   });
 };

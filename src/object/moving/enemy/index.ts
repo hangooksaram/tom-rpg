@@ -1,26 +1,30 @@
 import { MovingObject } from "..";
-import { decreaseHPBar, initHPBar } from "../../../ui/enemy";
+import {
+  decreaseHPBar,
+  initHPBar,
+  setDestoryAnimation,
+  setHitAnimationContainer,
+} from "../../../ui/enemy";
 import { randomPos, transferToInteger } from "../../../util/calculate";
 import { enemyStore } from "../../../store/enemy";
 import { Position } from "../../..";
 import { player } from "../Player";
+import { storage } from "../../item/Storage";
+import { setAddGoldAnimation } from "../../../ui/item";
 
-export default class LowMonster extends MovingObject {
+export type EnemyType = "low" | "high";
+
+export default class Enemy extends MovingObject {
   public health: number = 50;
   public power: number = 10;
-  init(): void {
-    const { id } = this;
+  public type: EnemyType;
+
+  constructor(className: string, id: string, type: EnemyType) {
+    super(className, id);
     this.el!.id = id;
     this.el.classList.add("enemy");
-    const hitAnimationContainer = document.createElement("div");
-    hitAnimationContainer.id = `hit-animation-container-${id}`;
-    Object.assign(hitAnimationContainer.style, {
-      ...hitAnimationContainer.style,
-      position: "relative",
-      width: "100%",
-      height: "100%",
-    });
-    this.el.appendChild(hitAnimationContainer);
+    this.type = type;
+    setHitAnimationContainer(this.el);
     this.setPos({
       x: transferToInteger(Math.random() * randomPos().x),
       y: transferToInteger(Math.random() * randomPos().y),
@@ -50,7 +54,13 @@ export default class LowMonster extends MovingObject {
   }
 
   destroy(id?: string | undefined): void {
-    super.destroy();
+    storage.addGold(20);
+    setAddGoldAnimation(this.id, 20);
+    setDestoryAnimation(this.el);
+    setTimeout(() => {
+      super.destroy();
+    }, 1000);
+
     enemyStore.deleteEnemy(id!);
   }
 

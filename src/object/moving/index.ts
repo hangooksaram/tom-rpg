@@ -1,6 +1,5 @@
 import { Position, Speed, NextPosition } from "../..";
 import { mapsStore } from "../../store/maps";
-import { setHitAnimation } from "../../ui/movingObject";
 import { calcHypotenuse } from "../../util/calculate";
 export class MovingObject {
   public el: HTMLDivElement = document.createElement("div");
@@ -93,9 +92,7 @@ export class MovingObject {
       (Math.abs(nextY - this.position.y) / distance) * this.speed.value;
   }
 
-  hit(id?: string) {
-    setHitAnimation(this.el!);
-  }
+  hit(id?: string) {}
   destroy() {
     if (document.getElementById(this.id!))
       document.getElementById(mapsStore.currentMap!.id)!.removeChild(this.el!);

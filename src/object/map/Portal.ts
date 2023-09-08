@@ -3,7 +3,7 @@ import { MapDirection } from "../..";
 import { enemyStore } from "../../store/enemy";
 import { mapsStore } from "../../store/maps";
 import { gameUi } from "../../ui/game";
-import { createEnemyObject, deleteAllEnemies } from "../../util/object";
+import { createLowEnemyObject, deleteAllEnemies } from "../../util/object";
 
 export class Portal {
   public mapEl: HTMLDivElement;
@@ -66,7 +66,7 @@ export class Portal {
     }, 1000);
     if (createNew) {
       setInterval(() => {
-        createEnemyObject();
+        createLowEnemyObject();
       }, 50);
     }
     setTimeout(() => {

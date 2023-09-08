@@ -1,12 +1,12 @@
-import { Enemy, Position } from "../..";
+import { Position } from "../..";
 import { decreaseHPBar, setHitAnimation } from "../../ui/enemy";
 import { MovingObject } from ".";
 import { player } from "./Player";
 import { enemyStore } from "../../store/enemy";
-import LowMonster from "./enemy/LowMonster";
+import Enemy from "./enemy";
 
 export class Bullet extends MovingObject {
-  private targetEnemy: LowMonster | undefined = undefined;
+  private targetEnemy: Enemy | undefined = undefined;
   constructor(className: string, id: string, power: number) {
     super(className, id);
     this.power = power;

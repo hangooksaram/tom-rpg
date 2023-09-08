@@ -2,7 +2,7 @@ import Map from "./object/map";
 import { player } from "./object/moving/Player";
 import { mapsStore } from "./store/maps";
 import { gameUi } from "./ui/game";
-import { createEnemyObject } from "./util/object";
+import { createLowEnemyObject } from "./util/object";
 import { mapId } from "./util/generateRandomId";
 import { clickedTarget } from "./ui/clikedTarget";
 import { getPlayerData, savePlayerData } from "./util/data";
@@ -12,9 +12,9 @@ mapsStore.addMap(initialMap);
 mapsStore.setCurrentMap(initialMap.id);
 document.getElementById("save")?.addEventListener("click", savePlayerData);
 setInterval(() => {
-  createEnemyObject();
+  createLowEnemyObject();
 }, 50);
-//createEnemyObject();
+//createLowEnemyObject();
 player.init();
 
 document

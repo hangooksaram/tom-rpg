@@ -1,13 +1,11 @@
 import { Bullet } from "./Bullet";
 import { MovingObject } from ".";
-import { Enemy, Position } from "../..";
-import { playerUi } from "../../ui/player";
-import { gameUi } from "../../ui/game";
-import { showHitDamage } from "../../ui/movingObject";
+import { Position } from "../..";
 import { enemyStore } from "../../store/enemy";
-import LowMonster from "./enemy/LowMonster";
 import { mapsStore } from "../../store/maps";
 import { getPlayerData } from "../../util/data";
+import Enemy from "./enemy";
+import { setHitAnimation, setHpStatus, showHitDamage } from "../../ui/player";
 
 export default class Player extends MovingObject {
   private static instance: Player;
@@ -19,7 +17,7 @@ export default class Player extends MovingObject {
     return Player.instance;
   }
 
-  public adjacentEnemy: LowMonster | undefined = undefined;
+  public adjacentEnemy: Enemy | undefined = undefined;
   public maxHealth: number = 150;
   public health: number = 150;
   public power: number = 10;
@@ -37,7 +35,7 @@ export default class Player extends MovingObject {
   init(): void {
     this.getDataFromServer().then((player) => {
       this.health = player.health;
-      playerUi.setHpStatus();
+      setHpStatus();
       this.maxHealth = player.maxHealth;
     });
 
@@ -103,7 +101,8 @@ export default class Player extends MovingObject {
 
     this.health -= enemyPower;
 
-    playerUi.setHpStatus();
+    setHpStatus();
+    setHitAnimation(this.el);
     showHitDamage(this.el, enemyPower);
 
     setTimeout(() => {

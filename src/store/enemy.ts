@@ -1,10 +1,10 @@
 import { ObjectId } from "..";
 import { player } from "../object/moving/Player";
-import LowMonster from "../object/moving/enemy/LowMonster";
+import Enemy from "../object/moving/enemy";
 
 export class EnemyStore {
   private static instance: EnemyStore;
-  public enemies: LowMonster[] = [];
+  public enemies: Enemy[] = [];
   public static getInstance() {
     if (!EnemyStore.instance) {
       EnemyStore.instance = new EnemyStore();
@@ -16,7 +16,7 @@ export class EnemyStore {
     return this.enemies;
   }
 
-  addEnemy(enemyClass: LowMonster) {
+  addEnemy(enemyClass: Enemy) {
     this.enemies.push(enemyClass);
   }
 

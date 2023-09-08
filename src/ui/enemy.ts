@@ -18,20 +18,29 @@ export const initHPBar = (id: ObjectId) => {
 export const decreaseHPBar = (id: ObjectId) => {
   const enemy = enemyStore.enemiesList.find((e) => e.id === id);
   const hpBar = document.getElementById(`${id}-hp-bar`);
-
   hpBar!.style.width = `${enemy?.health}px`;
 };
 
 export const setHitAnimation = (id: string) => {
   const hitAnimation = document.createElement("div");
-
   hitAnimation.classList.add("bullet-hit");
-
-  const enemey = document
-    .getElementById(`hit-animation-container-${id}`)!
-    .appendChild(hitAnimation);
-
   setTimeout(() => {
     document.getElementById(id)?.removeChild(hitAnimation);
   }, 1000);
+};
+
+export const setDestoryAnimation = (el: HTMLDivElement) => {
+  el.classList.add("enemy-destroyed");
+};
+
+export const setHitAnimationContainer = (el: HTMLDivElement) => {
+  const hitAnimationContainer = document.createElement("div");
+  hitAnimationContainer.id = `hit-animation-container-${el!.id}`;
+  Object.assign(hitAnimationContainer.style, {
+    ...hitAnimationContainer.style,
+    position: "relative",
+    width: "100%",
+    height: "100%",
+  });
+  el.appendChild(hitAnimationContainer);
 };

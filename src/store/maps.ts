@@ -1,7 +1,4 @@
-import { ObjectId } from "..";
 import Map from "../object/map";
-import { player } from "../object/moving/Player";
-import LowMonster from "../object/moving/enemy/LowMonster";
 
 export class MapsStore {
   private static instance: MapsStore;

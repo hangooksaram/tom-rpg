@@ -1,27 +1,28 @@
-import { ObjectId } from "..";
 import { player } from "../object/moving/Player";
+export const setHpStatus = () => {
+  (document.getElementsByClassName(
+    "player-hp"
+  )[0] as HTMLDivElement)!.style.height = `${
+    (player.health / player.maxHealth) * 150
+  }px`;
+};
 
-export class PlayerUi {
-  private static instance: PlayerUi;
+export const setHitAnimation = (el: HTMLElement) => {
+  el.classList.add("hit");
 
-  public static getInstance() {
-    if (!PlayerUi.instance) {
-      PlayerUi.instance = new PlayerUi();
-    }
-    return PlayerUi.instance;
+  setTimeout(() => {
+    el.classList.remove("hit");
+  }, 1000);
+};
+
+export const showHitDamage = (el: HTMLElement, damage: number) => {
+  const damageEl = document.createElement("div");
+  if (el.id.includes("player")) {
+    damageEl.classList.add("player-hit-damage");
   }
-
-  setHpStatus() {
-    (document.getElementsByClassName(
-      "player-hp"
-    )[0] as HTMLDivElement)!.style.height = `${
-      (player.health / player.maxHealth) * 150
-    }px`;
-  }
-
-  hit() {}
-}
-
-const playerUi = PlayerUi.getInstance();
-
-export { playerUi };
+  damageEl.innerHTML = damage.toString();
+  el!.appendChild(damageEl);
+  setTimeout(() => {
+    el.removeChild(damageEl);
+  }, 1000);
+};

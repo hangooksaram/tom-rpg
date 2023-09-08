@@ -1,6 +1,6 @@
 import { player } from "../object/moving/Player";
 import { mapsStore } from "../store/maps";
-import { createEnemyObject, deleteAllEnemies } from "../util/object";
+import { createLowEnemyObject, deleteAllEnemies } from "../util/object";
 
 export class GameUi {
   private static instance: GameUi;
