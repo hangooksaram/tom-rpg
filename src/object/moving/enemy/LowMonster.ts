@@ -2,6 +2,8 @@ import { MovingObject } from "..";
 import { decreaseHPBar, initHPBar } from "../../../ui/enemy";
 import { randomPos, transferToInteger } from "../../../util/calculate";
 import { enemyStore } from "../../../store/enemy";
+import { Position } from "../../..";
+import { player } from "../Player";
 
 export default class LowMonster extends MovingObject {
   public health: number = 50;
@@ -50,5 +52,16 @@ export default class LowMonster extends MovingObject {
   destroy(id?: string | undefined): void {
     super.destroy();
     enemyStore.deleteEnemy(id!);
+  }
+
+  setPos({ x, y }: Position): void {
+    super.setPos({ x, y });
+    if (
+      Math.abs(this.position.x - player.position.x) < 30 &&
+      Math.abs(this.position.y - player.position.y) < 30
+    ) {
+      player.adjacentEnemy = this;
+      player.hit();
+    }
   }
 }

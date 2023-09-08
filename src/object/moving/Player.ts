@@ -19,7 +19,7 @@ export default class Player extends MovingObject {
     return Player.instance;
   }
 
-  private adjacentEnemy: LowMonster | undefined = undefined;
+  public adjacentEnemy: LowMonster | undefined = undefined;
   public maxHealth: number = 150;
   public health: number = 150;
   public power: number = 10;
