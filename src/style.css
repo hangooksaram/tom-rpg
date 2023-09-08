@@ -230,16 +230,16 @@
 }
 
 .portal.east {
-  top: 25%;
-  right: 10%;
+  top: 35%;
+  right: 5%;
 }
 .portal.south {
-  bottom: 40%;
+  bottom: 25%;
   right: 50%;
 }
 .portal.west {
-  top: 25%;
-  left: 10%;
+  top: 35%;
+  left: 5%;
 }
 
 #map-id {
