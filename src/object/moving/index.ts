@@ -17,9 +17,9 @@ export class MovingObject {
     this.el.id = id;
     this.el.classList.add(className);
 
-    if (document.readyState === "complete" && id !== "player") {
+    if (document.readyState === "complete") {
       document.getElementById(mapsStore.currentMap?.id!)!.appendChild(this.el);
-    } else document.getElementById("root")!.appendChild(this.el);
+    }
   }
 
   setPos({ x, y }: Position) {

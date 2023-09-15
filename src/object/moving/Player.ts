@@ -27,6 +27,11 @@ export default class Player extends MovingObject {
     x: 0,
     y: 0,
   };
+
+  constructor(className: string, id: string) {
+    super(className, id);
+    document.getElementById("root")!.appendChild(this.el);
+  }
   async getDataFromServer() {
     const { player } = await getPlayerData();
     return player;
