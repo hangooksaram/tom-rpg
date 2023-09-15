@@ -1,8 +1,9 @@
 import { MovingObject } from "..";
 import {
   decreaseHPBar,
-  initHPBar,
+  setHpBar,
   setDestoryAnimation,
+  setHitAnimation,
   setHitAnimationContainer,
 } from "../../../ui/enemy";
 import { randomPos, transferToInteger } from "../../../util/calculate";
@@ -30,7 +31,7 @@ export default class Enemy extends MovingObject {
       y: transferToInteger(Math.random() * randomPos().y),
     });
 
-    initHPBar(id);
+    setHpBar(id);
   }
 
   moveRandomly() {
@@ -43,23 +44,23 @@ export default class Enemy extends MovingObject {
   }
 
   hit(id: string) {
-    if (this.health > 10) {
-      this.health -= this.power;
-      decreaseHPBar(id);
-    } else {
+    if (this.health <= 0) {
       this.destroy(id);
+      return;
     }
 
-    return;
+    this.health -= this.power;
+    decreaseHPBar(id);
+    setHitAnimation(id);
   }
 
   destroy(id?: string | undefined): void {
     storage.addGold(20);
     setAddGoldAnimation(this.id, 20);
-    setDestoryAnimation(this.el);
+    // setDestoryAnimation(this.el);
     setTimeout(() => {
       super.destroy();
-    }, 1000);
+    }, 2000);
 
     enemyStore.deleteEnemy(id!);
   }

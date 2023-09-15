@@ -1,5 +1,4 @@
 import { Position } from "../..";
-import { decreaseHPBar, setHitAnimation } from "../../ui/enemy";
 import { MovingObject } from ".";
 import { player } from "./Player";
 import { enemyStore } from "../../store/enemy";
@@ -28,17 +27,8 @@ export class Bullet extends MovingObject {
 
   hit(id: string) {
     this.destroy();
-
     this.isHit = true;
-
-    if (this.targetEnemy!.health > 10) {
-      this.targetEnemy!.hit(id);
-
-      decreaseHPBar(id);
-      setHitAnimation(id);
-    } else {
-      this.targetEnemy!.destroy(id);
-    }
+    this.targetEnemy!.hit(id);
     this.targetEnemy = undefined;
 
     return;
