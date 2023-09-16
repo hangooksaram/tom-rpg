@@ -11,6 +11,11 @@ const initialMap = new Map(mapId());
 mapsStore.addMap(initialMap);
 mapsStore.setCurrentMap(initialMap.id);
 document.getElementById("save")?.addEventListener("click", savePlayerData);
+document
+  .getElementById("inventory-toggle-btn")
+  ?.addEventListener("click", () => {
+    gameUi.toggleInventory();
+  });
 setInterval(() => {
   createLowEnemyObject();
 }, 50);

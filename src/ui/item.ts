@@ -1,3 +1,5 @@
+import { inventory } from "../object/inventory";
+
 export const setAddGoldAnimation = (id: string, gold: number) => {
   const goldEl = document.createElement("div");
   goldEl.innerHTML = `+ ${gold}`;
@@ -8,4 +10,6 @@ export const setAddGoldAnimation = (id: string, gold: number) => {
   setTimeout(() => {
     el.removeChild(goldEl);
   }, 1000);
+
+  document.getElementById("gold")!.innerHTML = `${inventory.gold}G`;
 };

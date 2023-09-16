@@ -346,7 +346,8 @@
   }
 }
 
-#save {
+#save-btn,
+#inventory-toggle-btn {
   position: fixed;
   top: 40px;
   right: 40px;
@@ -355,6 +356,37 @@
   width: 70px;
   height: 40px;
   border-radius: 25px;
+}
+
+#inventory-toggle-btn {
+  right: 120px;
+  width: 90px;
+}
+
+#inventory {
+  position: fixed;
+  background-color: white;
+  top: 100px;
+  right: 120px;
+  width: 200px;
+  height: 300px;
+  padding: 24px;
+}
+
+#inventory-container {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  justify-content: space-between;
+  height: 100%;
+}
+
+#gold-container {
+  display: flex;
+}
+
+#gold {
+  margin-left: 16px;
 }
 
 .bullet-hit {

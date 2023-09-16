@@ -3,7 +3,7 @@ import { randomPos, transferToInteger } from "../../../util/calculate";
 import { enemyStore } from "../../../store/enemy";
 import { Position } from "../../..";
 import { player } from "../Player";
-import { storage } from "../../item/Storage";
+import { inventory } from "../../inventory";
 import { setAddGoldAnimation } from "../../../ui/item";
 import { EnemyUi } from "../../../ui/enemy";
 
@@ -52,7 +52,7 @@ export default class Enemy extends MovingObject {
   }
 
   destroy(id?: string | undefined): void {
-    storage.addGold(20);
+    inventory.addGold(20);
     setAddGoldAnimation(this.id, 20);
     this.ui.setDestoryAnimation();
     setTimeout(() => {

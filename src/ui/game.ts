@@ -11,6 +11,10 @@ export class GameUi {
     }
     return GameUi.instance;
   }
+
+  toggleInventory() {
+    document.getElementById("inventory")?.classList.toggle("hidden");
+  }
 }
 
 const gameUi = GameUi.getInstance();
