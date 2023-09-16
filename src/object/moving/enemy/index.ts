@@ -1,17 +1,11 @@
 import { MovingObject } from "..";
-import {
-  decreaseHPBar,
-  setHpBar,
-  setDestoryAnimation,
-  setHitAnimation,
-  setHitAnimationContainer,
-} from "../../../ui/enemy";
 import { randomPos, transferToInteger } from "../../../util/calculate";
 import { enemyStore } from "../../../store/enemy";
 import { Position } from "../../..";
 import { player } from "../Player";
 import { storage } from "../../item/Storage";
 import { setAddGoldAnimation } from "../../../ui/item";
+import { EnemyUi } from "../../../ui/enemy";
 
 export type EnemyType = "low" | "high";
 
@@ -19,19 +13,22 @@ export default class Enemy extends MovingObject {
   public health: number = 50;
   public power: number = 10;
   public type: EnemyType;
+  public ui: EnemyUi = new EnemyUi(this.el);
 
   constructor(className: string, id: string, type: EnemyType) {
     super(className, id);
     this.el!.id = id;
+
     this.el.classList.add("enemy");
     this.type = type;
-    setHitAnimationContainer(this.el);
+
+    this.ui.setHitAnimationContainer();
     this.setPos({
       x: transferToInteger(Math.random() * randomPos().x),
       y: transferToInteger(Math.random() * randomPos().y),
     });
 
-    setHpBar(id);
+    this.ui.setHpBar(this.health);
   }
 
   moveRandomly() {
@@ -44,23 +41,23 @@ export default class Enemy extends MovingObject {
   }
 
   hit(id: string) {
-    if (this.health <= 0) {
+    this.health -= this.power;
+    this.ui.decreaseHPBar(this.health);
+    if (this.health === 0) {
       this.destroy(id);
       return;
     }
 
-    this.health -= this.power;
-    decreaseHPBar(id);
-    setHitAnimation(id);
+    this.ui.setHitAnimation();
   }
 
   destroy(id?: string | undefined): void {
     storage.addGold(20);
     setAddGoldAnimation(this.id, 20);
-    // setDestoryAnimation(this.el);
+    this.ui.setDestoryAnimation();
     setTimeout(() => {
       super.destroy();
-    }, 2000);
+    }, 1000);
 
     enemyStore.deleteEnemy(id!);
   }
