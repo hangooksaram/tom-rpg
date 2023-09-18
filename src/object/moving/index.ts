@@ -10,7 +10,6 @@ export class MovingObject {
   public health: number = 100;
   public power: number = 0;
   public isHit: boolean = false;
-  public isMoving: boolean = false;
 
   constructor(className: string, id: string) {
     this.id = id;
@@ -92,7 +91,9 @@ export class MovingObject {
       (Math.abs(nextY - this.position.y) / distance) * this.speed.value;
   }
 
-  hit(id?: string) {}
+  hit(power: number) {
+    this.health -= power;
+  }
   destroy() {
     if (document.getElementById(this.id!))
       document.getElementById(mapsStore.currentMap!.id)!.removeChild(this.el!);

@@ -9,6 +9,9 @@ import { setHitAnimation, setHpStatus, showHitDamage } from "../../ui/player";
 
 export default class Player extends MovingObject {
   private static instance: Player;
+  public maxHealth: number;
+  public mana: number;
+  public maxMana: number;
 
   public static getInstance() {
     if (!Player.instance) {
@@ -18,12 +21,7 @@ export default class Player extends MovingObject {
   }
 
   public adjacentEnemy: Enemy | undefined = undefined;
-  public maxHealth: number = 150;
-  public health: number = 150;
-  public power: number = 10;
-  public maxMana: number = 100;
-  public mana: number = 100;
-  private cursorPosition: Position = {
+  #cursorPosition: Position = {
     x: 0,
     y: 0,
   };
@@ -31,6 +29,11 @@ export default class Player extends MovingObject {
   constructor(className: string, id: string) {
     super(className, id);
     document.getElementById("root")!.appendChild(this.el);
+    this.maxHealth = 150;
+    this.health = 150;
+    this.power = 10;
+    this.maxMana = 100;
+    this.mana = 100;
   }
   async getDataFromServer() {
     const { player } = await getPlayerData();
@@ -46,8 +49,8 @@ export default class Player extends MovingObject {
 
     this.setPos({ x: 0, y: 0 });
     document.body.onmousemove = (event) => {
-      this.cursorPosition.x = event.clientX;
-      this.cursorPosition.y = event.clientY;
+      this.#cursorPosition.x = event.clientX;
+      this.#cursorPosition.y = event.clientY;
     };
   }
   attack() {
@@ -57,16 +60,16 @@ export default class Player extends MovingObject {
       this.power
     );
     this.el.classList.add("attack");
-    if (this.position.x < this.cursorPosition.x) {
+    if (this.position.x < this.#cursorPosition.x) {
       this.el.classList.add("reverse-direction");
     }
 
-    if (this.position.x > this.cursorPosition.x) {
+    if (this.position.x > this.#cursorPosition.x) {
       this.el.classList.remove("reverse-direction");
     }
     bullet.init();
     setTimeout(() => {
-      bullet.move(this.cursorPosition.x, this.cursorPosition.y);
+      bullet.move(this.#cursorPosition.x, this.#cursorPosition.y);
     }, 100);
 
     setTimeout(() => {
@@ -91,7 +94,7 @@ export default class Player extends MovingObject {
 
   setPos({ x, y }: Position): void {
     super.setPos({ x, y });
-    this.findadjacentEnemy();
+    this.findAdjacentEnemy();
 
     if (this.adjacentEnemy && !this.isHit) {
       this.hit();
@@ -100,15 +103,13 @@ export default class Player extends MovingObject {
   }
 
   hit() {
-    super.hit();
+    const { power } = this.adjacentEnemy!;
+    super.hit(power);
     this.isHit = true;
-    const enemyPower = this.adjacentEnemy!.power;
-
-    this.health -= enemyPower;
 
     setHpStatus();
     setHitAnimation(this.el);
-    showHitDamage(this.el, enemyPower);
+    showHitDamage(this.el, power);
 
     setTimeout(() => {
       this.isHit = false;
@@ -117,7 +118,7 @@ export default class Player extends MovingObject {
     return;
   }
 
-  findadjacentEnemy() {
+  findAdjacentEnemy() {
     this.adjacentEnemy = enemyStore.enemiesList.find(
       (e) =>
         Math.abs(e.position.x - this.position.x) < 30 &&

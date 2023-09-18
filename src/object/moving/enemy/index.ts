@@ -11,24 +11,23 @@ export type EnemyType = "low" | "high";
 
 export default class Enemy extends MovingObject {
   public health: number = 50;
-  public power: number = 10;
-  public type: EnemyType;
-  public ui: EnemyUi = new EnemyUi(this.el);
+  #type: EnemyType;
+  #ui: EnemyUi = new EnemyUi(this.el);
 
   constructor(className: string, id: string, type: EnemyType) {
     super(className, id);
     this.el!.id = id;
 
     this.el.classList.add("enemy");
-    this.type = type;
+    this.#type = type;
 
-    this.ui.setHitAnimationContainer();
+    this.#ui.setHitAnimationContainer();
     this.setPos({
       x: transferToInteger(Math.random() * randomPos().x),
       y: transferToInteger(Math.random() * randomPos().y),
     });
 
-    this.ui.setHpBar(this.health);
+    this.#ui.setHpBar(this.health);
   }
 
   moveRandomly() {
@@ -40,26 +39,26 @@ export default class Enemy extends MovingObject {
     }, 10000);
   }
 
-  hit(id: string) {
-    this.health -= this.power;
-    this.ui.decreaseHPBar(this.health);
+  hit(power: number) {
+    super.hit(power);
+    this.#ui.decreaseHPBar(this.health);
     if (this.health === 0) {
-      this.destroy(id);
+      this.destroy();
       return;
     }
 
-    this.ui.setHitAnimation();
+    this.#ui.setHitAnimation();
   }
 
-  destroy(id?: string | undefined): void {
+  destroy(): void {
     inventory.addGold(20);
     setAddGoldAnimation(this.id, 20);
-    this.ui.setDestoryAnimation();
+    this.#ui.setDestoryAnimation();
     setTimeout(() => {
       super.destroy();
     }, 1000);
 
-    enemyStore.deleteEnemy(id!);
+    enemyStore.deleteEnemy(this.id!);
   }
 
   setPos({ x, y }: Position): void {

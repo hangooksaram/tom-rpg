@@ -5,7 +5,7 @@ import { enemyStore } from "../../store/enemy";
 import Enemy from "./enemy";
 
 export class Bullet extends MovingObject {
-  private targetEnemy: Enemy | undefined = undefined;
+  #targetEnemy: Enemy | undefined = undefined;
   constructor(className: string, id: string, power: number) {
     super(className, id);
     this.power = power;
@@ -19,23 +19,23 @@ export class Bullet extends MovingObject {
     super.setPos(position);
     this.findTargetEnemy();
 
-    if (this.targetEnemy && !this.isHit) {
-      this.hit(this.targetEnemy.id);
+    if (this.#targetEnemy && !this.isHit) {
+      this.#hitEnemy();
       return;
     }
   }
 
-  hit(id: string) {
+  #hitEnemy() {
     this.destroy();
     this.isHit = true;
-    this.targetEnemy!.hit(id);
-    this.targetEnemy = undefined;
+    this.#targetEnemy!.hit(this.power);
+    this.#targetEnemy = undefined;
 
     return;
   }
 
   findTargetEnemy() {
-    this.targetEnemy = enemyStore.enemiesList.find(
+    this.#targetEnemy = enemyStore.enemiesList.find(
       (e) =>
         Math.abs(e.position.x - this.position.x) < 30 &&
         Math.abs(e.position.y - this.position.y) < 30
@@ -43,8 +43,8 @@ export class Bullet extends MovingObject {
   }
 
   transfer() {
-    const { nextX, nextY } = this.nextPosition!;
     super.transfer();
+    const { nextX, nextY } = this.nextPosition!;
     if (
       Math.abs(nextX - this.position.x) < 10 &&
       Math.abs(nextY - this.position.y) < 10
