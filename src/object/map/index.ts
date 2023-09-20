@@ -1,8 +1,7 @@
-import { MapDirection } from "../..";
 import { mapsStore } from "../../store/maps";
-import { clickedTarget } from "../../ui/clikedTarget";
 import { mapId } from "../../util/generateRandomId";
-import { player } from "../moving/Player";
+import { player } from "../moving/player/Player";
+import { setClickTargetAnimation } from "../moving/player/animation";
 import { Portal } from "./Portal";
 
 const rootMap = document.getElementById("map-container")!;
@@ -42,7 +41,7 @@ export default class Map {
     document.getElementById(this.id)!.addEventListener("mousedown", (e) => {
       if (!mapsStore.isChanging) {
         player.move(e.clientX, e.clientY);
-        clickedTarget({ x: e.clientX, y: e.clientY });
+        setClickTargetAnimation({ x: e.clientX, y: e.clientY });
       }
     });
     this.createPortal();

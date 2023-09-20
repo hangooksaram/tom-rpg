@@ -1,8 +1,8 @@
-import { Position } from "../..";
-import { MovingObject } from ".";
-import { player } from "./Player";
-import { enemyStore } from "../../store/enemy";
-import Enemy from "./enemy";
+import { Position } from "../../..";
+import { MovingObject } from "..";
+import { player } from "../player/Player";
+import { enemyStore } from "../../../store/enemy";
+import Enemy from "../enemy/Enemy";
 
 export class Bullet extends MovingObject {
   #targetEnemy: Enemy | undefined = undefined;

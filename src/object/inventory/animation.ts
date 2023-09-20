@@ -1,4 +1,4 @@
-import { inventory } from "../object/inventory";
+import { inventory } from "./Inventory";
 
 export const setAddGoldAnimation = (id: string, gold: number) => {
   const goldEl = document.createElement("div");
@@ -12,4 +12,8 @@ export const setAddGoldAnimation = (id: string, gold: number) => {
   }, 1000);
 
   document.getElementById("gold")!.innerHTML = `${inventory.gold}G`;
+};
+
+export const toggleInventory = () => {
+  document.getElementById("inventory")?.classList.toggle("hidden");
 };

@@ -1,11 +1,12 @@
 import { MovingObject } from "..";
-import { randomPos, transferToInteger } from "../../../util/calculate";
-import { enemyStore } from "../../../store/enemy";
 import { Position } from "../../..";
-import { player } from "../Player";
-import { inventory } from "../../inventory";
-import { setAddGoldAnimation } from "../../../ui/item";
-import { EnemyUi } from "../../../ui/enemy";
+import { enemyStore } from "../../../store/enemy";
+
+import { randomPos, transferToInteger } from "../../../util/calculate";
+import { inventory } from "../../inventory/Inventory";
+import { setAddGoldAnimation } from "../../inventory/animation";
+import { player } from "../player/Player";
+import { EnemyUi } from "./animation";
 
 export type EnemyType = "low" | "high";
 

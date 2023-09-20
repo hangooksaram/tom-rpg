@@ -1,5 +1,4 @@
 import { mapsStore } from "../store/maps";
-import { gameUi } from "../ui/game";
 
 const calcHypotenuse = (
   currentX: number,

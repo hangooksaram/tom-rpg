@@ -1,4 +1,4 @@
-import Enemy from "../object/moving/enemy";
+import Enemy from "../object/moving/enemy/Enemy";
 import { enemyStore } from "../store/enemy";
 import { mapsStore } from "../store/maps";
 

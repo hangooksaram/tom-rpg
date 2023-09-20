@@ -1,11 +1,12 @@
-import { Bullet } from "./Bullet";
-import { MovingObject } from ".";
-import { Position } from "../..";
-import { enemyStore } from "../../store/enemy";
-import { mapsStore } from "../../store/maps";
-import { getPlayerData } from "../../util/data";
-import Enemy from "./enemy";
-import { setHitAnimation, setHpStatus, showHitDamage } from "../../ui/player";
+import { Bullet } from "../bullet/Bullet";
+import { MovingObject } from "..";
+import { Position } from "../../..";
+import { enemyStore } from "../../../store/enemy";
+import { mapsStore } from "../../../store/maps";
+import { getPlayerData } from "../../../server/data";
+import Enemy from "../enemy/Enemy";
+import { setHitAnimation, setHpStatus, showHitDamage } from "./animation";
+import { addPlayerAttackEvent, addPlayerMoveEvent } from "../../../util";
 
 export default class Player extends MovingObject {
   private static instance: Player;

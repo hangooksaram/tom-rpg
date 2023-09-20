@@ -1,6 +1,3 @@
-import { ObjectId } from "..";
-import { enemyStore } from "../store/enemy";
-
 export class EnemyUi {
   public el: HTMLDivElement;
 

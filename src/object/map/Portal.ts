@@ -2,7 +2,6 @@ import Map from ".";
 import { MapDirection } from "../..";
 import { enemyStore } from "../../store/enemy";
 import { mapsStore } from "../../store/maps";
-import { gameUi } from "../../ui/game";
 import { createLowEnemyObject, deleteAllEnemies } from "../../util/object";
 
 export class Portal {
