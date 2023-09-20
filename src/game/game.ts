@@ -1,7 +1,8 @@
+import { inventory } from "../object/inventory/Inventory";
 import Map from "../object/map";
 import { player } from "../object/moving/player/Player";
 import { mapsStore } from "../store/maps";
-import { addPlayerAttackEvent, addPlayerMoveEvent } from "../util";
+import { eventListeners } from "../util";
 import { mapId } from "../util/generateRandomId";
 import { createLowEnemyObject } from "../util/object";
 
@@ -13,8 +14,9 @@ export class Game {
     mapsStore.addMap(initialMap);
     mapsStore.setCurrentMap(initialMap.id);
     player.init();
-    addPlayerAttackEvent();
-    addPlayerMoveEvent();
+    player.initializeData();
+    inventory.initializeData();
+    eventListeners.forEach((fn) => fn());
     setInterval(() => {
       createLowEnemyObject();
     }, 50);

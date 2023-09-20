@@ -1,14 +1,15 @@
 import { toggleInventory } from "../object/inventory/animation";
 import { player } from "../object/moving/player/Player";
 import { setClickTargetAnimation } from "../object/moving/player/animation";
-import { savePlayerData } from "../server/data";
+import { server } from "../server/server";
 import { mapsStore } from "../store/maps";
-import { createLowEnemyObject } from "./object";
 
-export const addSaveDataEvent = () => {
-  document.getElementById("save")?.addEventListener("click", savePlayerData);
+const addSaveDataEvent = () => {
+  document
+    .getElementById("save-btn")
+    ?.addEventListener("click", () => server.saveData());
 };
-export const addInventoryToggleEvent = () => {
+const addInventoryToggleEvent = () => {
   document
     .getElementById("inventory-toggle-btn")
     ?.addEventListener("click", () => {
@@ -16,7 +17,7 @@ export const addInventoryToggleEvent = () => {
     });
 };
 
-export const addPlayerMoveEvent = () => {
+const addPlayerMoveEvent = () => {
   document
     .getElementById(mapsStore.currentMap?.id!)!
     .addEventListener("mousedown", (e) => {
@@ -26,10 +27,17 @@ export const addPlayerMoveEvent = () => {
       }
     });
 };
-export const addPlayerAttackEvent = () => {
+const addPlayerAttackEvent = () => {
   document.addEventListener("keydown", (e) => {
     if (e.key.toLowerCase() === "a" || e.key === "ㅁ") {
       player.attack();
     }
   });
 };
+
+export const eventListeners = [
+  addSaveDataEvent,
+  addInventoryToggleEvent,
+  addPlayerMoveEvent,
+  addPlayerAttackEvent,
+];

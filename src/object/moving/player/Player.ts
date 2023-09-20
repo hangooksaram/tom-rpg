@@ -3,9 +3,10 @@ import { MovingObject } from "..";
 import { Position } from "../../..";
 import { enemyStore } from "../../../store/enemy";
 import { mapsStore } from "../../../store/maps";
-import { getPlayerData } from "../../../server/data";
+
 import Enemy from "../enemy/Enemy";
 import { PlayerUi } from "./animation";
+import { server } from "../../../server/server";
 
 export default class Player extends MovingObject {
   private static instance: Player;
@@ -36,18 +37,17 @@ export default class Player extends MovingObject {
     this.maxMana = 100;
     this.mana = 100;
   }
-  async getDataFromServer() {
-    const { player } = await getPlayerData();
-    return player;
+
+  async initializeData() {
+    const res = await server.getServerData();
+    if (typeof res !== "string") {
+      this.health = res.player.health;
+      this.maxHealth = res.player.maxHealth;
+      this.#ui.setHpStatus();
+    }
   }
 
   init(): void {
-    this.getDataFromServer().then((player) => {
-      this.health = player.health;
-      this.#ui.setHpStatus();
-      this.maxHealth = player.maxHealth;
-    });
-
     this.setPos({ x: 0, y: 0 });
     document.body.onmousemove = (event) => {
       this.#cursorPosition.x = event.clientX;
