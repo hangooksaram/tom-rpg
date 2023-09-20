@@ -5,14 +5,14 @@ import { enemyStore } from "../../../store/enemy";
 import { mapsStore } from "../../../store/maps";
 import { getPlayerData } from "../../../server/data";
 import Enemy from "../enemy/Enemy";
-import { setHitAnimation, setHpStatus, showHitDamage } from "./animation";
-import { addPlayerAttackEvent, addPlayerMoveEvent } from "../../../util";
+import { PlayerUi } from "./animation";
 
 export default class Player extends MovingObject {
   private static instance: Player;
   public maxHealth: number;
   public mana: number;
   public maxMana: number;
+  #ui: PlayerUi = new PlayerUi(this.el);
 
   public static getInstance() {
     if (!Player.instance) {
@@ -44,7 +44,7 @@ export default class Player extends MovingObject {
   init(): void {
     this.getDataFromServer().then((player) => {
       this.health = player.health;
-      setHpStatus();
+      this.#ui.setHpStatus();
       this.maxHealth = player.maxHealth;
     });
 
@@ -108,9 +108,9 @@ export default class Player extends MovingObject {
     super.hit(power);
     this.isHit = true;
 
-    setHpStatus();
-    setHitAnimation(this.el);
-    showHitDamage(this.el, power);
+    this.#ui.setHpStatus();
+    this.#ui.setHitAnimation();
+    this.#ui.showHitDamage(power);
 
     setTimeout(() => {
       this.isHit = false;
