@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-
+import { GoogleAuthProvider } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyAJOnRSM91EGjZ5mE4MTifMvgETiMRy9Qc",
   authDomain: "tom-rpg-db.firebaseapp.com",
@@ -10,4 +10,6 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
+
+export const provider = new GoogleAuthProvider();

@@ -1,11 +1,9 @@
 body,
 html,
-#root {
+#root,
+#landing {
   margin: 0px;
   /* background-image: url("./public/images/map.png"); */
   background-repeat: repeat;
-}
-
-#root {
-  display: flex;
+  height: 100%;
 }

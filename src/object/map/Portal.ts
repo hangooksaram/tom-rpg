@@ -2,7 +2,7 @@ import Map from ".";
 import { MapDirection } from "../..";
 import { enemyStore } from "../../store/enemy";
 import { mapsStore } from "../../store/maps";
-import { createLowEnemyObject, deleteAllEnemies } from "../../util/object";
+import { createEnemies, deleteAllEnemies } from "../../util/object";
 
 export class Portal {
   public mapEl: HTMLDivElement;
@@ -64,9 +64,7 @@ export class Portal {
       mapsStore.isChanging = false;
     }, 1000);
     if (createNew) {
-      setInterval(() => {
-        createLowEnemyObject();
-      }, 50);
+      createEnemies("low");
     }
     setTimeout(() => {
       console.log(enemyStore.enemies);

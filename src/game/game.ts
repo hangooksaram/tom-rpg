@@ -4,11 +4,12 @@ import { player } from "../object/moving/player/Player";
 import { mapsStore } from "../store/maps";
 import { eventListeners } from "../util";
 import { mapId } from "../util/generateRandomId";
-import { createLowEnemyObject } from "../util/object";
+import { createEnemies } from "../util/object";
 
 export class Game {
   private static instance: Game;
-
+  private landingEl: HTMLElement = document.getElementById("landing")!;
+  private gameEl: HTMLElement = document.getElementById("root")!;
   public initialize() {
     const initialMap = new Map(mapId());
     mapsStore.addMap(initialMap);
@@ -17,9 +18,9 @@ export class Game {
     player.initializeData();
     inventory.initializeData();
     eventListeners.forEach((fn) => fn());
-    setInterval(() => {
-      createLowEnemyObject();
-    }, 50);
+
+    createEnemies("low");
+    this.showLandingScreen();
   }
 
   public static getInstance() {
@@ -27,6 +28,10 @@ export class Game {
       Game.instance = new Game();
     }
     return Game.instance;
+  }
+
+  public showLandingScreen() {
+    this.gameEl.classList.add("hidden");
   }
 }
 

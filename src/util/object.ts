@@ -1,17 +1,35 @@
-import Enemy from "../object/moving/enemy/Enemy";
+import Enemy, { EnemyType } from "../object/moving/enemy/Enemy";
 import { enemyStore } from "../store/enemy";
 import { mapsStore } from "../store/maps";
 
-export const createLowEnemyObject = () => {
-  if (enemyStore.enemiesList.length < 10) {
-    const lowEnemy = new Enemy(
-      "low-enemy",
-      `low-enemy-${new Date().toISOString()}`,
-      "low"
-    );
-    enemyStore.addEnemy(lowEnemy);
-    lowEnemy.moveRandomly();
-  }
+export const createEnemies = (type: EnemyType) => {
+  const repeater = setInterval(() => {
+    if (enemyStore.enemiesList.length === 10) {
+      return;
+    }
+
+    createEnemy(type);
+  }, 50);
+};
+
+export const reaeatCreateEnemy = (type: EnemyType) => {
+  const repeater = setInterval(() => {
+    if (enemyStore.enemiesList.length === 10) {
+      clearInterval(repeater);
+      return;
+    }
+
+    createEnemy(type);
+  }, 50);
+};
+
+export const createEnemy = (type: EnemyType) => {
+  const enemy = new Enemy(
+    `${type}-enemy`,
+    `${type}-enemy-${new Date().toISOString()}`,
+    type
+  );
+  enemyStore.addEnemy(enemy);
 };
 
 export const deleteAllEnemies = () => {

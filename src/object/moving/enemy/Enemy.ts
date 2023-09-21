@@ -1,5 +1,5 @@
 import { MovingObject } from "..";
-import { Position } from "../../..";
+import { NextPosition, Position } from "../../..";
 import { enemyStore } from "../../../store/enemy";
 
 import { randomPos, transferToInteger } from "../../../util/calculate";
@@ -21,6 +21,7 @@ export default class Enemy extends MovingObject {
 
     this.el.classList.add("enemy");
     this.#type = type;
+    if (type === "low") this.power = 20;
 
     this.#ui.setHitAnimationContainer();
     this.setPos({
@@ -29,9 +30,10 @@ export default class Enemy extends MovingObject {
     });
 
     this.#ui.setHpBar(this.health);
+    this.#moveRandomly();
   }
 
-  moveRandomly() {
+  #moveRandomly() {
     setInterval(() => {
       this.move(
         transferToInteger(Math.random() * randomPos().x),

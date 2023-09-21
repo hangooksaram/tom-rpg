@@ -15,7 +15,7 @@ export class MovingObject {
     this.id = id;
     this.el.id = id;
     this.el.classList.add(className);
-
+    console.log(document.readyState);
     if (document.readyState === "complete") {
       document.getElementById(mapsStore.currentMap?.id!)!.appendChild(this.el);
     }
