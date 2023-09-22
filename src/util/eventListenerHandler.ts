@@ -1,3 +1,4 @@
+import { auth } from "../auth/Auth";
 import { toggleInventory } from "../object/inventory/animation";
 import { player } from "../object/moving/player/Player";
 import { setClickTargetAnimation } from "../object/moving/player/animation";
@@ -35,9 +36,23 @@ const addPlayerAttackEvent = () => {
   });
 };
 
+const addSignInEvent = () => {
+  document.getElementById("signin-button")!.addEventListener("click", () => {
+    auth.signIn();
+  });
+};
+
+const addSignOutEvent = () => {
+  document.getElementById("signout-button")!.addEventListener("click", () => {
+    auth.signOutFn();
+  });
+};
+
 export const eventListeners = [
   addSaveDataEvent,
   addInventoryToggleEvent,
   addPlayerMoveEvent,
   addPlayerAttackEvent,
+  addSignInEvent,
+  addSignOutEvent,
 ];

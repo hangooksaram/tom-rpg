@@ -1,3 +1,5 @@
+import { User } from "firebase/auth";
+import { auth } from "../auth/Auth";
 import { inventory } from "../object/inventory/Inventory";
 import Map from "../object/map";
 import { player } from "../object/moving/player/Player";
@@ -10,6 +12,7 @@ export class Game {
   private static instance: Game;
   private landingEl: HTMLElement = document.getElementById("landing")!;
   private gameEl: HTMLElement = document.getElementById("root")!;
+
   public initialize() {
     const initialMap = new Map(mapId());
     mapsStore.addMap(initialMap);
@@ -32,6 +35,17 @@ export class Game {
 
   public showLandingScreen() {
     this.gameEl.classList.add("hidden");
+  }
+
+  public setLandingScreen(user: User | null) {
+    if (auth.user) {
+      document.getElementById("signin-button")?.classList.add("hidden");
+      document.getElementById(
+        "welcome-user"
+      )!.innerHTML = `${auth.user.email} 님 다시 만나게되어 반갑습니다`;
+    } else {
+      document.getElementById("welcome-user")?.classList.add("hidden");
+    }
   }
 }
 

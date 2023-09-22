@@ -6,7 +6,6 @@ export const setAddGoldAnimation = (id: string, gold: number) => {
   goldEl.classList.add("add-gold");
   const el = document.getElementById(`hit-animation-container-${id}`)!;
   el.appendChild(goldEl);
-  console.log(el);
   setTimeout(() => {
     el.removeChild(goldEl);
   }, 1000);

@@ -66,9 +66,6 @@ export class Portal {
     if (createNew) {
       createEnemies("low");
     }
-    setTimeout(() => {
-      console.log(enemyStore.enemies);
-    }, 1000);
 
     document.getElementById(this.currentMapId)!.style.display = "none";
     document.getElementById(this.nextMapId)!.style.display = "block";

@@ -7,6 +7,7 @@ import {
   User,
 } from "firebase/auth";
 import { app, provider } from "../server/firebase";
+import { game } from "../game/game";
 
 export class Auth {
   private static instance: Auth;
@@ -22,6 +23,7 @@ export class Auth {
 
   constructor() {
     this.#auth = getAuth(app);
+    this.initialize();
   }
   get user() {
     return this.#user;
@@ -30,18 +32,17 @@ export class Auth {
     onAuthStateChanged(this.#auth, (user) => {
       if (user) {
         this.#user = user;
-      } else {
       }
+      game.setLandingScreen(user);
     });
   }
+
   signIn() {
     signInWithPopup(this.#auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result)!;
         const token = credential.accessToken;
         const user = result.user;
-
-        console.log(user);
       })
       .catch((error) => {
         // Handle Errors here.
