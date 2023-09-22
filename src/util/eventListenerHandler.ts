@@ -43,11 +43,11 @@ const addSignInEvent = () => {
   });
 };
 
-// const addSignOutEvent = () => {
-//   document.getElementById("signout-button")!.addEventListener("click", () => {
-//     auth.signOutFn();
-//   });
-// };
+const addSignOutEvent = () => {
+  document.getElementById("signout-button")!.addEventListener("click", () => {
+    auth.signOutFn();
+  });
+};
 
 const addEnterGameEvent = () => {
   document
@@ -63,6 +63,6 @@ export const eventListeners = [
   addPlayerMoveEvent,
   addPlayerAttackEvent,
   addSignInEvent,
-  // addSignOutEvent,
+  addSignOutEvent,
   addEnterGameEvent,
 ];
