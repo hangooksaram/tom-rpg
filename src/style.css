@@ -1,4 +1,20 @@
-#landing {
+.hidden {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.not-visible {
+  opacity: 0;
+}
+
+.splash-screen {
+  animation: fade-out 4s ease-out forwards;
+}
+
+.landing {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -305,14 +321,6 @@
     opacity: 0;
     visibility: none;
   }
-}
-
-.hidden {
-  display: none;
-}
-
-.show {
-  display: block;
 }
 
 .clicked {

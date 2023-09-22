@@ -15,15 +15,14 @@ export class Game {
 
   public initialize() {
     const initialMap = new Map(mapId());
+
     mapsStore.addMap(initialMap);
     mapsStore.setCurrentMap(initialMap.id);
     player.init();
-    player.initializeData();
-    inventory.initializeData();
+
     eventListeners.forEach((fn) => fn());
 
     createEnemies("low");
-    this.showLandingScreen();
   }
 
   public static getInstance() {
@@ -33,18 +32,26 @@ export class Game {
     return Game.instance;
   }
 
-  public showLandingScreen() {
-    this.gameEl.classList.add("hidden");
+  public enterGame() {
+    this.landingEl.classList.add("splash-screen");
+    setTimeout(() => {
+      this.landingEl.classList.add("hidden");
+      this.gameEl.classList.remove("not-visible");
+    }, 4000);
+    player.initializeData();
+    inventory.initializeData();
   }
 
-  public setLandingScreen(user: User | null) {
+  public setLandingScreen() {
     if (auth.user) {
       document.getElementById("signin-button")?.classList.add("hidden");
       document.getElementById(
         "welcome-user"
       )!.innerHTML = `${auth.user.email} 님 다시 만나게되어 반갑습니다`;
+      document.getElementById("enter-game-button")!.innerHTML = "이어하기";
     } else {
       document.getElementById("welcome-user")?.classList.add("hidden");
+      document.getElementById("enter-game-button")!.classList.add("hidden");
     }
   }
 }

@@ -8,6 +8,7 @@ import {
 } from "firebase/auth";
 import { app, provider } from "../server/firebase";
 import { game } from "../game/game";
+import { http } from "../server/http";
 
 export class Auth {
   private static instance: Auth;
@@ -33,16 +34,20 @@ export class Auth {
       if (user) {
         this.#user = user;
       }
-      game.setLandingScreen(user);
+      game.setLandingScreen();
     });
   }
 
   signIn() {
     signInWithPopup(this.#auth, provider)
       .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result)!;
-        const token = credential.accessToken;
         const user = result.user;
+        http.fetch({
+          method: "PUT",
+          param: this.#user?.uid,
+          body: JSON.stringify(user),
+        });
+        game.enterGame();
       })
       .catch((error) => {
         // Handle Errors here.

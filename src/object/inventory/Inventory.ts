@@ -13,7 +13,6 @@ export class Inventory {
 
   async initializeData() {
     const res = await server.getServerData();
-
     this.gold = typeof res !== "string" ? res.inventory.gold : 20;
     document.getElementById("gold")!.innerHTML = `${this.gold}G`;
   }

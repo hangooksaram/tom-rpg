@@ -1,10 +1,10 @@
 class Http {
-  #URL: string = "https://tom-rpg-db-default-rtdb.firebaseio.com/data.json";
+  #URL: string = "https://tom-rpg-db-default-rtdb.firebaseio.com";
 
   async fetch<T>(config?: FetchConfig): Promise<T | string> {
     try {
       return (
-        await fetch(this.#URL, {
+        await fetch(`${this.#URL}/${config?.param}.json`, {
           headers: config?.body
             ? {
                 "Content-Type": "application/json",
@@ -24,6 +24,7 @@ class Http {
 
 interface FetchConfig {
   method?: "POST" | "PUT" | "GET" | "DELETE";
+  param?: string;
   headers?: undefined;
   body?: string;
 }

@@ -6,4 +6,5 @@ html,
   /* background-image: url("./public/images/map.png"); */
   background-repeat: repeat;
   height: 100%;
+  overflow: hidden;
 }

@@ -1,4 +1,5 @@
 import { auth } from "../auth/Auth";
+import { game } from "../game/game";
 import { toggleInventory } from "../object/inventory/animation";
 import { player } from "../object/moving/player/Player";
 import { setClickTargetAnimation } from "../object/moving/player/animation";
@@ -42,10 +43,18 @@ const addSignInEvent = () => {
   });
 };
 
-const addSignOutEvent = () => {
-  document.getElementById("signout-button")!.addEventListener("click", () => {
-    auth.signOutFn();
-  });
+// const addSignOutEvent = () => {
+//   document.getElementById("signout-button")!.addEventListener("click", () => {
+//     auth.signOutFn();
+//   });
+// };
+
+const addEnterGameEvent = () => {
+  document
+    .getElementById("enter-game-button")
+    ?.addEventListener("click", () => {
+      game.enterGame();
+    });
 };
 
 export const eventListeners = [
@@ -54,5 +63,6 @@ export const eventListeners = [
   addPlayerMoveEvent,
   addPlayerAttackEvent,
   addSignInEvent,
-  addSignOutEvent,
+  // addSignOutEvent,
+  addEnterGameEvent,
 ];

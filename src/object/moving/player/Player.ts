@@ -40,6 +40,7 @@ export default class Player extends MovingObject {
 
   async initializeData() {
     const res = await server.getServerData();
+
     if (typeof res !== "string") {
       this.health = res.player.health;
       this.maxHealth = res.player.maxHealth;
