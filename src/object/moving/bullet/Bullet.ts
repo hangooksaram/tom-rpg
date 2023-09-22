@@ -3,6 +3,7 @@ import { MovingObject } from "..";
 import { player } from "../player/Player";
 import { enemyStore } from "../../../store/enemy";
 import Enemy from "../enemy/Enemy";
+import { mapsStore } from "../../../store/maps";
 
 export class Bullet extends MovingObject {
   #targetEnemy: Enemy | undefined = undefined;
@@ -22,6 +23,12 @@ export class Bullet extends MovingObject {
     if (this.#targetEnemy && !this.isHit) {
       this.#hitEnemy();
       return;
+    }
+  }
+
+  destroy() {
+    if (document.getElementById(this.id!)) {
+      document.getElementById(mapsStore.currentMap!.id)!.removeChild(this.el!);
     }
   }
 

@@ -1,6 +1,7 @@
 import { MovingObject } from "..";
 import { NextPosition, Position } from "../../..";
 import { enemyStore } from "../../../store/enemy";
+import { mapsStore } from "../../../store/maps";
 
 import { randomPos, transferToInteger } from "../../../util/calculate";
 import { inventory } from "../../inventory/Inventory";
@@ -58,7 +59,7 @@ export default class Enemy extends MovingObject {
     setAddGoldAnimation(this.id, 20);
     this.#ui.setDestoryAnimation();
     setTimeout(() => {
-      super.destroy();
+      document.getElementById(mapsStore.currentMap!.id)!.removeChild(this.el!);
     }, 1000);
 
     enemyStore.deleteEnemy(this.id!);

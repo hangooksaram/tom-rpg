@@ -9,6 +9,8 @@ import {
 import { app, provider } from "../server/firebase";
 import { game } from "../game/game";
 import { http } from "../server/http";
+import { player } from "../object/moving/player/Player";
+import { inventory } from "../object/inventory/Inventory";
 
 export class Auth {
   private static instance: Auth;
@@ -45,7 +47,7 @@ export class Auth {
         http.fetch({
           method: "PUT",
           param: this.#user?.uid,
-          body: JSON.stringify(user),
+          body: JSON.stringify({ user, player, inventory }),
         });
         game.enterGame();
       })

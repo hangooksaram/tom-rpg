@@ -93,10 +93,6 @@ export class MovingObject {
   hit(power: number) {
     this.health -= power;
   }
-  destroy() {
-    if (document.getElementById(this.id!))
-      document.getElementById(mapsStore.currentMap!.id)!.removeChild(this.el!);
-  }
 
   setPower(power: number) {
     this.power = power;

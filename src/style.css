@@ -11,7 +11,21 @@
 }
 
 .splash-screen {
-  animation: fade-out 4s ease-out forwards;
+  animation: fade-out 1s ease-out forwards;
+}
+
+#modal {
+  position: fixed;
+  z-index: 99999;
+  width: 40%;
+  height: 20%;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(239, 250, 255, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #signin-button {

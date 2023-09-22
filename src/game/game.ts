@@ -37,7 +37,7 @@ export class Game {
     setTimeout(() => {
       this.landingEl.classList.add("hidden");
       this.gameEl.classList.remove("not-visible");
-    }, 4000);
+    }, 1000);
     player.initializeData();
     inventory.initializeData();
   }

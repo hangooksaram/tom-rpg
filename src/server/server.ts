@@ -21,6 +21,7 @@ export class ServerData {
       method: "PUT",
       param: auth.user?.uid,
       body: JSON.stringify({
+        user: auth.user,
         player,
         inventory,
       }),

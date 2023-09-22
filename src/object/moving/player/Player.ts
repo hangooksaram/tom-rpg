@@ -7,6 +7,9 @@ import { mapsStore } from "../../../store/maps";
 import Enemy from "../enemy/Enemy";
 import { PlayerUi } from "./animation";
 import { server } from "../../../server/server";
+import { Modal } from "../../../game/modal";
+import { inventory } from "../../inventory/Inventory";
+import { decreasedValueByPercent } from "../../../util/calculate";
 
 export default class Player extends MovingObject {
   private static instance: Player;
@@ -46,6 +49,13 @@ export default class Player extends MovingObject {
       this.maxHealth = res.player.maxHealth;
       this.#ui.setHpStatus();
     }
+  }
+
+  reInit() {
+    this.health = this.maxHealth;
+    this.#ui.setHpStatus();
+    document.getElementById("root")!.appendChild(this.el);
+    inventory.setGold(decreasedValueByPercent(inventory.gold, 20));
   }
 
   init(): void {
@@ -110,6 +120,9 @@ export default class Player extends MovingObject {
     this.isHit = true;
 
     this.#ui.setHpStatus();
+    if (this.health <= 0) {
+      this.destroy();
+    }
     this.#ui.setHitAnimation();
     this.#ui.showHitDamage(power);
 
@@ -139,6 +152,18 @@ export default class Player extends MovingObject {
       }, 300);
     }
     super.transfer();
+  }
+
+  destroy(): void {
+    setTimeout(() => {
+      document.getElementById("root")!.removeChild(this.el!);
+    }, 500);
+    const modal = new Modal();
+    modal.setText("사망하셨습니다. 골드가 20% 차감된 상태로 부활합니다");
+    const confirm = document.createElement("button");
+    confirm.addEventListener("click", () => this.reInit());
+    confirm.innerHTML = "확인";
+    modal.setButtons([confirm]);
   }
 }
 

@@ -25,4 +25,13 @@ const randomPos = () => {
   };
 };
 
-export { calcHypotenuse, transferToInteger, randomPos };
+const decreasedValueByPercent = (value: number, percent: number) => {
+  return value * ((100 - percent) / 100);
+};
+
+export {
+  calcHypotenuse,
+  transferToInteger,
+  randomPos,
+  decreasedValueByPercent,
+};
