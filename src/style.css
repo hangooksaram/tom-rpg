@@ -60,7 +60,7 @@
     rgba(0, 42, 255, 1) 42%
   );
 }
-#game-start-ui {
+#ladning-screen {
   width: 40%;
   height: 40%;
   display: flex;

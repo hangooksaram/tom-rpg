@@ -11,7 +11,7 @@ export class Inventory {
   }
   constructor() {}
 
-  async initializeData() {
+  async initialize() {
     const res = await server.getServerData();
 
     this.gold =

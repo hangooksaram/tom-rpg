@@ -12,17 +12,12 @@ export class Game {
   private static instance: Game;
   private landingEl: HTMLElement = document.getElementById("landing")!;
   private gameEl: HTMLElement = document.getElementById("root")!;
+  public initialMap: Map = new Map(mapId());
 
   public initialize() {
-    const initialMap = new Map(mapId());
-
-    mapsStore.addMap(initialMap);
-    mapsStore.setCurrentMap(initialMap.id);
-    player.init();
-
+    mapsStore.addMap(this.initialMap);
+    mapsStore.setCurrentMap(this.initialMap.id);
     eventListeners.forEach((fn) => fn());
-
-    createEnemies("low");
   }
 
   public static getInstance() {
@@ -38,8 +33,14 @@ export class Game {
       this.landingEl.classList.add("hidden");
       this.gameEl.classList.remove("not-visible");
     }, 1000);
-    player.initializeData();
-    inventory.initializeData();
+
+    this.startGame();
+  }
+
+  public startGame() {
+    player.initialize();
+    inventory.initialize();
+    createEnemies("low");
   }
 
   public setLandingScreen() {
@@ -49,10 +50,11 @@ export class Game {
         "welcome-user"
       )!.innerHTML = `${auth.user.email} 님 다시 만나게되어 반갑습니다`;
       document.getElementById("enter-game-button")!.innerHTML = "이어하기";
-    } else {
-      document.getElementById("welcome-user")?.classList.add("hidden");
-      document.getElementById("enter-game-button")!.classList.add("hidden");
+
+      return;
     }
+    document.getElementById("welcome-user")?.classList.add("hidden");
+    document.getElementById("enter-game-button")!.classList.add("hidden");
   }
 }
 

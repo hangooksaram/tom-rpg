@@ -33,6 +33,7 @@ export class Auth {
   }
   initialize() {
     onAuthStateChanged(this.#auth, (user) => {
+      document.getElementById("auth")?.classList.remove("hidden");
       if (user) {
         this.#user = user;
       }

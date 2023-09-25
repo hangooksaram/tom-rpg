@@ -41,24 +41,24 @@ export default class Player extends MovingObject {
     this.mana = 100;
   }
 
-  async initializeData() {
-    const res = await server.getServerData();
-
-    if (typeof res !== "string") {
-      this.health = res.player.health;
-      this.maxHealth = res.player.maxHealth;
-      this.#ui.setHpStatus();
-    }
-  }
-
-  reInit() {
+  reInitialize() {
     this.health = this.maxHealth;
     this.#ui.setHpStatus();
     document.getElementById("root")!.appendChild(this.el);
     inventory.setGold(decreasedValueByPercent(inventory.gold, 20));
   }
 
-  init(): void {
+  async initialize() {
+    const res = await server.getServerData();
+
+    if (typeof res !== "string") {
+      this.health = res.player.health;
+      this.setPos({ x: res.player.position.x, y: res.player.position.y });
+      this.maxHealth = res.player.maxHealth;
+      this.#ui.setHpStatus();
+
+      return;
+    }
     this.setPos({ x: 0, y: 0 });
     document.body.onmousemove = (event) => {
       this.#cursorPosition.x = event.clientX;
@@ -161,7 +161,7 @@ export default class Player extends MovingObject {
     const modal = new Modal();
     modal.setText("사망하셨습니다. 골드가 20% 차감된 상태로 부활합니다");
     const confirm = document.createElement("button");
-    confirm.addEventListener("click", () => this.reInit());
+    confirm.addEventListener("click", () => this.reInitialize());
     confirm.innerHTML = "확인";
     modal.setButtons([confirm]);
   }
