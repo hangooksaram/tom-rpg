@@ -12,16 +12,16 @@ import { http } from "../server/http";
 import { player } from "../object/moving/player/Player";
 import { inventory } from "../object/inventory/Inventory";
 
-export class Auth {
-  private static instance: Auth;
+export class GoogleAuth {
+  private static instance: GoogleAuth;
   #auth;
   #user: User | undefined;
 
   public static getInstance() {
-    if (!Auth.instance) {
-      Auth.instance = new Auth();
+    if (!GoogleAuth.instance) {
+      GoogleAuth.instance = new GoogleAuth();
     }
-    return Auth.instance;
+    return GoogleAuth.instance;
   }
 
   constructor() {
@@ -74,4 +74,4 @@ export class Auth {
   }
 }
 
-export const auth = Auth.getInstance();
+export const auth = GoogleAuth.getInstance();
