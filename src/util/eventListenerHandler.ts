@@ -1,4 +1,4 @@
-import { auth } from "../auth/GoogleAuth";
+import { auth } from "../auth/Auth";
 import { game } from "../game/game";
 import { toggleInventory } from "../object/inventory/animation";
 import { player } from "../object/moving/player/Player";
@@ -43,9 +43,15 @@ const addSignInEvent = () => {
   });
 };
 
+const addSignUpEvent = () => {
+  document.getElementById("signup-button")!.addEventListener("click", () => {
+    auth.signUp();
+  });
+};
+
 const addSignOutEvent = () => {
   document.getElementById("signout-button")!.addEventListener("click", () => {
-    auth.signOutFn();
+    auth.signOut();
   });
 };
 
@@ -53,7 +59,7 @@ const addEnterGameEvent = () => {
   document
     .getElementById("enter-game-button")
     ?.addEventListener("click", () => {
-      game.enterGame();
+      game.start();
     });
 };
 
@@ -63,6 +69,7 @@ export const eventListeners = [
   addPlayerMoveEvent,
   addPlayerAttackEvent,
   addSignInEvent,
+  addSignUpEvent,
   addSignOutEvent,
   addEnterGameEvent,
 ];

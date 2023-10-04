@@ -14,6 +14,7 @@
         <h1>TOM RPG</h1>
         <div id="auth" class="hidden">
           <!-- <button id="signin-button">
+            >
             <svg
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -45,9 +46,22 @@
             </svg>
             Google 계정으로 로그인
           </button> -->
-          <div id="welcome-user"></div>
-          <button id="enter-game-button"></button>
-          <button id="signout-button">로그아웃</button>
+          <form id="signin-container">
+            <input id="id" placeholder="ID" required />
+            <input
+              id="password"
+              type="password"
+              placeholder="Password"
+              required
+            />
+            <button type="submit" id="signin-button">로그인</button>
+            <button type="submit" id="signup-button">회원가입</button>
+          </form>
+          <div id="signed-container">
+            <div id="welcome-user"></div>
+            <button id="enter-game-button"></button>
+            <button id="signout-button">로그아웃</button>
+          </div>
         </div>
       </div>
     </div>

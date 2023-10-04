@@ -50,7 +50,7 @@ export class GoogleAuth {
           param: this.#user?.uid,
           body: JSON.stringify({ user, player, inventory }),
         });
-        game.enterGame();
+        game.start();
       })
       .catch((error) => {
         // Handle Errors here.

@@ -56,10 +56,10 @@ export default class Player extends MovingObject {
       this.setPos({ x: res.player.position.x, y: res.player.position.y });
       this.maxHealth = res.player.maxHealth;
       this.#ui.setHpStatus();
-
-      return;
+    } else {
+      this.setPos({ x: 0, y: 0 });
     }
-    this.setPos({ x: 0, y: 0 });
+
     document.body.onmousemove = (event) => {
       this.#cursorPosition.x = event.clientX;
       this.#cursorPosition.y = event.clientY;

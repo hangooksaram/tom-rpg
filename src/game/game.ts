@@ -1,5 +1,5 @@
 import { User } from "firebase/auth";
-import { auth } from "../auth/GoogleAuth";
+import { auth } from "../auth/Auth";
 import { inventory } from "../object/inventory/Inventory";
 import Map from "../object/map";
 import { player } from "../object/moving/player/Player";
@@ -27,34 +27,36 @@ export class Game {
     return Game.instance;
   }
 
-  public enterGame() {
+  public start() {
+    this.setLandingScreenAnimation();
+    this.initializeObjects();
+  }
+
+  public setLandingScreenAnimation() {
     this.landingEl.classList.add("splash-screen");
     setTimeout(() => {
       this.landingEl.classList.add("hidden");
       this.gameEl.classList.remove("not-visible");
     }, 1000);
-
-    this.startGame();
   }
 
-  public startGame() {
+  public initializeObjects() {
     player.initialize();
     inventory.initialize();
     createEnemies("low");
   }
 
   public setLandingScreen() {
-    if (auth.user) {
-      document.getElementById("signin-button")?.classList.add("hidden");
+    if (auth.userInfo) {
+      document.getElementById("signin-container")?.classList.add("hidden");
       document.getElementById(
         "welcome-user"
-      )!.innerHTML = `${auth.user.email} 님 다시 만나게되어 반갑습니다`;
+      )!.innerHTML = `${auth.userInfo?.id} 님 다시 만나게되어 반갑습니다`;
       document.getElementById("enter-game-button")!.innerHTML = "이어하기";
 
       return;
     }
-    document.getElementById("welcome-user")?.classList.add("hidden");
-    document.getElementById("enter-game-button")!.classList.add("hidden");
+    document.getElementById("signed-container")?.classList.add("hidden");
   }
 }
 

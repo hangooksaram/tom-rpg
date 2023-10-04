@@ -1,7 +1,8 @@
 import Player, { player } from "../object/moving/player/Player";
 import { Inventory, inventory } from "../object/inventory/Inventory";
 import { http } from "./http";
-import { auth } from "../auth/GoogleAuth";
+import { auth } from "../auth/Auth";
+
 export class ServerData {
   private static instance: ServerData;
 
@@ -13,15 +14,17 @@ export class ServerData {
   }
 
   async getServerData() {
-    return await http.fetch<GerServerDataResponse>({ param: auth.user?.uid });
+    return await http.fetch<GerServerDataResponse>({
+      param: auth.userInfo?.id,
+    });
   }
 
   saveData() {
     http.fetch({
       method: "PUT",
-      param: auth.user?.uid,
+      param: auth.userInfo?.id,
       body: JSON.stringify({
-        user: auth.user,
+        user: auth.userInfo,
         player,
         inventory,
       }),

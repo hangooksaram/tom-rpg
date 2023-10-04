@@ -28,9 +28,29 @@
   align-items: center;
 }
 
-#signin-button {
+input {
+  border: none;
+  font-size: 14px;
+  height: 40px;
+  outline: none;
+  padding: 4px 12px;
+}
+
+#auth {
+  width: 100%;
+}
+#signin-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+#signin-button,
+#signup-button {
   display: flex;
   align-items: center;
+  justify-content: center;
 
   background-color: #fff;
   background-image: none;
@@ -43,9 +63,9 @@
 
   outline: none;
   overflow: hidden;
-  padding: 0 12px;
+  padding: 4px 12px;
   text-align: center;
-  width: auto;
+  width: 100%;
   border-radius: 4px;
 }
 
