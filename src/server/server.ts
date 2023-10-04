@@ -1,7 +1,7 @@
 import Player, { player } from "../object/moving/player/Player";
 import { Inventory, inventory } from "../object/inventory/Inventory";
 import { http } from "./http";
-import { auth } from "../auth/GoogleAuth";
+import { auth } from "../auth/Auth";
 export class ServerData {
   private static instance: ServerData;
 

@@ -1,5 +1,5 @@
 import { User } from "firebase/auth";
-import { auth } from "../auth/GoogleAuth";
+import { auth } from "../auth/Auth";
 import { inventory } from "../object/inventory/Inventory";
 import Map from "../object/map";
 import { player } from "../object/moving/player/Player";

@@ -1,4 +1,4 @@
-import { auth } from "../auth/GoogleAuth";
+import { auth } from "../auth/Auth";
 import { game } from "../game/game";
 import { toggleInventory } from "../object/inventory/animation";
 import { player } from "../object/moving/player/Player";

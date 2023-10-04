@@ -12,16 +12,16 @@ import { http } from "../server/http";
 import { player } from "../object/moving/player/Player";
 import { inventory } from "../object/inventory/Inventory";
 
-export class GoogleAuth {
-  private static instance: GoogleAuth;
+export class Auth {
+  private static instance: Auth;
   #auth;
   #user: User | undefined;
 
   public static getInstance() {
-    if (!GoogleAuth.instance) {
-      GoogleAuth.instance = new GoogleAuth();
+    if (!Auth.instance) {
+      Auth.instance = new Auth();
     }
-    return GoogleAuth.instance;
+    return Auth.instance;
   }
 
   constructor() {
@@ -33,7 +33,6 @@ export class GoogleAuth {
   }
   initialize() {
     onAuthStateChanged(this.#auth, (user) => {
-      console.log(user);
       document.getElementById("auth")?.classList.remove("hidden");
       if (user) {
         this.#user = user;
@@ -75,4 +74,4 @@ export class GoogleAuth {
   }
 }
 
-export const auth = GoogleAuth.getInstance();
+export const auth = Auth.getInstance();
