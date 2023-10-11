@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --config webpack.config.js",
     "start": "webpack serve"
   },
   "dependencies": {
