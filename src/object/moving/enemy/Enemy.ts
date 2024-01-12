@@ -40,12 +40,13 @@ export default class Enemy extends MovingObject {
         transferToInteger(Math.random() * randomPos().x),
         transferToInteger(Math.random() * randomPos().y)
       );
-    }, 10000);
+    }, 1000);
   }
 
   hit(power: number) {
     super.hit(power);
     this.#ui.decreaseHPBar(this.health);
+
     if (this.health === 0) {
       this.destroy();
       return;
@@ -69,7 +70,9 @@ export default class Enemy extends MovingObject {
       Math.abs(this.position.y - player.position.y) < 30
     ) {
       player.adjacentEnemy = this;
-      player.hit();
+      if (!player.isHit) player.hit();
+
+      return;
     }
   }
 }
