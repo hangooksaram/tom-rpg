@@ -1,18 +1,25 @@
 export class Modal {
-  el: HTMLDivElement = document.getElementById("modal")! as HTMLDivElement;
+  el: HTMLDivElement = document.createElement("div");
   textEl;
   buttonsEl;
 
   constructor() {
-    this.el.classList.remove("hidden");
-    this.textEl = Array.from(this.el.children)[0];
-    this.buttonsEl = Array.from(this.el.children)[1];
+    this.el.id = "modal";
+    this.textEl = document.createElement("div");
+    document.getElementById("root")?.appendChild(this.el);
+    this.textEl.id = "text";
+    this.buttonsEl = document.createElement("div");
+    this.buttonsEl.id = "buttons";
+    this.el.appendChild(this.textEl);
+    this.el.appendChild(this.buttonsEl);
+
     this.addHideModalEventToButtons();
   }
 
   setText(text: string) {
     this.textEl.innerHTML = text;
   }
+
   setButtons(buttons: HTMLButtonElement[]) {
     buttons.forEach((button) => {
       this.buttonsEl.appendChild(button);
@@ -28,8 +35,6 @@ export class Modal {
   }
 
   hideModal() {
-    this.textEl.innerHTML = "";
-    this.buttonsEl.innerHTML = "";
-    this.el.classList.add("hidden");
+    document.getElementById("root")?.removeChild(this.el);
   }
 }

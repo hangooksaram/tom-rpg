@@ -10,7 +10,7 @@ import { server } from "../../../server/server";
 import { Modal } from "../../../game/modal";
 import { inventory } from "../../inventory/Inventory";
 import { decreasedValueByPercent } from "../../../util/calculate";
-
+import { button } from "../../../ui/button";
 export default class Player extends MovingObject {
   private static instance: Player;
   public maxHealth: number;
@@ -155,14 +155,13 @@ export default class Player extends MovingObject {
   }
 
   destroy(): void {
-    setTimeout(() => {
-      document.getElementById("root")!.removeChild(this.el!);
-    }, 500);
+    document.getElementById("root")!.removeChild(this.el!);
     const modal = new Modal();
     modal.setText("사망하셨습니다. 골드가 20% 차감된 상태로 부활합니다");
-    const confirm = document.createElement("button");
-    confirm.addEventListener("click", () => this.reInitialize());
-    confirm.innerHTML = "확인";
+    const confirm = button("확인", () => {
+      modal.hideModal();
+      this.reInitialize();
+    });
     modal.setButtons([confirm]);
   }
 }
