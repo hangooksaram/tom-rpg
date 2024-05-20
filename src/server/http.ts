@@ -4,12 +4,12 @@ class Http {
   async fetch<T>(config?: FetchConfig): Promise<T | string> {
     try {
       return (
-        await fetch(`${this.#URL}/${config?.param}.json`, {
+        await fetch(`${this.#URL}/${config?.param}`, {
           headers: config?.body
             ? {
                 "Content-Type": "application/json",
               }
-            : undefined,
+            : config?.headers!,
           ...config,
         })
       ).json() as T;
@@ -25,7 +25,7 @@ class Http {
 interface FetchConfig {
   method?: "POST" | "PUT" | "GET" | "DELETE";
   param?: string;
-  headers?: undefined;
+  headers?: HeadersInit;
   body?: string;
 }
 

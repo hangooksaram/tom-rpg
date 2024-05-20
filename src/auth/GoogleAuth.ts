@@ -47,8 +47,12 @@ export class GoogleAuth {
         const user = result.user;
         http.fetch({
           method: "PUT",
-          param: this.#user?.uid,
+          param: `${this.#user?.uid}.json?auth=${this.#user?.uid}`,
+
           body: JSON.stringify({ user, player, inventory }),
+          headers: {
+            Authorization: `Bearer ${this.#user?.uid!}`,
+          },
         });
         game.start();
       })
