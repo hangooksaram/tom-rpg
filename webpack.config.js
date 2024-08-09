@@ -1,13 +1,17 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: "./src/app.ts",
-  mode: "development",
+  mode: "production",
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: "ts-loader",
+        exclude: /node_modules/,
+      },
+      {
         exclude: /node_modules/,
       },
     ],
@@ -20,7 +24,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     clean: true,
     assetModuleFilename: "[path][name][ext]",
-    publicPath: "/dist/",
+    publicPath: "/dist",
   },
   devServer: {
     static: {
