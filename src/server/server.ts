@@ -1,7 +1,8 @@
 import Player, { player } from "../object/moving/player/Player";
 import { Inventory, inventory } from "../object/inventory/Inventory";
 import { http } from "./http";
-import { auth } from "../auth/Auth";
+import { User } from "firebase/auth";
+import { auth } from "../auth/GoogleAuth";
 
 export class ServerData {
   private static instance: ServerData;
@@ -14,17 +15,20 @@ export class ServerData {
   }
 
   async getServerData() {
+    const idToken = await auth.user?.getIdToken()
     return await http.fetch<GerServerDataResponse>({
-      param: auth.userInfo?.id,
+      method:'GET',
+      param: `users/${auth.user?.uid}.json?auth=${idToken}`,
     });
   }
 
-  saveData() {
-    http.fetch({
+  async saveData() {
+    const idToken = await auth.user?.getIdToken()
+    return await http.fetch({
       method: "PUT",
-      param: auth.userInfo?.id,
+      param: `users/${auth.user?.uid}.json?auth=${idToken}`,
       body: JSON.stringify({
-        user: auth.userInfo,
+        user: auth.user,
         player,
         inventory,
       }),

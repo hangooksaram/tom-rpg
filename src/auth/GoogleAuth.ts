@@ -11,6 +11,8 @@ import { game } from "../game/game";
 import { http } from "../server/http";
 import { player } from "../object/moving/player/Player";
 import { inventory } from "../object/inventory/Inventory";
+import tokenStorage from "../localStorage/tokenStorage";
+import { server } from "../server/server";
 
 export class GoogleAuth {
   private static instance: GoogleAuth;
@@ -31,11 +33,14 @@ export class GoogleAuth {
   get user() {
     return this.#user;
   }
-  initialize() {
-    onAuthStateChanged(this.#auth, (user) => {
+  initialize () {
+    onAuthStateChanged(this.#auth, async(user) => {
       document.getElementById("auth")?.classList.remove("hidden");
+      
       if (user) {
         this.#user = user;
+        
+        // game.start();
       }
       game.setLandingScreen();
     });
@@ -43,18 +48,14 @@ export class GoogleAuth {
 
   signIn() {
     signInWithPopup(this.#auth, provider)
-      .then((result) => {
-        const user = result.user;
-        http.fetch({
-          method: "PUT",
-          param: `${this.#user?.uid}.json?auth=${this.#user?.uid}`,
+      .then(async(result) => {
+        this.#user = result.user;
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const headers = {
+        //   Authorization: `Bearer ${credential?.accessToken}`,
+        // }
 
-          body: JSON.stringify({ user, player, inventory }),
-          headers: {
-            Authorization: `Bearer ${this.#user?.uid!}`,
-          },
-        });
-        game.start();
+        server.saveData()
       })
       .catch((error) => {
         // Handle Errors here.
@@ -62,7 +63,7 @@ export class GoogleAuth {
         const errorMessage = error.message;
         // The email of the user's account used.
         const email = error.customData.email;
-        // The AuthCredential type that was used.
+        // The AuthCredential type that was used. 
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
       });
