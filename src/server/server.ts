@@ -3,6 +3,7 @@ import { Inventory, inventory } from "../object/inventory/Inventory";
 import { http } from "./http";
 import { User } from "firebase/auth";
 import { auth } from "../auth/GoogleAuth";
+import { Modal } from "../game/modal";
 
 export class ServerData {
   private static instance: ServerData;
@@ -23,16 +24,35 @@ export class ServerData {
   }
 
   async saveData() {
-    const idToken = await auth.user?.getIdToken()
-    return await http.fetch({
-      method: "PUT",
-      param: `users/${auth.user?.uid}.json?auth=${idToken}`,
-      body: JSON.stringify({
-        user: auth.user,
-        player,
-        inventory,
-      }),
-    });
+    const idToken = await auth.user?.getIdToken();
+    
+    try {
+      const res = await http.fetch({
+        method: "PUT",
+        param: `users/${auth.user?.uid}.json?auth=${idToken}`,
+        body: JSON.stringify({
+          user: auth.user,
+          player,
+          inventory,
+        }),
+      });
+      if(res){
+        const modal = new Modal();
+        modal.setText('저장이 완료되었습니다.');
+
+        setTimeout(()=>{
+          modal.hideModal();
+        }, 1000)
+      }
+    }
+    catch(e){
+      const modal = new Modal();
+      modal.setText('저장이 실패하였습니다. 다시 시도해주세요.');
+
+      setTimeout(()=>{
+        modal.hideModal();
+      }, 1000)
+    }
   }
 }
 
