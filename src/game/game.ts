@@ -1,5 +1,4 @@
 import { User } from "firebase/auth";
-import { auth } from "../auth/Auth";
 import { inventory } from "../object/inventory/Inventory";
 import Map from "../object/map";
 import { player } from "../object/moving/player/Player";
@@ -7,6 +6,7 @@ import { mapsStore } from "../store/maps";
 import { eventListeners } from "../util";
 import { mapId } from "../util/generateRandomId";
 import { createEnemies } from "../util/object";
+import { auth } from "../auth/GoogleAuth";
 
 export class Game {
   private static instance: Game;
@@ -47,13 +47,18 @@ export class Game {
   }
 
   public setLandingScreen() {
-    if (auth.userInfo) {
-      document.getElementById("signin-container")?.classList.add("hidden");
+    if (auth.user) {
+      document.getElementById("auth")?.classList.add("hidden");
       document.getElementById(
         "welcome-user"
-      )!.innerHTML = `${auth.userInfo?.id} 님 다시 만나게되어 반갑습니다`;
+      )!.innerHTML = `${auth.user.displayName} 님 다시 만나게되어 반갑습니다`;
       document.getElementById("enter-game-button")!.innerHTML = "이어하기";
 
+      document
+    .getElementById("enter-game-button")
+    ?.addEventListener("click", () => {
+      game.start();
+    });
       return;
     }
     document.getElementById("signed-container")?.classList.add("hidden");
