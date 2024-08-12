@@ -14,5 +14,22 @@ export const setAddGoldAnimation = (id: string, gold: number) => {
 };
 
 export const toggleInventory = () => {
-  document.getElementById("inventory")?.classList.toggle("hidden");
+  const overlay = document.createElement('div');
+  overlay.id = "overlay";
+  const isInventoryHidden = document.getElementById("inventory")?.classList.contains('hidden');
+  const toggle = ()=> document.getElementById("inventory")?.classList.toggle("hidden");
+
+  if(isInventoryHidden){
+    toggle();
+    overlay.classList.add('overlay');
+    document.body.appendChild(overlay);
+    overlay.addEventListener("click", ()=> {
+      toggleInventory();
+    })
+
+    return;
+  }
+  
+  toggle();
+  document.body.removeChild(document.getElementById('overlay')!);  
 };
