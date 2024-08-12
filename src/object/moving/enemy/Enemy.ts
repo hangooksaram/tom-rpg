@@ -40,7 +40,7 @@ export default class Enemy extends MovingObject {
         transferToInteger(Math.random() * randomPos().x),
         transferToInteger(Math.random() * randomPos().y)
       );
-    }, 1000);
+    }, 10000);
   }
 
   hit(power: number) {
