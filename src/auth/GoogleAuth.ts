@@ -8,10 +8,6 @@ import {
 } from "firebase/auth";
 import { app, provider } from "../server/firebase";
 import { game } from "../game/game";
-import { http } from "../server/http";
-import { player } from "../object/moving/player/Player";
-import { inventory } from "../object/inventory/Inventory";
-import tokenStorage from "../localStorage/tokenStorage";
 import { server } from "../server/server";
 
 export class GoogleAuth {

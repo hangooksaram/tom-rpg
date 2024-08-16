@@ -36,14 +36,6 @@ export class ServerData {
           inventory,
         }),
       });
-      if(res){
-        const modal = new Modal();
-        modal.setText('저장이 완료되었습니다.');
-
-        setTimeout(()=>{
-          modal.hideModal();
-        }, 1000)
-      }
     }
     catch(e){
       const modal = new Modal();

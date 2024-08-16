@@ -6,11 +6,6 @@ import { setClickTargetAnimation } from "../object/moving/player/animation";
 import { server } from "../server/server";
 import { mapsStore } from "../store/maps";
 
-const addSaveDataEvent = () => {
-  document
-    .getElementById("save-btn")
-    ?.addEventListener("click", () => server.saveData());
-};
 const addInventoryToggleEvent = () => {
   document
     .getElementById("inventory-toggle-btn")
@@ -64,7 +59,6 @@ const addEnterGameEvent = () => {
 };
 
 export const eventListeners = [
-  addSaveDataEvent,
   addInventoryToggleEvent,
   addPlayerMoveEvent,
   addPlayerAttackEvent,

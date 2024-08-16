@@ -1,5 +1,6 @@
 import { MovingObject } from "..";
 import { NextPosition, Position } from "../../..";
+import { server } from "../../../server/server";
 import { enemyStore } from "../../../store/enemy";
 import { mapsStore } from "../../../store/maps";
 
@@ -61,6 +62,7 @@ export default class Enemy extends MovingObject {
   destroy(): void {
     inventory.addGold(this.#gold);
     setAddGoldAnimation(this.id, 20);
+    server.saveData();
     this.#ui.setDestoryAnimation();
     document.getElementById(mapsStore.currentMap!.id)!.removeChild(this.el!);
     enemyStore.deleteEnemy(this.id!);
