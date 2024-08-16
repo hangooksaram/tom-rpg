@@ -2,7 +2,7 @@ import Map from ".";
 import { MapDirection } from "../..";
 import { enemyStore } from "../../store/enemy";
 import { mapsStore } from "../../store/maps";
-import { createEnemies, deleteAllEnemies } from "../../util/object";
+import { createRandomEnemies, deleteAllEnemies } from "../../util/object";
 
 export class Portal {
   public mapEl: HTMLDivElement;
@@ -54,18 +54,26 @@ export class Portal {
       "map-id"
     )!.innerHTML = `현재 맵 ID : ${this.nextMapId}`;
 
-    const el = document.createElement("div");
-    document.getElementById("root")?.appendChild(el);
-    el.classList.add("change-map-ui");
+    const changingMapUi = document.createElement("div");
+    document.getElementById("root")?.appendChild(changingMapUi);
+    changingMapUi.classList.add("change-map-ui");
+
     mapsStore.isChanging = true;
     deleteAllEnemies();
+
+    setTimeout(()=>{
+        createRandomEnemies();      
+    },500)
+
     setTimeout(() => {
-      document.getElementById("root")?.removeChild(el);
+      document.getElementById("root")?.removeChild(changingMapUi);
       mapsStore.isChanging = false;
+
+      
     }, 1000);
-    if (createNew) {
-      createEnemies("low");
-    }
+
+    
+    
 
     document.getElementById(this.currentMapId)!.style.display = "none";
     document.getElementById(this.nextMapId)!.style.display = "block";

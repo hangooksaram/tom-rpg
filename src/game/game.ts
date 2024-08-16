@@ -5,7 +5,7 @@ import { player } from "../object/moving/player/Player";
 import { mapsStore } from "../store/maps";
 import { eventListeners } from "../util";
 import { mapId } from "../util/generateRandomId";
-import { createEnemies } from "../util/object";
+import { createRandomEnemies } from "../util/object";
 import { auth } from "../auth/GoogleAuth";
 
 export class Game {
@@ -43,7 +43,7 @@ export class Game {
   public initializeObjects() {
     player.initialize();
     inventory.initialize();
-    createEnemies("low");
+    createRandomEnemies();
   }
 
   public setLandingScreen() {

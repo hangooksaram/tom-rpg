@@ -1,9 +1,25 @@
-import Enemy, { EnemyType } from "../object/moving/enemy/Enemy";
+import Enemy from "../object/moving/enemy/Enemy";
+import { EnemyType } from "../object/moving/enemy/types";
 import { enemyStore } from "../store/enemy";
 import { mapsStore } from "../store/maps";
 
+const enemyList:{type:EnemyType, health:number, probability:number, gold:number}[] = [
+  {
+    type : "slime",
+    health:20,
+    probability:0.7,
+    gold :20,
+  },
+  {
+    type : "goblin",
+    health:100,
+    probability:0.3,
+    gold : 100
+  },
+]
+
 export const createEnemies = (type: EnemyType) => {
-  const repeater = setInterval(() => {
+  setInterval(() => {
     if (enemyStore.enemiesList.length === 10) {
       return;
     }
@@ -12,29 +28,56 @@ export const createEnemies = (type: EnemyType) => {
   }, 50);
 };
 
-export const reaeatCreateEnemy = (type: EnemyType) => {
-  const repeater = setInterval(() => {
-    if (enemyStore.enemiesList.length === 10) {
-      clearInterval(repeater);
-      return;
-    }
+const createRandomEnemyTypeWithProbability = ():EnemyType=> {
+  const randomNum =Math.random()
+  
+  enemyList.sort((a,b)=> a.probability - b.probability)
 
-    createEnemy(type);
-  }, 50);
-};
+  let enemyType:EnemyType = 'slime';
+  let acc = 0;
+
+  for(let i=0; i<enemyList.length ; i++){
+    acc += enemyList[i].probability;
+      if(acc >= randomNum){
+        enemyType = enemyList[i].type;
+
+        break;
+      }
+  }
+
+  return enemyType;
+}
+
+export const createRandomEnemies = ()=> {
+  const randomEnemyType = createRandomEnemyTypeWithProbability();
+  
+  createEnemyRecursively(randomEnemyType)
+}
+
+const createEnemyRecursively = (randomEnemyType:EnemyType)=>{
+  console.log(enemyStore.enemiesList.length)
+  if (enemyStore.enemiesList.length === 10) {
+    return;
+  }
+  createEnemy(randomEnemyType);
+  createEnemyRecursively(randomEnemyType);
+}
 
 export const createEnemy = (type: EnemyType) => {
+  const {health, gold} =  enemyList.find(e=> e.type=== type)!;
   const enemy = new Enemy(
-    `${type}-enemy`,
-    `${type}-enemy-${new Date().toISOString()}`,
-    type
+    `${type}`,
+    `${type}-${new Date().toISOString()}`,
+    type,
+    gold,
+    health,
   );
   enemyStore.addEnemy(enemy);
 };
 
 export const deleteAllEnemies = () => {
   enemyStore.deleteAllEnemies();
-  Array.from(document.getElementsByClassName("low-enemy enemy")).map((el) => {
+  Array.from(document.getElementsByClassName("enemy")).map((el) => {
     document.getElementById(mapsStore.currentMap!.id)?.removeChild(el);
   });
 };

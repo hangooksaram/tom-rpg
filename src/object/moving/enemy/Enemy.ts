@@ -8,21 +8,24 @@ import { inventory } from "../../inventory/Inventory";
 import { setAddGoldAnimation } from "../../inventory/animation";
 import { player } from "../player/Player";
 import { EnemyUi } from "./animation";
+import { EnemyType } from "./types";
 
-export type EnemyType = "low" | "high";
 
 export default class Enemy extends MovingObject {
-  public health: number = 50;
+  public health: number;
   #type: EnemyType;
+  #gold:number;
   #ui: EnemyUi = new EnemyUi(this.el);
 
-  constructor(className: string, id: string, type: EnemyType) {
+  constructor(className: string, id: string, type: EnemyType, gold:number, health:number) {
     super(className, id);
     this.el!.id = id;
 
     this.el.classList.add("enemy");
     this.#type = type;
-    if (type === "low") this.power = 20;
+    this.health = health!;
+    this.#gold = gold;
+    
 
     this.#ui.setHitAnimationContainer();
     this.setPos({
@@ -56,7 +59,7 @@ export default class Enemy extends MovingObject {
   }
 
   destroy(): void {
-    inventory.addGold(20);
+    inventory.addGold(this.#gold);
     setAddGoldAnimation(this.id, 20);
     this.#ui.setDestoryAnimation();
     document.getElementById(mapsStore.currentMap!.id)!.removeChild(this.el!);
