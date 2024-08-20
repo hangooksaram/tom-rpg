@@ -9,16 +9,18 @@ import { inventory } from "../../inventory/Inventory";
 import { setAddGoldAnimation } from "../../inventory/animation";
 import { player } from "../player/Player";
 import { EnemyUi } from "./animation";
-import { EnemyType } from "./types";
-
+import { EnemyType, IEnemy } from "./types";
 
 export default class Enemy extends MovingObject {
   public health: number;
   #type: EnemyType;
   #gold:number;
   #ui: EnemyUi = new EnemyUi(this.el);
+  #power:number;
 
-  constructor(className: string, id: string, type: EnemyType, gold:number, health:number) {
+  constructor(dependencies:IEnemy) {
+    const {className, id, type, gold, health, power} = dependencies;
+    
     super(className, id);
     this.el!.id = id;
 
@@ -26,6 +28,7 @@ export default class Enemy extends MovingObject {
     this.#type = type;
     this.health = health!;
     this.#gold = gold;
+    this.#power = power;
     
 
     this.#ui.setHitAnimationContainer();
@@ -74,6 +77,7 @@ export default class Enemy extends MovingObject {
       Math.abs(this.position.x - player.position.x) < 30 &&
       Math.abs(this.position.y - player.position.y) < 30
     ) {
+      
       player.adjacentEnemy = this;
       if (!player.isHit) player.hit();
 
