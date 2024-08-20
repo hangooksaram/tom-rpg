@@ -1,7 +1,12 @@
 const path = require("path");
+// const BundleAnalyzerPlugin =
+//   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
-  entry: "./src/app.ts",
+  entry: {
+    app: "./src/app.ts",
+    game: "./src/game/game.ts",
+  },
   mode: "production",
   module: {
     rules: [
@@ -19,12 +24,13 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   output: {
-    filename: "bundle.js",
+    filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
     assetModuleFilename: "[path][name][ext]",
     publicPath: "/dist",
   },
+  // plugins: [new BundleAnalyzerPlugin()],
   devServer: {
     static: {
       directory: path.join(__dirname, "/"),
