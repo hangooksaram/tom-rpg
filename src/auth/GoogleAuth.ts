@@ -1,3 +1,5 @@
+
+
 import {
   getAuth,
   signInWithPopup,
@@ -29,29 +31,29 @@ export class GoogleAuth {
   get user() {
     return this.#user;
   }
-  initialize () {
+  async initialize () {
     onAuthStateChanged(this.#auth, async(user) => {
-      document.getElementById("auth")?.classList.remove("hidden");
-      
-      if (user) {
-        this.#user = user;
+      // document.getElementById("auth")?.classList.remove("hidden");
+      // if (user) {
+      //   this.#user = user;
         
-        // game.start();
-      }
-      game.setLandingScreen();
+        
+      //   // game.start();
+      //   await server.saveData(await user.getIdToken(true))
+      // }
+      // game.setLandingScreen();
     });
   }
 
   signIn() {
     signInWithPopup(this.#auth, provider)
-      .then(async(result) => {
+      .then(async (result) => {
         this.#user = result.user;
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const headers = {
-        //   Authorization: `Bearer ${credential?.accessToken}`,
-        // }
-
-        server.saveData()
+      
+        (async()=>{
+          await server.saveData();
+          game.start();
+        })()
       })
       .catch((error) => {
         // Handle Errors here.
