@@ -1,12 +1,17 @@
 const path = require("path");
-// const BundleAnalyzerPlugin =
-//   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+
+const entry = {
+  app: "./src/app.ts",
+  game: "./src/game/game.ts",
+};
 
 module.exports = {
-  entry: {
-    app: "./src/app.ts",
-    game: "./src/game/game.ts",
-  },
+  entry,
   mode: "production",
   module: {
     rules: [
@@ -28,12 +33,20 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     clean: true,
     assetModuleFilename: "[path][name][ext]",
-    publicPath: "/dist",
   },
-  // plugins: [new BundleAnalyzerPlugin()],
   devServer: {
     static: {
       directory: path.join(__dirname, "/"),
     },
   },
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./index.html",
+    }),
+  ],
 };
