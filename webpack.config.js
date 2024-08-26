@@ -16,10 +16,19 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.ts?$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+
       {
         exclude: /node_modules/,
       },
@@ -36,7 +45,7 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, "/"),
+      directory: path.join(__dirname, "dist"),
     },
   },
   optimization: {
@@ -48,5 +57,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./index.html",
     }),
+    new BundleAnalyzerPlugin(),
   ],
 };

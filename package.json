@@ -19,7 +19,9 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^4.0.0",
     "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^5.1.4"
   }

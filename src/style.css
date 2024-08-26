@@ -92,7 +92,7 @@ input {
 .player {
   width: 80px;
   height: 80px;
-  background-image: url("../../public/images/player/pause.png");
+  background-image: url("/public/images/player/pause.png");
   border-radius: 50%;
   position: absolute;
   z-index: 999;
@@ -168,14 +168,14 @@ input {
 .slime {
   width: 50px;
   height: 50px;
-  background-image: url("../../public/images/monster/slime.png");
+  background-image: url("/public/images/monster/slime.png");
   transition: all 1s linear;
 }
 
 .goblin {
   width: 50px;
   height: 50px;
-  background-image: url("../../public/images/monster/goblin.png");
+  background-image: url("/public/images/monster/goblin.png");
   transition: all 1s linear;
 }
 
