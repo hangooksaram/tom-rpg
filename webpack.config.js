@@ -48,9 +48,30 @@ module.exports = {
       directory: path.join(__dirname, "dist"),
     },
   },
+  performance: {
+    maxEntrypointSize: 500000,
+  },
   optimization: {
     splitChunks: {
       chunks: "all",
+      cacheGroups: {
+        default: false,
+        defaultVendors: false,
+        rest_node_modules: {
+          chunks: "all",
+          test: /node_modules[/\\]/,
+          name: "node_modules1",
+          priority: 1,
+          minChunks: 1,
+          reuseExistingChunk: true,
+        },
+
+        firebase: {
+          name: "firebase",
+          test: /(?<!node_modules.*)[\\/]node_modules[\\/]@firebase/,
+          priority: 2,
+        },
+      },
     },
   },
   plugins: [
