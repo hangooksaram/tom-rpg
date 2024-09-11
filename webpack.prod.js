@@ -1,6 +1,8 @@
 const path = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const entry = {
   app: "./src/app.ts",
@@ -9,7 +11,7 @@ const entry = {
 
 module.exports = {
   entry,
-  mode: "development",
+  mode: "production",
   module: {
     rules: [
       {
@@ -23,7 +25,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "style-loader", "css-loader"],
       },
 
       {
@@ -62,10 +64,12 @@ module.exports = {
         },
       },
     },
+    minimizer: [new CssMinimizerPlugin()],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./index.html",
     }),
+    new MiniCssExtractPlugin(),
   ],
 };
