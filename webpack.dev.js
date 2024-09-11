@@ -12,7 +12,7 @@ const entry = {
 
 module.exports = {
   entry,
-  mode: "production",
+  mode: "development",
   module: {
     rules: [
       {
@@ -49,7 +49,7 @@ module.exports = {
     },
   },
   performance: {
-    maxEntrypointSize: 500000,
+    maxEntrypointSize: 5000000,
   },
   optimization: {
     splitChunks: {
@@ -78,6 +78,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./index.html",
     }),
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
   ],
 };
