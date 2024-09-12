@@ -115,8 +115,8 @@ export default class Player extends MovingObject {
   }
 
   hit() {
-    const { power } = this.adjacentEnemy!;
-    super.hit(power);
+    const enemyPower = this.adjacentEnemy!.getPower()
+    super.hit(enemyPower);
     this.isHit = true;
 
     this.#ui.setHpStatus();
@@ -124,7 +124,7 @@ export default class Player extends MovingObject {
       this.destroy();
     }
     this.#ui.setHitAnimation();
-    this.#ui.showHitDamage(power);
+    this.#ui.showHitDamage(enemyPower);
 
     setTimeout(() => {
       this.isHit = false;

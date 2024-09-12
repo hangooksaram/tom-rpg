@@ -21,6 +21,7 @@ export default class Enemy extends MovingObject {
   constructor(dependencies:IEnemy) {
     const {className, id, type, gold, health, power} = dependencies;
     
+    
     super(className, id);
     this.el!.id = id;
 
@@ -41,6 +42,10 @@ export default class Enemy extends MovingObject {
     this.#moveRandomly();
   }
 
+  getPower(){ 
+    return this.#power;
+  }
+
   #moveRandomly() {
     setInterval(() => {
       this.move(
@@ -58,6 +63,7 @@ export default class Enemy extends MovingObject {
       this.destroy();
       return;
     }
+
 
     this.#ui.setHitAnimation();
   }
