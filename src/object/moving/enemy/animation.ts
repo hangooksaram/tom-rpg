@@ -31,7 +31,7 @@ export class EnemyUi {
     document.getElementById(this.el.id)?.appendChild(hitAnimation);
   }
 
-  setDestoryAnimation() {
+  setDestroyAnimation() {
     this.el.classList.add("enemy-destroyed");
   }
 

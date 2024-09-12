@@ -72,7 +72,7 @@ export default class Enemy extends MovingObject {
     inventory.addGold(this.#gold);
     setAddGoldAnimation(this.id, 20);
     server.saveData();
-    this.#ui.setDestoryAnimation();
+    this.#ui.setDestroyAnimation();
     document.getElementById(mapsStore.currentMap!.id)!.removeChild(this.el!);
     enemyStore.deleteEnemy(this.id!);
   }
