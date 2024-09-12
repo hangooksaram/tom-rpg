@@ -49,11 +49,14 @@ export class GoogleAuth {
     signInWithPopup(this.#auth, provider)
       .then(async (result) => {
         this.#user = result.user;
-      
-        (async()=>{
-          await server.saveData();
-          game.start();
-        })()
+        const userData =  await server.getServerData();
+
+        if(!userData){
+          (async()=>{
+              await server.saveData();
+          })();
+        }
+        game.start();
       })
       .catch((error) => {
         // Handle Errors here.
