@@ -26,7 +26,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, "style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
 
       {
@@ -72,8 +72,6 @@ module.exports = {
           implementation: ImageMinimizerPlugin.imageminMinify,
           options: {
             plugins: [
-              ["gifsicle", { interlaced: true }],
-              ["jpegtran", { progressive: true }],
               ["optipng", { optimizationLevel: 5 }],
               [
                 "svgo",
@@ -108,6 +106,7 @@ module.exports = {
       template: "./index.html",
     }),
     new MiniCssExtractPlugin({
+      linkType: false,
       filename: "assets/css/[name].[contenthash:8].css",
       chunkFilename: "assets/css/[name].[contenthash:8].chunk.css",
     }),
