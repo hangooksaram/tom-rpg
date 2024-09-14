@@ -38,18 +38,6 @@ const addSignInEvent = () => {
   });
 };
 
-// const addSignUpEvent = () => {
-//   document.getElementById("signup-button")!.addEventListener("click", () => {
-//     // auth.signUp();
-//   });
-// };
-
-const addSignOutEvent = () => {
-  document.getElementById("signout-button")!.addEventListener("click", () => {
-    // auth.signOut();
-  });
-};
-
 const addEnterGameEvent = () => {
   document
     .getElementById("enter-game-button")
@@ -63,7 +51,5 @@ export const eventListeners = [
   addPlayerMoveEvent,
   addPlayerAttackEvent,
   addSignInEvent,
-  // addSignUpEvent,
-  addSignOutEvent,
   addEnterGameEvent,
 ];
