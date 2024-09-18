@@ -7,7 +7,7 @@ const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 const entry = {
   app: "./src/app.ts",
-  game: "./src/game/game.ts",
+  game: { dependOn: "app", import: "./src/game/game.ts" },
 };
 
 module.exports = {
