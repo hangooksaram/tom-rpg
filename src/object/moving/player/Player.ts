@@ -11,6 +11,7 @@ import { Modal } from "../../../game/modal";
 import { inventory } from "../../inventory/Inventory";
 import { decreasedValueByPercent } from "../../../util/calculate";
 import { button } from "../../../ui/button";
+import { GENERAL_ENEMY_HIT_X_RANGE, GENERAL_ENEMY_HIT_Y_RANGE } from "../../../constants/range";
 export default class Player extends MovingObject {
   private static instance: Player;
   public maxHealth: number;
@@ -141,8 +142,8 @@ export default class Player extends MovingObject {
   findAdjacentEnemy() {
     this.adjacentEnemy = enemyStore.enemiesList.find(
       (e) =>
-        Math.abs(e.position.x - this.position.x) < 30 &&
-        Math.abs(e.position.y - this.position.y) < 30
+        Math.abs(e.position.x - this.position.x) < GENERAL_ENEMY_HIT_X_RANGE &&
+        Math.abs(e.position.y - this.position.y) < GENERAL_ENEMY_HIT_Y_RANGE
     );
   }
 

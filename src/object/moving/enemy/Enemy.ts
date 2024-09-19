@@ -1,5 +1,6 @@
 import { MovingObject } from "..";
 import { NextPosition, Position } from "../../..";
+import { GENERAL_ENEMY_HIT_X_RANGE, GENERAL_ENEMY_HIT_Y_RANGE } from "../../../constants/range";
 import { server } from "../../../server/server";
 import { enemyStore } from "../../../store/enemy";
 import { mapsStore } from "../../../store/maps";
@@ -84,8 +85,8 @@ export default class Enemy extends MovingObject {
   setPos({ x, y }: Position): void {
     super.setPos({ x, y });
     if (
-      Math.abs(this.position.x - player.position.x) < 30 &&
-      Math.abs(this.position.y - player.position.y) < 30
+      Math.abs(this.position.x - player.position.x) < GENERAL_ENEMY_HIT_X_RANGE &&
+      Math.abs(this.position.y - player.position.y) < GENERAL_ENEMY_HIT_Y_RANGE
     ) {
       
       player.adjacentEnemy = this;

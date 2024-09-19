@@ -1,0 +1,2 @@
+export const GENERAL_ENEMY_HIT_X_RANGE = 30;
+export const GENERAL_ENEMY_HIT_Y_RANGE = 30;
