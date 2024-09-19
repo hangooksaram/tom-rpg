@@ -34,18 +34,20 @@ export default class Player extends MovingObject {
   constructor(className: string, id: string) {
     super(className, id);
     document.getElementById("root")!.appendChild(this.el);
-    this.maxHealth = 150;
-    this.health = 150;
+    this.maxHealth = 250;
+    this.health = 250;
     this.power = 10;
     this.maxMana = 100;
     this.mana = 100;
   }
 
-  reInitialize() {
+  async reInitialize() {
     this.health = this.maxHealth;
     this.#ui.setHpStatus();
     document.getElementById("root")!.appendChild(this.el);
     inventory.setGold(decreasedValueByPercent(inventory.gold, 20));
+
+    await server.saveData();
   }
 
   async initialize() {
@@ -114,9 +116,10 @@ export default class Player extends MovingObject {
     }
   }
 
-  hit() {
+  async hit() {
     const enemyPower = this.adjacentEnemy!.getPower()
     super.hit(enemyPower);
+    
     this.isHit = true;
 
     this.#ui.setHpStatus();
@@ -130,6 +133,8 @@ export default class Player extends MovingObject {
       this.isHit = false;
     }, 1000);
     this.adjacentEnemy = undefined;
+
+    await server.saveData();
     return;
   }
 
