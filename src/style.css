@@ -224,15 +224,12 @@ input {
   animation: fade-out 1s;
 }
 
-.player-status-bar {
+.player-status-bar-container {
   position: absolute;
   z-index: 999;
-  width: 70%;
+  width: 50%;
   height: 160px;
   bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-image: url("/public/images/gameUi/status-bar.png");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
