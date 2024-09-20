@@ -26,6 +26,7 @@ const addPlayerMoveEvent = () => {
 };
 const addPlayerAttackEvent = () => {
   document.addEventListener("keydown", (e) => {
+    if(e.repeat) return;
     if (e.key.toLowerCase() === "a" || e.key === "ㅁ") {
       player.attack();
     }
