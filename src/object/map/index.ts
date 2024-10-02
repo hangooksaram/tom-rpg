@@ -7,12 +7,13 @@ import { Portal } from "./Portal";
 const rootMap = document.getElementById("map-container")!;
 
 export default class Map {
-  public el: HTMLDivElement;
+  public el: HTMLCanvasElement;
   public id: string;
   public northId: string;
   public eastId: string;
   public southId: string;
   public westId: string;
+  public canvasCtx:CanvasRenderingContext2D | null;
 
   get viewport() {
     return {
@@ -29,7 +30,8 @@ export default class Map {
     westId?: string
   ) {
     this.id = id;
-    this.el = document.createElement("div");
+    this.el = document.createElement("canvas");
+    this.canvasCtx = this.el?.getContext('2d');
     this.el.classList.add("map");
     this.el.id = `${this.id}`;
     this.northId = northId ?? mapId();

@@ -2,9 +2,9 @@ import { Position } from "../../..";
 import { player } from "./Player";
 
 export class PlayerUi {
-  public el: HTMLDivElement;
+  public el: HTMLCanvasElement;
 
-  constructor(el: HTMLDivElement) {
+  constructor(el: HTMLCanvasElement) {
     this.el = el;
   }
 

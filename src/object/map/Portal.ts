@@ -5,12 +5,12 @@ import { mapsStore } from "../../store/maps";
 import { createRandomEnemies, deleteAllEnemies } from "../../util/object";
 
 export class Portal {
-  public mapEl: HTMLDivElement;
+  public mapEl: HTMLCanvasElement;
   public direction: MapDirection;
   public currentMapId: string = "";
   public nextMapId: string = "";
   constructor(
-    mapEl: HTMLDivElement,
+    mapEl: HTMLCanvasElement,
     direction: MapDirection,
     currentMapId: string,
     nextMapId: string

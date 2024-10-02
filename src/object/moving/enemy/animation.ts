@@ -1,7 +1,7 @@
 export class EnemyUi {
-  public el: HTMLDivElement;
+  public el: HTMLCanvasElement;
 
-  constructor(el: HTMLDivElement) {
+  constructor(el: HTMLCanvasElement) {
     this.el = el;
   }
 
