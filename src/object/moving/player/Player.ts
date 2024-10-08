@@ -105,6 +105,7 @@ export default class Player extends MovingObject {
         this.el.classList.remove("reverse-direction");
       }
       super.move(nextX, nextY);
+      requestAnimationFrame(()=>this.draw());
     }
   }
 
@@ -170,6 +171,92 @@ export default class Player extends MovingObject {
       this.reInitialize();
     });
     modal.setButtons([confirm]);
+  }
+
+  setAnimation (){
+    if(this.el.src.includes(objectSource.PLAYER.PAUSE)){
+      this.el.src = objectSource.PLAYER.RUN1;
+      return;
+    }
+    if(this.el.src.includes(objectSource.PLAYER.RUN1)){
+      this.el.src = objectSource.PLAYER.RUN2;
+      return;
+    }
+    if(this.el.src.includes(objectSource.PLAYER.RUN2)){
+      this.el.src = objectSource.PLAYER.RUN3;
+      return;
+    }
+    if(this.el.src.includes(objectSource.PLAYER.RUN3)){
+      this.el.src = objectSource.PLAYER.RUN1;
+      return;
+    }
+  }
+
+  draw(){
+    this.clearCanvas();
+    
+    const { nextX, nextY } = this.nextPosition!;
+    const { xSpeed, ySpeed } = this.speed;
+
+
+
+
+    this.drawImage(this.position.x,  this.position.y);
+    if (
+      Math.abs(this.nextPosition?.nextX! - this.position.x) < 10 &&
+      Math.abs(this.nextPosition?.nextY! - this.position.y) < 10
+    ) {
+      
+      return;
+    }
+
+
+    this.setAnimation();
+    
+
+    const { x, y } = this.position;
+    let newPosition: Position = { x, y };
+    if (this.position.x < nextX && this.position.y < nextY) {
+      newPosition = {
+        x: x + xSpeed,
+        y: y + ySpeed,
+      };
+    }
+    if (this.position.x < nextX && this.position.y > nextY) {
+      newPosition = {
+        x: x + xSpeed,
+        y: y - ySpeed,
+      };
+    }
+    if (this.position.x > nextX && this.position.y < nextY) {
+      newPosition = {
+        x: x - xSpeed,
+        y: y + ySpeed,
+      };
+    }
+    if (this.position.x > nextX && this.position.y > nextY) {
+      newPosition = {
+        x: x - xSpeed,
+        y: y - ySpeed,
+      };
+    }
+    this.setPos(newPosition);
+  
+   requestAnimationFrame(()=>this.draw());
+  }
+
+  setAnimationInterval () {
+    return setInterval(()=>{
+      this.el.src = '/public/images/player/run1.png';
+
+      setTimeout(()=>{
+        this.el.src = '/public/images/player/run2.png';
+      }, 250);
+      
+      setTimeout(()=>{
+        this.el.src = '/public/images/player/run3.png';
+      }, 500);
+    },1000);
   }
 }
 
