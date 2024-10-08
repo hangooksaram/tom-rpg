@@ -2,6 +2,7 @@
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
+    "dev-build": "webpack --config webpack.dev.js",
     "webpack": "webpack",
     "analyze": "webpack --mode production --stats"
   },
