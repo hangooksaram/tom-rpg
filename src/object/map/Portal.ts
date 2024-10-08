@@ -43,6 +43,10 @@ export class Portal {
       );
 
       mapsStore.addMap(map);
+
+      setTimeout(()=>{
+        createRandomEnemies();      
+      },500)
       this.changeMap(true);
     } else this.changeMap(false);
 
@@ -59,17 +63,11 @@ export class Portal {
     changingMapUi.classList.add("change-map-ui");
 
     mapsStore.isChanging = true;
-    deleteAllEnemies();
 
-    setTimeout(()=>{
-        createRandomEnemies();      
-    },500)
 
     setTimeout(() => {
       document.getElementById("root")?.removeChild(changingMapUi);
       mapsStore.isChanging = false;
-
-      
     }, 1000);
 
     

@@ -57,7 +57,9 @@ export const createRandomEnemies = ()=> {
 }
 
 const createEnemyRecursively = (randomEnemyType:EnemyType)=>{
-  if (enemyStore.enemiesList.length === 10) {
+  const isCurrentMapFull = enemyStore.enemiesList.filter((e)=> e.getIncludedMapId() === mapsStore.currentMap?.id!).length  === 10;
+
+  if (isCurrentMapFull) {
     return;
   }
   createEnemy(randomEnemyType);
@@ -73,7 +75,8 @@ export const createEnemy = (type: EnemyType) => {
     type,
     gold,
     health,
-    power
+    power,
+    includedMapId:mapsStore.currentMap?.id!
 });
   enemyStore.addEnemy(enemy);
 };

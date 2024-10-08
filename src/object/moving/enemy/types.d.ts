@@ -7,4 +7,5 @@ export interface IEnemy {
     gold:number; 
     health:number;
     power:number;
+    includedMapId:string;
   }

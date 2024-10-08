@@ -18,9 +18,10 @@ export default class Enemy extends MovingObject {
   #gold:number;
   #ui: EnemyUi = new EnemyUi(this.el);
   #power:number;
+  #includedMapId;
 
   constructor(dependencies:IEnemy) {
-    const {className, id, type, gold, health, power} = dependencies;
+    const {className, id, type, gold, health, power, includedMapId} = dependencies;
     
     
     super(className, id);
@@ -31,6 +32,7 @@ export default class Enemy extends MovingObject {
     this.health = health!;
     this.#gold = gold;
     this.#power = power;
+    this.#includedMapId = includedMapId;;
     
 
     this.#ui.setHitAnimationContainer();
@@ -41,6 +43,10 @@ export default class Enemy extends MovingObject {
 
     this.#ui.setHpBar(this.health);
     this.#moveRandomly();
+  }
+
+  getIncludedMapId(){
+    return this.#includedMapId;
   }
 
   getPower(){ 
