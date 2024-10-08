@@ -4,11 +4,12 @@ import { player } from "../player/Player";
 import { enemyStore } from "../../../store/enemy";
 import Enemy from "../enemy/Enemy";
 import { mapsStore } from "../../../store/maps";
+import { objectSource } from "../../../constants/objectSource";
 
 export class Bullet extends MovingObject {
   #targetEnemy: Enemy | undefined = undefined;
   constructor(className: string, id: string, power: number) {
-    super(className, id);
+    super(className, id, objectSource.BULLET.DEFAULT);
     this.power = power;
   }
   init(): void {

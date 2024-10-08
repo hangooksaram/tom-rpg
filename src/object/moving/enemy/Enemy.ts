@@ -20,10 +20,9 @@ export default class Enemy extends MovingObject {
   #power:number;
 
   constructor(dependencies:IEnemy) {
-    const {className, id, type, gold, health, power} = dependencies;
+    const {className, id, type, gold, health, power, source} = dependencies;
     
-    
-    super(className, id);
+    super(className, id, source);
     this.el!.id = id;
 
     this.el.classList.add("enemy");

@@ -2,7 +2,7 @@ import { Position, Speed, NextPosition } from "../..";
 import { mapsStore } from "../../store/maps";
 import { calcHypotenuse } from "../../util/calculate";
 export class MovingObject {
-  public el: HTMLDivElement = document.createElement("div");
+  public el: HTMLImageElement = new Image();
   public id: string;
   public position: Position = { x: 0, y: 0 };
   public nextPosition: NextPosition = null;
@@ -11,12 +11,20 @@ export class MovingObject {
   public power: number = 0;
   public isHit: boolean = false;
 
-  constructor(className: string, id: string) {
+  constructor(className: string, id: string, source:string) {
     this.id = id;
     this.el.id = id;
     this.el.classList.add(className);
-    if (document.readyState === "complete") {
-      document.getElementById(mapsStore.currentMap?.id!)!.appendChild(this.el);
+    this.el.width= 100;
+    this.el.height= 100;  
+    this.el.onload = drawImage;
+    this.el.src = source;
+    const el = this.el;
+    
+    function drawImage(){
+      const ctx = mapsStore.currentMap?.canvasCtx!;
+      
+      ctx.drawImage(el, 0, 0, 20, 20);
     }
   }
 

@@ -1,22 +1,25 @@
+import { objectSource } from "../constants/objectSource";
 import Enemy from "../object/moving/enemy/Enemy";
 import { EnemyType } from "../object/moving/enemy/types";
 import { enemyStore } from "../store/enemy";
 import { mapsStore } from "../store/maps";
 
-const enemyList:{type:EnemyType, health:number, probability:number, gold:number, power:number}[] = [
+const enemyList:{type:EnemyType, health:number, probability:number, gold:number, power:number, source:string}[] = [
   {
     type : "slime",
     health:20,
     probability:0.7,
     gold :20,
-    power:20
+    power:20,
+    source: objectSource.SLIME
   },
   {
     type : "goblin",
     health:100,
     probability:0.3,
     gold : 100,
-    power:50
+    power:50,
+    source: objectSource.GOBLIN
   },
 ]
 
@@ -65,7 +68,7 @@ const createEnemyRecursively = (randomEnemyType:EnemyType)=>{
 }
 
 export const createEnemy = (type: EnemyType) => {
-  const {health, gold, power} = enemyList.find(e=> e.type=== type)!;
+  const {health, gold, power, source} = enemyList.find(e=> e.type=== type)!;
   
   const enemy = new Enemy({
     className:`${type}`,
@@ -73,7 +76,8 @@ export const createEnemy = (type: EnemyType) => {
     type,
     gold,
     health,
-    power
+    power,
+    source
 });
   enemyStore.addEnemy(enemy);
 };

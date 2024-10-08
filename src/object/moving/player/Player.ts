@@ -12,6 +12,7 @@ import { inventory } from "../../inventory/Inventory";
 import { decreasedValueByPercent } from "../../../util/calculate";
 import { button } from "../../../ui/button";
 import { GENERAL_ENEMY_HIT_X_RANGE, GENERAL_ENEMY_HIT_Y_RANGE } from "../../../constants/range";
+import { objectSource } from "../../../constants/objectSource";
 export default class Player extends MovingObject {
   private static instance: Player;
   public maxHealth: number;
@@ -21,7 +22,7 @@ export default class Player extends MovingObject {
 
   public static getInstance() {
     if (!Player.instance) {
-      Player.instance = new Player("player", "player");
+      Player.instance = new Player("player", "player",objectSource.PLAYER.PAUSE);
     }
     return Player.instance;
   }
@@ -32,9 +33,9 @@ export default class Player extends MovingObject {
     y: 0,
   };
 
-  constructor(className: string, id: string) {
-    super(className, id);
-    document.getElementById("root")!.appendChild(this.el);
+  constructor(className: string, id: string, source:string) {
+    super(className, id, source);
+    
     this.maxHealth = 250;
     this.health = 250;
     this.power = 10;
