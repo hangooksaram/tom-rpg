@@ -10,7 +10,14 @@ const addInventoryToggleEvent = () => {
   document
     .getElementById("inventory-toggle-btn")
     ?.addEventListener("click", () => {
-      toggleInventory();
+      // toggleInventory();
+      const modal = document.getElementById("inventory")! as HTMLDialogElement
+      modal.showModal();
+    });
+
+    document.getElementById('inventory-close-btn')!.addEventListener('click', () => {
+      const modal = document.getElementById("inventory")! as HTMLDialogElement;
+      modal.close();
     });
 };
 

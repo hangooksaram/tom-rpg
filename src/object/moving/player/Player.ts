@@ -40,6 +40,7 @@ export default class Player extends MovingObject {
     this.power = 10;
     this.maxMana = 100;
     this.mana = 100;
+    this.destroy();
   }
 
   async reInitialize() {
@@ -125,6 +126,7 @@ export default class Player extends MovingObject {
 
     this.#ui.setHpStatus();
     if (this.health <= 0) {
+      console.log("how many?")
       this.destroy();
     }
     this.#ui.setHitAnimation();
@@ -165,9 +167,12 @@ export default class Player extends MovingObject {
     const modal = new Modal();
     modal.setText("사망하셨습니다. 골드가 20% 차감된 상태로 부활합니다");
     const confirm = button("확인", () => {
-      modal.hideModal();
       this.reInitialize();
     });
+
+    confirm.addEventListener("click", ()=>{
+      modal.el.close();
+    })
     modal.setButtons([confirm]);
   }
 }

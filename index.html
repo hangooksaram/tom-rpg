@@ -20,16 +20,20 @@
     <div id="root" class="not-visible">
       <div id="map-id"></div>
       <div id="map-container" class="map-container"></div>
-      <button id="inventory-toggle-btn">인벤토리</button>
-      <div id="inventory" class="hidden">
+      <dialog id="inventory">
+        <button id="inventory-close-btn" autofocus>닫기</button>
         <div id="inventory-container">
-          <div id="item-container"><div>아이템</div></div>
+          <div id="item-container">
+            <div>아이템</div>
+          </div>
           <div id="gold-container">
             <div>현재 보유 골드</div>
             <div id="gold"></div>
           </div>
         </div>
-      </div>
+      </dialog>
+      <button id="inventory-toggle-btn">인벤토리</button>
+
       <div class="player-status-bar-container">
         <div class="left">
           <div class="player-hp-container"></div>
@@ -39,9 +43,9 @@
         </div>
       </div>
     </div>
-    <div id="modal" class="hidden">
+    <!-- <div id="modal" class="hidden">
       <div id="text"></div>
       <div id="buttons"></div>
-    </div>
+    </div> -->
   </body>
 </html>

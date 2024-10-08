@@ -42,7 +42,7 @@ export class ServerData {
       modal.setText('저장이 실패하였습니다. 다시 시도해주세요.');
 
       setTimeout(()=>{
-        modal.hideModal();
+        modal.el.close();
       }, 1000)
     }
   }

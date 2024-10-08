@@ -1,5 +1,5 @@
 export class Modal {
-  el: HTMLDivElement = document.createElement("div");
+  el: HTMLDialogElement = document.createElement("dialog");
   textEl;
   buttonsEl;
 
@@ -13,7 +13,7 @@ export class Modal {
     this.el.appendChild(this.textEl);
     this.el.appendChild(this.buttonsEl);
 
-    this.addHideModalEventToButtons();
+    this.el.showModal();
   }
 
   setText(text: string) {
@@ -24,17 +24,5 @@ export class Modal {
     buttons.forEach((button) => {
       this.buttonsEl.appendChild(button);
     });
-  }
-
-  addHideModalEventToButtons() {
-    Array.from(document.getElementsByTagName("button"))?.forEach((button) => {
-      button.addEventListener("click", () => {
-        this.hideModal();
-      });
-    });
-  }
-
-  hideModal() {
-    document.getElementById("root")?.removeChild(this.el);
   }
 }
