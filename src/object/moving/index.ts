@@ -6,7 +6,7 @@ export class MovingObject {
   public id: string;
   public position: Position = { x: 0, y: 0 };
   public nextPosition: NextPosition = null;
-  public speed: Speed = { value: 10, xSpeed: 0, ySpeed: 0 };
+  public speed: Speed = { value: 10, xSpeed: 1.2, ySpeed:1.2  };
   public health: number = 100;
   public power: number = 0;
   public isHit: boolean = false;
@@ -17,31 +17,37 @@ export class MovingObject {
     this.el.classList.add(className);
     this.el.width= 100;
     this.el.height= 100;  
-    this.el.onload = drawImage;
+    this.el.onload = ()=> this.drawImage(0,0);
     this.el.src = source;
     const el = this.el;
-    
-    function drawImage(){
-      const ctx = mapsStore.currentMap?.canvasCtx!;
-      
-      ctx.drawImage(el, 0, 0, 20, 20);
-    }
+  }
+
+  drawImage(x:number, y:number){
+    const el = this.el;
+    const ctx = mapsStore.currentMap?.canvasCtx!;
+
+    ctx.drawImage(el, x, y, 75, 75);
   }
 
   setPos({ x, y }: Position) {
     this.position = { ...this.position, x, y };
-    this.el!.style.top = `${y}px`;
-    this.el!.style.left = `${x}px`;
+    // this.el!.style.top = `${y}px`;
+    // this.el!.style.left = `${x}px`;
   }
 
   move(nextX: number, nextY: number) {
     this.nextPosition = { nextX, nextY };
+    console.log(this.nextPosition);
     this.setSpeed(nextX, nextY);
 
-    requestAnimationFrame(() => {
-      this.transfer();
-    });
   }
+
+  clearCanvas (){
+    const ctx = mapsStore.currentMap?.canvasCtx!;
+    
+    ctx.clearRect(0,0, mapsStore.currentMap?.el.width!,mapsStore.currentMap?.el.height! );
+  }
+  
 
   transfer() {
     const { nextX, nextY } = this.nextPosition!;
@@ -85,17 +91,6 @@ export class MovingObject {
   }
 
   setSpeed(nextX: number, nextY: number) {
-    const distance = calcHypotenuse(
-      this.position.x,
-      this.position.y,
-      nextX,
-      nextY
-    );
-
-    this.speed.xSpeed =
-      (Math.abs(nextX - this.position.x) / distance) * this.speed.value;
-    this.speed.ySpeed =
-      (Math.abs(nextY - this.position.y) / distance) * this.speed.value;
   }
 
   hit(power: number) {
