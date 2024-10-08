@@ -31,6 +31,8 @@ export default class Map {
   ) {
     this.id = id;
     this.el = document.createElement("canvas");
+    this.el.width = window.innerWidth;
+    this.el.height = window.innerHeight;
     this.canvasCtx = this.el?.getContext('2d');
     this.el.classList.add("map");
     this.el.id = `${this.id}`;
