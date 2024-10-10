@@ -30,6 +30,7 @@ export class Inventory {
 
   setGold(gold: number) {
     this.gold = gold;
+    document.getElementById('gold')!.innerHTML = `${this.gold}G`;
   }
 }
 
