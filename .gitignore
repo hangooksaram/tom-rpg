@@ -2,3 +2,5 @@ node_modules/
 .firebase/
 .vercel
 dist/
+.vscode/
+.prettierrc
