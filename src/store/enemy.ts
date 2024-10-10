@@ -1,6 +1,6 @@
-import { ObjectId } from "..";
-import { player } from "../object/moving/player/Player";
-import Enemy from "../object/moving/enemy/Enemy";
+import { ObjectId } from '..';
+import { player } from '../object/moving/player/Player';
+import Enemy from '../object/moving/enemy/Enemy';
 
 export class EnemyStore {
   private static instance: EnemyStore;

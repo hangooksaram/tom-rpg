@@ -1,32 +1,32 @@
-const path = require("path");
+const path = require('path');
 
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 const entry = {
-  app: "./src/app.ts",
-  game: { dependOn: "app", import: "./src/game/game.ts" },
+  app: './src/app.ts',
+  game: { dependOn: 'app', import: './src/game/game.ts' },
 };
 
 module.exports = {
   entry,
-  mode: "production",
+  mode: 'production',
   module: {
     rules: [
       {
         test: /\.ts?$/,
-        use: "ts-loader",
+        use: 'ts-loader',
         exclude: /node_modules/,
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
       },
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
 
       {
@@ -35,31 +35,31 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
     clean: true,
-    assetModuleFilename: "[path][name][ext]",
+    assetModuleFilename: '[path][name][ext]',
   },
   optimization: {
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
       cacheGroups: {
         default: false,
         defaultVendors: false,
         rest_node_modules: {
-          chunks: "all",
+          chunks: 'all',
           test: /node_modules[/\\]/,
-          name: "node_modules1",
+          name: 'node_modules1',
           priority: 1,
           minChunks: 1,
           reuseExistingChunk: true,
         },
 
         firebase: {
-          name: "firebase",
+          name: 'firebase',
           test: /(?<!node_modules.*)[\\/]node_modules[\\/]@firebase/,
           priority: 2,
         },
@@ -72,21 +72,19 @@ module.exports = {
           implementation: ImageMinimizerPlugin.imageminMinify,
           options: {
             plugins: [
-              ["optipng", { optimizationLevel: 5 }],
+              ['optipng', { optimizationLevel: 5 }],
               [
-                "svgo",
+                'svgo',
                 {
                   plugins: [
                     {
-                      name: "preset-default",
+                      name: 'preset-default',
                       params: {
                         overrides: {
                           removeViewBox: false,
                           addAttributesToSVGElement: {
                             params: {
-                              attributes: [
-                                { xmlns: "http://www.w3.org/2000/svg" },
-                              ],
+                              attributes: [{ xmlns: 'http://www.w3.org/2000/svg' }],
                             },
                           },
                         },
@@ -103,12 +101,12 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./index.html",
+      template: './index.html',
     }),
     new MiniCssExtractPlugin({
       linkType: false,
-      filename: "assets/css/[name].[contenthash:8].css",
-      chunkFilename: "assets/css/[name].[contenthash:8].chunk.css",
+      filename: 'assets/css/[name].[contenthash:8].css',
+      chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css',
     }),
   ],
 };

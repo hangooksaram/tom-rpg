@@ -1,4 +1,4 @@
-import Map from "../object/map";
+import Map from '../object/map';
 
 export class MapsStore {
   private static instance: MapsStore;

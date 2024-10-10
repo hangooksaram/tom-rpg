@@ -32,4 +32,4 @@ export type Speed = {
 
 export type ObjectId = string;
 
-export type MapDirection = "north" | "east" | "south" | "west";
+export type MapDirection = 'north' | 'east' | 'south' | 'west';

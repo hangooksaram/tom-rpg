@@ -6,13 +6,13 @@ export class EnemyUi {
   }
 
   setHpBar(health: number) {
-    const hpBarEl = document.createElement("div") as HTMLDivElement;
+    const hpBarEl = document.createElement('div') as HTMLDivElement;
     hpBarEl.id = `${this.el.id}-hp-bar`;
     this.el!.appendChild(hpBarEl);
     const hpBarStyle = {
       width: `${health}px`,
-      height: "10px",
-      backgroundColor: "red",
+      height: '10px',
+      backgroundColor: 'red',
     };
     Object.assign(hpBarEl.style, hpBarStyle);
   }
@@ -23,8 +23,8 @@ export class EnemyUi {
   }
 
   setHitAnimation() {
-    const hitAnimation = document.createElement("div");
-    hitAnimation.classList.add("bullet-hit");
+    const hitAnimation = document.createElement('div');
+    hitAnimation.classList.add('bullet-hit');
     setTimeout(() => {
       document.getElementById(this.el.id)?.removeChild(hitAnimation);
     }, 1000);
@@ -32,17 +32,17 @@ export class EnemyUi {
   }
 
   setDestroyAnimation() {
-    this.el.classList.add("enemy-destroyed");
+    this.el.classList.add('enemy-destroyed');
   }
 
   setHitAnimationContainer() {
-    const hitAnimationContainer = document.createElement("div");
+    const hitAnimationContainer = document.createElement('div');
     hitAnimationContainer.id = `hit-animation-container-${this.el!.id}`;
     Object.assign(hitAnimationContainer.style, {
       ...hitAnimationContainer.style,
-      position: "relative",
-      width: "100%",
-      height: "100%",
+      position: 'relative',
+      width: '100%',
+      height: '100%',
     });
     this.el.appendChild(hitAnimationContainer);
   }

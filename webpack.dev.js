@@ -1,32 +1,31 @@
-const path = require("path");
+const path = require('path');
 
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const BundleAnalyzerPlugin =
-  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const entry = {
-  app: "./src/app.ts",
-  game: { dependOn: "app", import: "./src/game/game.ts" },
+  app: './src/app.ts',
+  game: { dependOn: 'app', import: './src/game/game.ts' },
 };
 
 module.exports = {
   entry,
-  mode: "development",
+  mode: 'development',
   module: {
     rules: [
       {
         test: /\.ts?$/,
-        use: "ts-loader",
+        use: 'ts-loader',
         exclude: /node_modules/,
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
 
       {
@@ -35,17 +34,17 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
     clean: true,
-    assetModuleFilename: "[path][name][ext]",
+    assetModuleFilename: '[path][name][ext]',
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, "dist"),
+      directory: path.join(__dirname, 'dist'),
     },
   },
   performance: {
@@ -53,21 +52,21 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
       cacheGroups: {
         default: false,
         defaultVendors: false,
         rest_node_modules: {
-          chunks: "all",
+          chunks: 'all',
           test: /node_modules[/\\]/,
-          name: "node_modules1",
+          name: 'node_modules1',
           priority: 1,
           minChunks: 1,
           reuseExistingChunk: true,
         },
 
         firebase: {
-          name: "firebase",
+          name: 'firebase',
           test: /(?<!node_modules.*)[\\/]node_modules[\\/]@firebase/,
           priority: 2,
         },
@@ -76,7 +75,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./index.html",
+      template: './index.html',
     }),
     // new BundleAnalyzerPlugin(),
   ],

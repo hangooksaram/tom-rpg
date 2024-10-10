@@ -1,4 +1,4 @@
-import { server } from "../../server/server";
+import { server } from '../../server/server';
 
 export class Inventory {
   private static instance: Inventory;
@@ -14,11 +14,8 @@ export class Inventory {
   async initialize() {
     const res = await server.getServerData();
 
-    this.gold =
-      typeof res !== "string" && Object(res).hasOwnProperty("inventory")
-        ? res.inventory.gold
-        : 20;
-    document.getElementById("gold")!.innerHTML = `${this.gold}G`;
+    this.gold = typeof res !== 'string' && Object(res).hasOwnProperty('inventory') ? res.inventory.gold : 20;
+    document.getElementById('gold')!.innerHTML = `${this.gold}G`;
   }
 
   addGold(gold: number) {

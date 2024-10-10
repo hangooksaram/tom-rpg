@@ -1,5 +1,5 @@
-import { game } from "./game/game";
+import { game } from './game/game';
 import '/reset.css';
-import './style.css'
+import './style.css';
 
 game.initialize();

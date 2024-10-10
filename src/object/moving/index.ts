@@ -1,8 +1,8 @@
-import { Position, Speed, NextPosition } from "../..";
-import { mapsStore } from "../../store/maps";
-import { calcHypotenuse } from "../../util/calculate";
+import { Position, Speed, NextPosition } from '../..';
+import { mapsStore } from '../../store/maps';
+import { calcHypotenuse } from '../../util/calculate';
 export class MovingObject {
-  public el: HTMLDivElement = document.createElement("div");
+  public el: HTMLDivElement = document.createElement('div');
   public id: string;
   public position: Position = { x: 0, y: 0 };
   public nextPosition: NextPosition = null;
@@ -15,7 +15,7 @@ export class MovingObject {
     this.id = id;
     this.el.id = id;
     this.el.classList.add(className);
-    if (document.readyState === "complete") {
+    if (document.readyState === 'complete') {
       document.getElementById(mapsStore.currentMap?.id!)!.appendChild(this.el);
     }
   }
@@ -39,10 +39,7 @@ export class MovingObject {
     const { nextX, nextY } = this.nextPosition!;
     const { xSpeed, ySpeed } = this.speed;
 
-    if (
-      Math.abs(nextX - this.position.x) < 10 &&
-      Math.abs(nextY - this.position.y) < 10
-    ) {
+    if (Math.abs(nextX - this.position.x) < 10 && Math.abs(nextY - this.position.y) < 10) {
       return;
     }
 
@@ -77,17 +74,10 @@ export class MovingObject {
   }
 
   setSpeed(nextX: number, nextY: number) {
-    const distance = calcHypotenuse(
-      this.position.x,
-      this.position.y,
-      nextX,
-      nextY
-    );
+    const distance = calcHypotenuse(this.position.x, this.position.y, nextX, nextY);
 
-    this.speed.xSpeed =
-      (Math.abs(nextX - this.position.x) / distance) * this.speed.value;
-    this.speed.ySpeed =
-      (Math.abs(nextY - this.position.y) / distance) * this.speed.value;
+    this.speed.xSpeed = (Math.abs(nextX - this.position.x) / distance) * this.speed.value;
+    this.speed.ySpeed = (Math.abs(nextY - this.position.y) / distance) * this.speed.value;
   }
 
   hit(power: number) {

@@ -1,9 +1,9 @@
-import { Position } from "../../..";
-import { MovingObject } from "..";
-import { player } from "../player/Player";
-import { enemyStore } from "../../../store/enemy";
-import Enemy from "../enemy/Enemy";
-import { mapsStore } from "../../../store/maps";
+import { Position } from '../../..';
+import { MovingObject } from '..';
+import { player } from '../player/Player';
+import { enemyStore } from '../../../store/enemy';
+import Enemy from '../enemy/Enemy';
+import { mapsStore } from '../../../store/maps';
 
 export class Bullet extends MovingObject {
   #targetEnemy: Enemy | undefined = undefined;
@@ -43,19 +43,14 @@ export class Bullet extends MovingObject {
 
   findTargetEnemy() {
     this.#targetEnemy = enemyStore.enemiesList.find(
-      (e) =>
-        Math.abs(e.position.x - this.position.x) < 30 &&
-        Math.abs(e.position.y - this.position.y) < 30
+      (e) => Math.abs(e.position.x - this.position.x) < 30 && Math.abs(e.position.y - this.position.y) < 30,
     );
   }
 
   transfer() {
     super.transfer();
     const { nextX, nextY } = this.nextPosition!;
-    if (
-      Math.abs(nextX - this.position.x) < 10 &&
-      Math.abs(nextY - this.position.y) < 10
-    ) {
+    if (Math.abs(nextX - this.position.x) < 10 && Math.abs(nextY - this.position.y) < 10) {
       this.destroy();
     }
   }
