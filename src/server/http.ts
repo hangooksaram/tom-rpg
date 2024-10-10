@@ -1,13 +1,13 @@
 class Http {
-  #URL: string = "https://tom-rpg-db-default-rtdb.firebaseio.com";
+  #URL: string = 'https://tom-rpg-db-default-rtdb.firebaseio.com';
 
-  async fetch<T>(config?: FetchConfig): Promise<T | string> {
+  async fetch<T>(config?: FetchConfig): Promise<T> {
     try {
       return (
         await fetch(`${this.#URL}/${config?.param}`, {
           headers: config?.body
             ? {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               }
             : config?.headers!,
           ...config,
@@ -15,15 +15,15 @@ class Http {
       ).json() as T;
     } catch (e) {
       if (e instanceof Error) {
-        return e.message;
+        throw new Error(e.message);
       }
-      throw new Error("unexpected error is occur");
+      throw new Error('unexpected error is occur');
     }
   }
 }
 
 interface FetchConfig {
-  method?: "POST" | "PUT" | "GET" | "DELETE";
+  method?: 'POST' | 'PUT' | 'GET' | 'DELETE';
   param?: string;
   headers?: HeadersInit;
   body?: string;

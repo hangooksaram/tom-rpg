@@ -40,7 +40,6 @@ export default class Player extends MovingObject {
     this.power = 10;
     this.maxMana = 100;
     this.mana = 100;
-    this.destroy();
   }
 
   async reInitialize() {
