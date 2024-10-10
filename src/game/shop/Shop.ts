@@ -58,8 +58,6 @@ class Shop {
   buy(name: string) {
     const boughtWeapon = this.#weapons.find((weapon) => weapon.name === name)!;
 
-    console.log(boughtWeapon);
-
     inventory.useGold(boughtWeapon.price);
     document.getElementById('gold')!.innerHTML = `${inventory.gold}G`;
 

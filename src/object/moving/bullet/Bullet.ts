@@ -1,4 +1,4 @@
-import { Position } from '../../..';
+import { Position, Speed } from '../../..';
 import { MovingObject } from '..';
 import { player } from '../player/Player';
 import { enemyStore } from '../../../store/enemy';
@@ -7,6 +7,7 @@ import { mapsStore } from '../../../store/maps';
 
 export class Bullet extends MovingObject {
   #targetEnemy: Enemy | undefined = undefined;
+  public speed: Speed = { value: 4, xSpeed: 0, ySpeed: 0 };
   constructor(className: string, id: string, power: number) {
     super(className, id);
     this.power = power;
