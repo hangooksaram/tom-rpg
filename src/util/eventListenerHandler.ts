@@ -1,20 +1,29 @@
 import { auth } from '../auth/GoogleAuth';
 import { game } from '../game/game';
-import { toggleInventory } from '../game/inventory/animation';
 import { player } from '../object/moving/player/Player';
 import { setClickTargetAnimation } from '../object/moving/player/animation';
-import { server } from '../server/server';
 import { mapsStore } from '../store/maps';
 
 const addInventoryToggleEvent = () => {
   document.getElementById('inventory-toggle-btn')?.addEventListener('click', () => {
-    // toggleInventory();
     const modal = document.getElementById('inventory')! as HTMLDialogElement;
     modal.showModal();
   });
 
   document.getElementById('inventory-close-btn')!.addEventListener('click', () => {
     const modal = document.getElementById('inventory')! as HTMLDialogElement;
+    modal.close();
+  });
+};
+
+const addShopToggleEvent = () => {
+  document.getElementById('shop-toggle-btn')?.addEventListener('click', () => {
+    const modal = document.getElementById('shop')! as HTMLDialogElement;
+    modal.showModal();
+  });
+
+  document.getElementById('shop-close-btn')!.addEventListener('click', () => {
+    const modal = document.getElementById('shop')! as HTMLDialogElement;
     modal.close();
   });
 };
@@ -54,4 +63,5 @@ export const eventListeners = [
   addPlayerAttackEvent,
   addSignInEvent,
   addEnterGameEvent,
+  addShopToggleEvent,
 ];

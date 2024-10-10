@@ -82,6 +82,10 @@ export class MovingObject {
 
   hit(power: number) {
     this.health -= power;
+
+    if (this.health <= 0) {
+      this.health = 0;
+    }
   }
 
   setPower(power: number) {

@@ -22,6 +22,10 @@ export class Inventory {
     this.gold += gold;
   }
 
+  useGold(gold: number) {
+    this.gold -= gold;
+  }
+
   setGold(gold: number) {
     this.gold = gold;
   }

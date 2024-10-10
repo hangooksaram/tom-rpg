@@ -422,7 +422,7 @@ input {
   }
 }
 
-#inventory-toggle-btn {
+#inventory-toggle-btn, #shop-toggle-btn {
   position: fixed;
   top: 40px;
   right: 40px;
@@ -436,6 +436,15 @@ input {
 #inventory-toggle-btn {
   right: 120px;
   width: 90px;
+}
+
+#shop-toggle-btn{
+  right : 230px;
+  width : 90px;
+}
+
+#shop-item-weapon-list{
+  padding-left : 16px
 }
 
 #inventory {
