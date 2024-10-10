@@ -8,7 +8,7 @@ import Enemy from '../enemy/Enemy';
 import { PlayerUi } from './animation';
 import { server } from '../../../server/server';
 import { Modal } from '../../../game/modal';
-import { inventory } from '../../inventory/Inventory';
+import { inventory } from '../../../game/inventory/Inventory';
 import { decreasedValueByPercent } from '../../../util/calculate';
 import { button } from '../../../ui/button';
 import { GENERAL_ENEMY_HIT_X_RANGE, GENERAL_ENEMY_HIT_Y_RANGE } from '../../../constants/range';

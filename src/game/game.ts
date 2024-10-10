@@ -1,5 +1,5 @@
 import { User } from 'firebase/auth';
-import { inventory } from '../object/inventory/Inventory';
+import { inventory } from './inventory/Inventory';
 import Map from '../object/map';
 import { player } from '../object/moving/player/Player';
 import { mapsStore } from '../store/maps';

@@ -6,8 +6,8 @@ import { enemyStore } from '../../../store/enemy';
 import { mapsStore } from '../../../store/maps';
 
 import { randomPos, transferToInteger } from '../../../util/calculate';
-import { inventory } from '../../inventory/Inventory';
-import { setAddGoldAnimation } from '../../inventory/animation';
+import { inventory } from '../../../game/inventory/Inventory';
+import { setAddGoldAnimation } from '../../../game/inventory/animation';
 import { player } from '../player/Player';
 import { EnemyUi } from './animation';
 import { EnemyType, IEnemy } from './types';

@@ -1,6 +1,6 @@
 import { auth } from '../auth/GoogleAuth';
 import { game } from '../game/game';
-import { toggleInventory } from '../object/inventory/animation';
+import { toggleInventory } from '../game/inventory/animation';
 import { player } from '../object/moving/player/Player';
 import { setClickTargetAnimation } from '../object/moving/player/animation';
 import { server } from '../server/server';

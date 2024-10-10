@@ -1,5 +1,5 @@
 import Player, { player } from '../object/moving/player/Player';
-import { Inventory, inventory } from '../object/inventory/Inventory';
+import { Inventory, inventory } from '../game/inventory/Inventory';
 import { http } from './http';
 import { User } from 'firebase/auth';
 import { auth } from '../auth/GoogleAuth';
