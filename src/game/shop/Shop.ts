@@ -1,6 +1,7 @@
 import { auth } from '../../auth/GoogleAuth';
 import { player } from '../../object/moving/player/Player';
 import { http } from '../../server/http';
+import { server } from '../../server/server';
 import { inventory } from '../inventory/Inventory';
 import { setWeaponItems } from './animation';
 
@@ -63,6 +64,7 @@ class Shop {
     document.getElementById('gold')!.innerHTML = `${inventory.gold}G`;
 
     player.setPower(boughtWeapon.power);
+    server.saveData();
   }
 }
 
