@@ -1,4 +1,5 @@
 import { server } from '../../server/server';
+import { toggleBuyStatus } from '../shop/animation';
 
 export class Inventory {
   private static instance: Inventory;
@@ -24,6 +25,7 @@ export class Inventory {
 
   useGold(gold: number) {
     this.gold -= gold;
+    toggleBuyStatus();
   }
 
   setGold(gold: number) {

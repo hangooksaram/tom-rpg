@@ -4,7 +4,7 @@ import { http } from '../../server/http';
 import { inventory } from '../inventory/Inventory';
 import { setWeaponItems } from './animation';
 
-interface IWeapon {
+export interface IWeapon {
   name: string;
   price: number;
   power: number;
