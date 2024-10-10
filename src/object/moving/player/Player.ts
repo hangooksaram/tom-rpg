@@ -56,6 +56,7 @@ export default class Player extends MovingObject {
 
     if (typeof res !== 'string') {
       this.health = res.player.health;
+      this.power = res.player.power;
       this.setPos({ x: res.player.position.x, y: res.player.position.y });
       this.maxHealth = res.player.maxHealth;
       this.#ui.setHpStatus();
