@@ -59,8 +59,9 @@ class Shop {
     const boughtWeapon = this.#weapons.find((weapon) => weapon.name === name)!;
 
     inventory.useGold(boughtWeapon.price);
-    document.getElementById('gold')!.innerHTML = `${inventory.gold}G`;
+    document.getElementById('gold')!.innerHTML = `${inventory.getGold()}G`;
 
+    inventory.setWeapon(boughtWeapon);
     player.setPower(boughtWeapon.power);
     server.saveData();
   }

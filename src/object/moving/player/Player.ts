@@ -47,7 +47,7 @@ export default class Player extends MovingObject {
     this.health = this.maxHealth;
     this.#ui.setHpStatus();
     document.getElementById('root')!.appendChild(this.el);
-    inventory.setGold(decreasedValueByPercent(inventory.gold, 20));
+    inventory.setGold(decreasedValueByPercent(inventory.getGold(), 20));
 
     await server.saveData();
   }

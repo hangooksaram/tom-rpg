@@ -1,9 +1,12 @@
 import { server } from '../../server/server';
 import { toggleBuyStatus } from '../shop/animation';
+import { IWeapon } from '../shop/Shop';
+import { setEquipmentText } from './animation';
 
 export class Inventory {
   private static instance: Inventory;
-  public gold: number = 20;
+  #gold: number = 20;
+  #weapon: IWeapon | null = null;
   public static getInstance() {
     if (!Inventory.instance) {
       Inventory.instance = new Inventory();
@@ -13,24 +16,52 @@ export class Inventory {
   constructor() {}
 
   async initialize() {
-    const res = await server.getServerData();
+    try {
+      const res = await server.getServerData();
 
-    this.gold = typeof res !== 'string' && Object(res).hasOwnProperty('inventory') ? res.inventory.gold : 20;
-    document.getElementById('gold')!.innerHTML = `${this.gold}G`;
+      this.#gold = res.inventory.gold ?? 20;
+      this.setWeapon(res.inventory.weapon);
+
+      console.log(this.#gold, this.#weapon);
+      document.getElementById('gold')!.innerHTML = `${this.#gold}G`;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   addGold(gold: number) {
-    this.gold += gold;
+    this.#gold += gold;
   }
 
   useGold(gold: number) {
-    this.gold -= gold;
+    this.#gold -= gold;
     toggleBuyStatus();
   }
 
   setGold(gold: number) {
-    this.gold = gold;
-    document.getElementById('gold')!.innerHTML = `${this.gold}G`;
+    this.#gold = gold;
+    document.getElementById('gold')!.innerHTML = `${this.#gold}G`;
+  }
+
+  getGold() {
+    return this.#gold;
+  }
+
+  setWeapon(weapon: IWeapon) {
+    this.#weapon = weapon;
+
+    setEquipmentText(weapon);
+  }
+
+  getWeapon() {
+    return this.#weapon;
+  }
+
+  getDatas() {
+    return {
+      gold: this.#gold,
+      weapon: this.#weapon,
+    };
   }
 }
 

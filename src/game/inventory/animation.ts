@@ -1,3 +1,4 @@
+import { IWeapon } from '../shop/Shop';
 import { inventory } from './Inventory';
 
 export const setAddGoldAnimation = (id: string, gold: number) => {
@@ -7,26 +8,9 @@ export const setAddGoldAnimation = (id: string, gold: number) => {
   const el = document.getElementById(`hit-animation-container-${id}`)!;
   el.appendChild(goldEl);
 
-  document.getElementById('gold')!.innerHTML = `${inventory.gold}G`;
+  document.getElementById('gold')!.innerHTML = `${inventory.getGold()}G`;
 };
 
-export const toggleInventory = () => {
-  const overlay = document.createElement('div');
-  overlay.id = 'overlay';
-  const isInventoryHidden = document.getElementById('inventory')?.classList.contains('hidden');
-  const toggle = () => document.getElementById('inventory')?.classList.toggle('hidden');
-
-  if (isInventoryHidden) {
-    toggle();
-    overlay.classList.add('overlay');
-    document.body.appendChild(overlay);
-    overlay.addEventListener('click', () => {
-      toggleInventory();
-    });
-
-    return;
-  }
-
-  toggle();
-  document.body.removeChild(document.getElementById('overlay')!);
+export const setEquipmentText = (weapon: IWeapon) => {
+  document.getElementById('equipment-weapon')!.innerText = weapon.name;
 };

@@ -33,7 +33,7 @@ export const toggleBuyStatus = () => {
     const boughtWeapon = id.split('-')[1];
     const weapon = shop.getWeapons().find((weapon) => weapon.name === boughtWeapon)!;
 
-    if (weapon.price <= inventory.gold) {
+    if (weapon.price <= inventory.getGold()) {
       buyBtnEl.disabled = false;
       buyBtnEl.addEventListener('click', () => {
         shop.buy(weapon.name);

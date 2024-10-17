@@ -4,6 +4,7 @@ import { http } from './http';
 import { User } from 'firebase/auth';
 import { auth } from '../auth/GoogleAuth';
 import { Modal } from '../game/modal';
+import { IWeapon } from '../game/shop/Shop';
 
 export class ServerData {
   private static instance: ServerData;
@@ -33,7 +34,7 @@ export class ServerData {
         body: JSON.stringify({
           user: auth.user,
           player,
-          inventory,
+          inventory: inventory.getDatas(),
         }),
       });
     } catch (e) {
@@ -47,9 +48,14 @@ export class ServerData {
   }
 }
 
+interface IInventory {
+  gold: number;
+  weapon: IWeapon;
+}
+
 interface GerServerDataResponse {
   player: Player;
-  inventory: Inventory;
+  inventory: IInventory;
 }
 
 const server = ServerData.getInstance();
