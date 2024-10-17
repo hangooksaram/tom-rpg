@@ -31,14 +31,6 @@ const addShopToggleEvent = () => {
   });
 };
 
-const addPlayerMoveEvent = () => {
-  document.getElementById(mapsStore.currentMap?.id!)!.addEventListener('mousedown', (e) => {
-    if (!mapsStore.isChanging) {
-      player.move(e.clientX, e.clientY);
-      setClickTargetAnimation({ x: e.clientX, y: e.clientY });
-    }
-  });
-};
 const addPlayerAttackEvent = () => {
   document.addEventListener('keydown', (e) => {
     if (e.repeat) return;
@@ -62,7 +54,6 @@ const addEnterGameEvent = () => {
 
 export const eventListeners = [
   addInventoryToggleEvent,
-  addPlayerMoveEvent,
   addPlayerAttackEvent,
   addSignInEvent,
   addEnterGameEvent,
