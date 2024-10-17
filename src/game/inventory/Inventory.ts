@@ -1,7 +1,7 @@
 import { server } from '../../server/server';
 import { toggleBuyStatus } from '../shop/animation';
 import { IWeapon } from '../shop/Shop';
-import { setEquipmentText } from './animation';
+import { initializeEquipmentTooltipText, setEquipmentText, setEquipmentTooltipText } from './animation';
 
 export class Inventory {
   private static instance: Inventory;
@@ -21,8 +21,8 @@ export class Inventory {
 
       this.#gold = res.inventory.gold ?? 20;
       this.setWeapon(res.inventory.weapon);
-
-      console.log(this.#gold, this.#weapon);
+      initializeEquipmentTooltipText();
+      setEquipmentTooltipText();
       document.getElementById('gold')!.innerHTML = `${this.#gold}G`;
     } catch (e) {
       console.log(e);

@@ -123,7 +123,6 @@ export default class Player extends MovingObject {
 
     this.#ui.setHpStatus();
     if (this.health <= 0) {
-      console.log('how many?');
       this.destroy();
     }
     this.#ui.setHitAnimation();
