@@ -1,16 +1,7 @@
-
-
-import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  signOut,
-  onAuthStateChanged,
-  User,
-} from "firebase/auth";
-import { app, provider } from "../server/firebase";
-import { game } from "../game/game";
-import { server } from "../server/server";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from 'firebase/auth';
+import { app, provider } from '../server/firebase';
+import { game } from '../game/game';
+import { server } from '../server/server';
 
 export class GoogleAuth {
   private static instance: GoogleAuth;
@@ -31,17 +22,16 @@ export class GoogleAuth {
   get user() {
     return this.#user;
   }
-  async initialize () {
-    onAuthStateChanged(this.#auth, async(user) => {
-      // document.getElementById("auth")?.classList.remove("hidden");
-      // if (user) {
-      //   this.#user = user;
-        
-        
-      //   // game.start();
-      //   await server.saveData(await user.getIdToken(true))
-      // }
-      // game.setLandingScreen();
+  async initialize() {
+    onAuthStateChanged(this.#auth, async (user) => {
+      document.getElementById('auth')?.classList.remove('hidden');
+
+      if (user) {
+        this.#user = user;
+
+        game.start();
+      }
+      game.setLandingScreen();
     });
   }
 
@@ -49,11 +39,11 @@ export class GoogleAuth {
     signInWithPopup(this.#auth, provider)
       .then(async (result) => {
         this.#user = result.user;
-        const userData =  await server.getServerData();
+        const userData = await server.getServerData();
 
-        if(!userData){
-          (async()=>{
-              await server.saveData();
+        if (!userData) {
+          (async () => {
+            await server.saveData();
           })();
         }
         game.start();
@@ -64,7 +54,7 @@ export class GoogleAuth {
         const errorMessage = error.message;
         // The email of the user's account used.
         const email = error.customData.email;
-        // The AuthCredential type that was used. 
+        // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
       });

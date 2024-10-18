@@ -6,7 +6,7 @@ import { initializeEquipmentTooltipText, setEquipmentText, setEquipmentTooltipTe
 export class Inventory {
   private static instance: Inventory;
   #gold: number = 20;
-  #weapon: IWeapon | null = null;
+  #weapon: IWeapon | {} = {};
   public static getInstance() {
     if (!Inventory.instance) {
       Inventory.instance = new Inventory();
@@ -20,7 +20,7 @@ export class Inventory {
       const res = await server.getServerData();
 
       this.#gold = res.inventory.gold ?? 20;
-      this.setWeapon(res.inventory.weapon);
+      if (res.inventory.weapon) this.setWeapon(res.inventory.weapon);
       initializeEquipmentTooltipText();
       setEquipmentTooltipText();
       document.getElementById('gold')!.innerHTML = `${this.#gold}G`;
