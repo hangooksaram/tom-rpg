@@ -43,11 +43,14 @@ export class Game {
   }
 
   public initializeObjects() {
-    player.initialize();
+    createRandomEnemies();
+
+    setTimeout(() => {
+      player.initialize();
+    }, 1000);
+
     inventory.initialize();
     shop.initialize();
-
-    createRandomEnemies();
   }
 
   public setLandingScreen() {
