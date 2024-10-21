@@ -47,6 +47,10 @@ export default class Enemy extends MovingObject {
     return this.#includedMapId;
   }
 
+  getIsIncludedCurrentMap() {
+    return this.#includedMapId === mapsStore?.currentMap?.id;
+  }
+
   getPower() {
     return this.#power;
   }

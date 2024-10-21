@@ -57,8 +57,7 @@ export const createRandomEnemies = () => {
 };
 
 const createEnemyRecursively = (randomEnemyType: EnemyType) => {
-  const isCurrentMapFull =
-    enemyStore.enemiesList.filter((e) => e.getIncludedMapId() === mapsStore.currentMap?.id!).length === 10;
+  const isCurrentMapFull = enemyStore.enemiesList.filter((e) => e?.getIsIncludedCurrentMap()).length === 10;
 
   if (isCurrentMapFull) {
     return;

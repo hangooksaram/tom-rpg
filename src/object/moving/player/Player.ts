@@ -109,6 +109,10 @@ export default class Player extends MovingObject {
     super.setPos({ x, y });
     this.findAdjacentEnemy();
 
+    if (!this.adjacentEnemy?.getIsIncludedCurrentMap()) {
+      return;
+    }
+
     if (this.adjacentEnemy && !this.isHit) {
       this.hit();
       return;
@@ -151,6 +155,8 @@ export default class Player extends MovingObject {
       setTimeout(() => {
         this.el.classList.remove('move');
       }, 300);
+
+      mapsStore?.currentMap!.change();
     }
     super.transfer();
   }
