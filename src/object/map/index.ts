@@ -3,6 +3,7 @@ import { mapId } from '../../util/generateRandomId';
 import { player } from '../moving/player/Player';
 import { setClickTargetAnimation } from '../moving/player/animation';
 import { Portal } from './Portal';
+import { Direction, IPortals } from './type';
 
 const rootMap = document.getElementById('map-container')!;
 
@@ -13,12 +14,21 @@ export default class Map {
   public eastId: string;
   public southId: string;
   public westId: string;
+  #northPortal: Portal | undefined;
+  #southPortal: Portal | undefined;
+  #eastPortal: Portal | undefined;
+  #westPortal: Portal | undefined;
+  #portalToNextMap: { nextMapId: string; direction: string } | undefined;
 
   get viewport() {
     return {
       horizontal: document.getElementById(`${this.id}`)!.offsetWidth,
       vertical: document.getElementById(`${this.id}`)!.offsetHeight,
     };
+  }
+
+  initializePortalToNextMap() {
+    this.#portalToNextMap = undefined;
   }
 
   constructor(id: string, northId?: string, eastId?: string, southId?: string, westId?: string) {
@@ -42,9 +52,37 @@ export default class Map {
   }
 
   createPortal() {
-    const northPortal = new Portal(this.el, 'north', this.id, this.northId);
-    const eastPortal = new Portal(this.el, 'east', this.id, this.eastId);
-    const southPortal = new Portal(this.el, 'south', this.id, this.southId);
-    const westPortal = new Portal(this.el, 'west', this.id, this.westId);
+    this.#northPortal = new Portal(this.el, 'north', this.id, this.northId);
+    this.#eastPortal = new Portal(this.el, 'east', this.id, this.eastId);
+    this.#southPortal = new Portal(this.el, 'south', this.id, this.southId);
+    this.#westPortal = new Portal(this.el, 'west', this.id, this.westId);
+
+    this.setPortalToNextMap();
+  }
+
+  setPortalToNextMap() {
+    [this.#northPortal, this.#eastPortal, this.#southPortal, this.#westPortal].forEach((portal) => {
+      portal!.el.addEventListener('click', () => {
+        this.#portalToNextMap = { nextMapId: portal!.nextMapId, direction: portal!.direction };
+      });
+    });
+  }
+
+  getPortals(): IPortals {
+    return {
+      north: this.#northPortal!,
+      east: this.#eastPortal!,
+      south: this.#southPortal!,
+      west: this.#westPortal!,
+    };
+  }
+
+  change() {
+    if (this.#portalToNextMap !== undefined) {
+      const direction = this.#portalToNextMap?.direction as Direction;
+      this.getPortals()[direction].moveToNextMap(this.#portalToNextMap?.nextMapId!);
+
+      this.initializePortalToNextMap();
+    }
   }
 }

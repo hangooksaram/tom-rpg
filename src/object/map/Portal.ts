@@ -5,27 +5,21 @@ import { mapsStore } from '../../store/maps';
 import { createRandomEnemies, deleteAllEnemies } from '../../util/object';
 
 export class Portal {
-  public mapEl: HTMLDivElement;
   public direction: MapDirection;
   public currentMapId: string = '';
   public nextMapId: string = '';
+  public el: HTMLDivElement;
   constructor(mapEl: HTMLDivElement, direction: MapDirection, currentMapId: string, nextMapId: string) {
-    this.mapEl = mapEl;
     this.direction = direction;
     this.currentMapId = currentMapId;
     this.nextMapId = nextMapId;
 
-    const el = document.createElement('div');
-    el.classList.add('portal');
-    el.classList.add(direction);
-    mapEl.appendChild(el);
-    el.addEventListener('click', () => {
-      this.moveToNextMap(this.nextMapId);
-    });
+    this.el = document.createElement('div');
+    this.el.classList.add('portal');
+    this.el.classList.add(direction);
+    mapEl.appendChild(this.el);
   }
   moveToNextMap(id: string) {
-    const mapContainerEl = document.getElementById('map-container');
-    // mapContainerEl?.removeChild(document.getElementById(this.currentMapId)!);
     document.getElementById(this.currentMapId)!.style.display = 'none';
     const isDuplicated = mapsStore.mapsList.find((map) => map.id === id);
     if (!isDuplicated) {
