@@ -20,12 +20,16 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|jpg|gif|svg|jpeg)$/i,
         type: 'asset/resource',
       },
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.html/,
+        use: ['html-loader'],
       },
 
       {
@@ -75,7 +79,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: '/index.html',
     }),
     // new BundleAnalyzerPlugin(),
   ],
