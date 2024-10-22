@@ -150,7 +150,7 @@ input {
 .map {
   width: 100%;
   height: 100vh;
-  background-image: url("../public/images/diablo\ tile.png");
+  background-image: url("/public/images/diablo\ tile.png");
 }
 
 .enemy {
@@ -425,22 +425,19 @@ input {
 #inventory-toggle-btn, #shop-toggle-btn {
   position: fixed;
   top: 40px;
-  right: 40px;
-  border: none;
-  background-color: white;
-  width: 70px;
-  height: 40px;
-  border-radius: 25px;
+  color:white;
+  background-color: rgba(109,46,46,1);
+  
 }
 
 #inventory-toggle-btn {
   right: 120px;
-  width: 90px;
+  
 }
 
 #shop-toggle-btn{
   right : 230px;
-  width : 90px;
+  
 }
 
 #shop-item-weapon-list{
