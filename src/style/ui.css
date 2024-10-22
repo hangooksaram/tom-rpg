@@ -1,4 +1,7 @@
 .common-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     width: fit-content;
     padding:0px 8px;

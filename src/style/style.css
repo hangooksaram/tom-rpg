@@ -426,8 +426,9 @@ input {
   position: fixed;
   top: 40px;
   color:white;
-  background-color: rgba(109,46,46,1);
-  
+  background: url('/public/images/gameUi/common-button.png');
+  background-size: cover;
+  width:70px;
 }
 
 #inventory-toggle-btn {
@@ -443,6 +444,8 @@ input {
 #shop-item-weapon-list{
   padding-left : 16px
 }
+
+
 
 #inventory {
   background-color: white;
