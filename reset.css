@@ -7,13 +7,13 @@ html,
   background-repeat: repeat;
   height: 100%;
   overflow: hidden;
-  font-family :'HeirofLightOTFBold';
+  font-family :'heiroflightotfbold';
   
 }
 
 @font-face {
-  font-family: 'HeirofLightOTFBold';
-  src: url('/public/fonts/HeirofLightOTFBold.OTF');
+  font-family: 'heiroflightotfbold';
+  src: url('/public/fonts/heiroflightotfbold.otf');
   font-style: normal;
 }
 
@@ -25,5 +25,5 @@ button{
 }
 
 button,input,textarea{
-  font-family :'HeirofLightOTFBold';
+  font-family :'heiroflightotfbold';
 }
