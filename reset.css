@@ -13,7 +13,7 @@ html,
 
 @font-face {
   font-family: 'heiroflightotfbold';
-  src: url('./heiroflightotfbold.otf');
+  src: url('./public/fonts/heiroflightotfbold.otf');
   font-style: normal;
 }
 
