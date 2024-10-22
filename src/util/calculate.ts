@@ -15,7 +15,7 @@ const randomPos = () => {
 };
 
 const decreasedValueByPercent = (value: number, percent: number) => {
-  return value * ((100 - percent) / 100);
+  return Math.floor(value * ((100 - percent) / 100));
 };
 
 export { calcHypotenuse, transferToInteger, randomPos, decreasedValueByPercent };

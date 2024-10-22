@@ -1,6 +1,17 @@
 import { inventory } from '../inventory/Inventory';
 import shop, { IWeapon } from './Shop';
 
+const addBuyEvent = () => {
+  Array.from(document.getElementsByClassName('buy-weapon-button')).forEach(({ id }) => {
+    const buyBtnEl = document.getElementById(id) as HTMLButtonElement;
+    const weapon = shop.getWeapons().find((weapon) => weapon.name === id.split('-')[1])!;
+
+    buyBtnEl.addEventListener('click', () => {
+      shop.buy(weapon.name);
+    });
+  });
+};
+
 export const setWeaponItems = () => {
   shop.getWeapons().forEach((weapon) => {
     const { name, price } = weapon;
@@ -23,21 +34,17 @@ export const setWeaponItems = () => {
     document.getElementById('shop-container')?.appendChild(weaponContainerEl);
   });
 
+  addBuyEvent();
   toggleBuyStatus();
 };
 
 export const toggleBuyStatus = () => {
-  Array.from(document.getElementsByClassName('buy-weapon-button')).forEach((item) => {
-    const id = item.id;
+  Array.from(document.getElementsByClassName('buy-weapon-button')).forEach(({ id }) => {
     const buyBtnEl = document.getElementById(id) as HTMLButtonElement;
-    const boughtWeapon = id.split('-')[1];
-    const weapon = shop.getWeapons().find((weapon) => weapon.name === boughtWeapon)!;
+    const weapon = shop.getWeapons().find((weapon) => weapon.name === id.split('-')[1])!;
 
     if (weapon.price <= inventory.getGold()) {
       buyBtnEl.disabled = false;
-      buyBtnEl.addEventListener('click', () => {
-        shop.buy(weapon.name);
-      });
     } else {
       buyBtnEl.disabled = true;
     }
