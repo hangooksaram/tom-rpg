@@ -3,7 +3,7 @@ import { game } from '../game/game';
 import shop from '../game/shop/Shop';
 import { toggleBuyStatus } from '../game/shop/animation';
 import { player } from '../object/moving/player/Player';
-import { setClickTargetAnimation } from '../object/moving/player/animation';
+import { setClickTargetAnimation } from '../object/moving/player/PlayerUI';
 import { mapsStore } from '../store/maps';
 
 const addInventoryToggleEvent = () => {

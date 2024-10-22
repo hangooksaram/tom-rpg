@@ -5,7 +5,7 @@ import { enemyStore } from '../../../store/enemy';
 import { mapsStore } from '../../../store/maps';
 
 import Enemy from '../enemy/Enemy';
-import { PlayerUi } from './animation';
+import { PlayerUI } from './PlayerUI';
 import { server } from '../../../server/server';
 import { Modal } from '../../../game/modal';
 import { inventory } from '../../../game/inventory/Inventory';
@@ -17,7 +17,7 @@ export default class Player extends MovingObject {
   public maxHealth: number;
   public mana: number;
   public maxMana: number;
-  #ui: PlayerUi = new PlayerUi(this.el);
+  #ui: PlayerUI = new PlayerUI(this.el);
 
   public static getInstance() {
     if (!Player.instance) {
@@ -72,22 +72,12 @@ export default class Player extends MovingObject {
   }
   attack() {
     const bullet = new Bullet('bullet', `bullet-${new Date().toISOString()}`, this.power);
-    this.el.classList.add('attack');
-    if (this.position.x < this.#cursorPosition.x) {
-      this.el.classList.add('reverse-direction');
-    }
 
-    if (this.position.x > this.#cursorPosition.x) {
-      this.el.classList.remove('reverse-direction');
-    }
     bullet.init();
-    setTimeout(() => {
-      bullet.move(this.#cursorPosition.x, this.#cursorPosition.y);
-    }, 100);
 
-    setTimeout(() => {
-      this.el.classList.remove('attack');
-    }, 500);
+    this.#ui.setAttackMotion(this.position.x, this.#cursorPosition.x);
+
+    bullet.move(this.#cursorPosition.x, this.#cursorPosition.y);
   }
 
   move(nextX: number, nextY: number): void {
@@ -95,12 +85,7 @@ export default class Player extends MovingObject {
       nextX < mapsStore.currentMap!.viewport.horizontal - 20 &&
       nextY < mapsStore.currentMap!.viewport.vertical - 20
     ) {
-      this.el.classList.add('move');
-      if (this.position.x < nextX) {
-        this.el.classList.add('reverse-direction');
-      } else if (this.position.x > nextX) {
-        this.el.classList.remove('reverse-direction');
-      }
+      this.#ui.setMovingMotion(this.position.x, nextX);
       super.move(nextX, nextY);
     }
   }
@@ -134,8 +119,8 @@ export default class Player extends MovingObject {
 
     setTimeout(() => {
       this.isHit = false;
+      this.adjacentEnemy = undefined;
     }, 1000);
-    this.adjacentEnemy = undefined;
 
     await server.saveData();
     return;

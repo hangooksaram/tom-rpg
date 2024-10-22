@@ -1,7 +1,7 @@
 import { mapsStore } from '../../store/maps';
 import { mapId } from '../../util/generateRandomId';
 import { player } from '../moving/player/Player';
-import { setClickTargetAnimation } from '../moving/player/animation';
+import { setClickTargetAnimation } from '../moving/player/PlayerUI';
 import { Portal } from './Portal';
 import { Direction, IPortals } from './type';
 

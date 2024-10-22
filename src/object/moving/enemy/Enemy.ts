@@ -93,7 +93,7 @@ export default class Enemy extends MovingObject {
       Math.abs(this.position.y - player.position.y) < GENERAL_ENEMY_HIT_Y_RANGE
     ) {
       player.adjacentEnemy = this;
-      if (!player.isHit) player.hit();
+      if (!player.isHit && this.getIsIncludedCurrentMap()) player.hit();
 
       return;
     }
