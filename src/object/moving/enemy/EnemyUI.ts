@@ -1,4 +1,6 @@
-export class EnemyUi {
+import { mapsStore } from '../../../store/maps';
+
+export class EnemyUI {
   public el: HTMLDivElement;
 
   constructor(el: HTMLDivElement) {
