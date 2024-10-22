@@ -115,4 +115,8 @@ export class MovingObject {
   setPower(power: number) {
     this.power = power;
   }
+
+  destroy(id: string = 'root') {
+    document.getElementById(id)?.removeChild(this.el);
+  }
 }

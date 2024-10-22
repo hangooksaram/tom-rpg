@@ -147,7 +147,7 @@ export default class Player extends MovingObject {
   }
 
   destroy(): void {
-    document.getElementById('root')!.removeChild(this.el!);
+    super.destroy();
     const modal = new Modal();
     modal.setText('사망하셨습니다. 골드가 20% 차감된 상태로 부활합니다');
     const confirm = button('확인', () => {

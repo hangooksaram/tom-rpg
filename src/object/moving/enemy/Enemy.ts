@@ -9,14 +9,14 @@ import { randomPos, transferToInteger } from '../../../util/calculate';
 import { inventory } from '../../../game/inventory/Inventory';
 import { setAddGoldAnimation } from '../../../game/inventory/animation';
 import { player } from '../player/Player';
-import { EnemyUi } from './animation';
+import { EnemyUI } from './EnemyUI';
 import { EnemyType, IEnemy } from './types';
 
 export default class Enemy extends MovingObject {
   public health: number;
   #type: EnemyType;
   #gold: number;
-  #ui: EnemyUi = new EnemyUi(this.el);
+  #ui: EnemyUI = new EnemyUI(this.el);
   #power: number;
   #includedMapId;
 
@@ -80,7 +80,7 @@ export default class Enemy extends MovingObject {
     this.#ui.setDestroyAnimation();
 
     setTimeout(() => {
-      document.getElementById(mapsStore.currentMap!.id)!.removeChild(this.el!);
+      super.destroy(mapsStore.currentMap?.id);
     }, 1000);
 
     enemyStore.deleteEnemy(this.id!);

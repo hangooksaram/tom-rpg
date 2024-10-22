@@ -17,6 +17,10 @@ export class Bullet extends MovingObject {
     this.setPos({ x: playerPos.x, y: playerPos.y });
   }
 
+  destroy(id?: string): void {
+    super.destroy(id);
+  }
+
   setPos(position: Position): void {
     super.setPos(position);
     this.findTargetEnemy();
@@ -27,14 +31,8 @@ export class Bullet extends MovingObject {
     }
   }
 
-  destroy() {
-    if (document.getElementById(this.id!)) {
-      document.getElementById(mapsStore.currentMap!.id)!.removeChild(this.el!);
-    }
-  }
-
   #hitEnemy() {
-    this.destroy();
+    this.destroy(mapsStore.currentMap!.id);
     this.isHit = true;
     this.#targetEnemy!.hit(this.power);
     this.#targetEnemy = undefined;
@@ -52,7 +50,7 @@ export class Bullet extends MovingObject {
     super.transfer();
     const { nextX, nextY } = this.nextPosition!;
     if (Math.abs(nextX - this.position.x) < 10 && Math.abs(nextY - this.position.y) < 10) {
-      this.destroy();
+      this.destroy(mapsStore.currentMap!.id);
     }
   }
 }
