@@ -34,23 +34,16 @@ export class PlayerUI {
     }, 1000);
   }
 
-  setMovingMotion(currentX: number, nextX: number) {
-    this.el.classList.add('move');
-    if (currentX < nextX) {
-      this.el.classList.add('reverse-direction');
-    } else if (currentX > nextX) {
-      this.el.classList.remove('reverse-direction');
-    }
-  }
-
   setAttackMotion(currentX: number, clickedXPosition: number) {
     this.el.classList.add('attack');
     if (currentX < clickedXPosition) {
       this.el.classList.add('reverse-direction');
+      this.el.style.transform += ` scaleX(-1) `;
     }
 
     if (currentX > clickedXPosition) {
       this.el.classList.remove('reverse-direction');
+      this.el.style.transform += ` scaleX(1) `;
     }
     setTimeout(() => {
       this.el.classList.remove('attack');

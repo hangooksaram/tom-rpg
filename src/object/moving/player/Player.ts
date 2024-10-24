@@ -65,6 +65,9 @@ export default class Player extends MovingObject {
       this.setPos({ x: 0, y: 0 });
     }
 
+    this.el!.style.top = `0px`;
+    this.el!.style.left = `0px`;
+
     document.body.onmousemove = (event) => {
       this.#cursorPosition.x = event.clientX;
       this.#cursorPosition.y = event.clientY;
@@ -85,7 +88,13 @@ export default class Player extends MovingObject {
       nextX < mapsStore.currentMap!.viewport.horizontal - 20 &&
       nextY < mapsStore.currentMap!.viewport.vertical - 20
     ) {
-      this.#ui.setMovingMotion(this.position.x, nextX);
+      this.el.classList.add('move');
+      if (this.position.x < nextX) {
+        this.direction = 'right';
+      } else {
+        this.direction = 'left';
+      }
+
       super.move(nextX, nextY);
     }
   }

@@ -93,7 +93,7 @@ input {
   z-index: 999;
   background-size: cover;
   background-position: center;
-  transition: all 0.3s linear;
+  transition: transform 0.3s linear;
 }
 
 .player.move {

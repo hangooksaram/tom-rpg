@@ -14,6 +14,7 @@ export class MovingObject {
   public power: number = 0;
   public isHit: boolean = false;
   public movingStatus: MovingStatusType = 'paused';
+  public direction: 'left' | 'right' = 'left';
 
   constructor(className: string, id: string) {
     this.id = id;
@@ -27,8 +28,14 @@ export class MovingObject {
 
   setPos({ x, y }: Position) {
     this.position = { ...this.position, x, y };
-    this.el!.style.top = `${y}px`;
-    this.el!.style.left = `${x}px`;
+
+    if (this.direction === 'right') {
+      this.el!.style.transform = ` translate(${x}px, ${y}px)  scaleX(-1) `;
+
+      return;
+    }
+
+    this.el!.style.transform = ` translate(${x}px, ${y}px) `;
   }
 
   move(nextX: number, nextY: number) {
