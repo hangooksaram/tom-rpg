@@ -14,6 +14,8 @@ export class Bullet extends MovingObject {
   }
   init(): void {
     const playerPos = player.position;
+    this.el.style.top = '0px';
+    this.el.style.left = '0px';
     this.setPos({ x: playerPos.x, y: playerPos.y });
   }
 
