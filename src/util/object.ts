@@ -20,16 +20,6 @@ const enemyList: { type: EnemyType; health: number; probability: number; gold: n
   },
 ];
 
-export const createEnemies = (type: EnemyType) => {
-  setInterval(() => {
-    if (enemyStore.enemiesList.length === 10) {
-      return;
-    }
-
-    createEnemy(type);
-  }, 50);
-};
-
 const createRandomEnemyTypeWithProbability = (): EnemyType => {
   const randomNum = Math.random();
 
