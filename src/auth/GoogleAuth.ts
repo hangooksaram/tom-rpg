@@ -1,4 +1,17 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  onAuthStateChanged,
+  User,
+  setPersistence,
+  browserLocalPersistence,
+  inMemoryPersistence,
+  browserSessionPersistence,
+  signInWithRedirect,
+  indexedDBLocalPersistence,
+} from 'firebase/auth';
 import { app, provider } from '../server/firebase';
 import { game } from '../game/game';
 import { server } from '../server/server';
@@ -36,28 +49,30 @@ export class GoogleAuth {
   }
 
   signIn() {
-    signInWithPopup(this.#auth, provider)
-      .then(async (result) => {
-        this.#user = result.user;
-        const userData = await server.getServerData();
+    setPersistence(this.#auth, browserLocalPersistence).then(() => {
+      return signInWithPopup(this.#auth, provider)
+        .then(async (result) => {
+          this.#user = result.user;
+          const userData = await server.getServerData();
 
-        if (!userData) {
-          (async () => {
-            await server.saveData();
-          })();
-        }
-        game.start();
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
+          if (!userData) {
+            (async () => {
+              await server.saveData();
+            })();
+          }
+          game.start();
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.customData.email;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
+        });
+    });
   }
   signOutFn() {
     signOut(this.#auth)
