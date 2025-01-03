@@ -1,8 +1,7 @@
-import { Position } from '../../..';
 import { player } from './Player';
 
 export class PlayerUI {
-  public el: HTMLDivElement;
+  private el: HTMLDivElement;
 
   constructor(el: HTMLDivElement) {
     this.el = el;
@@ -50,18 +49,3 @@ export class PlayerUI {
     }, 500);
   }
 }
-
-export const setClickTargetAnimation = (clickedPosition: Position) => {
-  const targetEl = document.createElement('div');
-  targetEl.style.position = 'absolute';
-  targetEl.style.zIndex = '999';
-  targetEl.style.top = `${clickedPosition.y}px`;
-  targetEl.style.left = `${clickedPosition.x}px`;
-  targetEl.classList.add('clicked');
-
-  document.getElementById('root')?.appendChild(targetEl);
-
-  setTimeout(() => {
-    document.getElementById('root')?.removeChild(targetEl);
-  }, 1000);
-};
