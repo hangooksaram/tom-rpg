@@ -63,7 +63,7 @@ export default class Map {
 
   setPortalToNextMap() {
     [this.#northPortal, this.#eastPortal, this.#southPortal, this.#westPortal].forEach((portal) => {
-      portal!.el.addEventListener('click', () => {
+      portal!.el.addEventListener('mousedown', () => {
         this.#portalToNextMap = { nextMapId: portal!.nextMapId, direction: portal!.direction };
       });
     });
