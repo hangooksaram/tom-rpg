@@ -8,8 +8,9 @@ import { mapsStore } from '../../../store/maps';
 export class Bullet extends MovingObject {
   #targetEnemy: Enemy | undefined = undefined;
   public speed: Speed = { value: 4, xSpeed: 0, ySpeed: 0 };
+
   constructor(className: string, id: string, power: number) {
-    super(className, id);
+    super(className, id, true);
     this.power = power;
   }
   init(): void {
@@ -20,7 +21,7 @@ export class Bullet extends MovingObject {
   }
 
   destroy(id?: string): void {
-    super.destroy(id);
+    this.el.style.visibility = 'hidden';
   }
 
   setPos(position: Position): void {

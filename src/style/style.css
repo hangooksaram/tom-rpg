@@ -203,7 +203,7 @@ input {
   height: 50px;
   border-radius: 50%;
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   background-image: url("/public/images/bullet/default.png");
   background-position: center;
   background-repeat: no-repeat;

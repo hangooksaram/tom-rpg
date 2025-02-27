@@ -16,12 +16,12 @@ export class MovingObject {
   public movingStatus: MovingStatusType = 'paused';
   public direction: 'left' | 'right' = 'left';
 
-  constructor(className: string, id: string) {
+  constructor(className: string, id: string, fromFragment: boolean = false) {
     this.id = id;
     this.el.id = id;
     this.el.classList.add(className);
 
-    if (document.readyState === 'complete') {
+    if (document.readyState === 'complete' && !fromFragment) {
       document.getElementById(mapsStore.currentMap?.id!)!.appendChild(this.el);
     }
   }

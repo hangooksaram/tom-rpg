@@ -12,11 +12,13 @@ import { inventory } from '../../../game/inventory/Inventory';
 import { decreasedValueByPercent } from '../../../util/calculate';
 import { button } from '../../../ui/button';
 import { GENERAL_ENEMY_HIT_X_RANGE, GENERAL_ENEMY_HIT_Y_RANGE } from '../../../constants/range';
+import { BulletController } from '../bullet/Controller';
 export default class Player extends MovingObject {
   private static instance: Player;
   public maxHealth: number;
   public mana: number;
   public maxMana: number;
+  private bulletController: BulletController;
   #ui: PlayerUI = new PlayerUI(this.el);
 
   public static getInstance() {
@@ -41,6 +43,7 @@ export default class Player extends MovingObject {
     this.maxMana = 100;
     this.mana = 100;
     this.speed = { value: 2, xSpeed: 0, ySpeed: 0 };
+    this.bulletController = new BulletController();
   }
 
   async reInitialize() {
@@ -75,8 +78,14 @@ export default class Player extends MovingObject {
   }
   attack() {
     const bullet = new Bullet('bullet', `bullet-${new Date().toISOString()}`, this.power);
-
     bullet.init();
+    this.bulletController.appendBulletEl(bullet.el);
+
+    if (this.bulletController.isBulletFull()) {
+      this.bulletController.deleteAllBullets();
+    }
+
+    this.bulletController.appendBulletContainer();
 
     this.#ui.setAttackMotion(this.position.x, this.#cursorPosition.x);
 
